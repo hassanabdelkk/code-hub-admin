@@ -90,8 +90,8 @@ function LoginPage() {
       // E-Mail-Verifikation ist deaktiviert (GOTRUE_MAILER_AUTOCONFIRM=true).
       // Registrierung erfolgt über Invitation-Link – kein offener Signup.
 
-      let profileRes: Awaited<ReturnType<typeof supabase.from<"profiles">>["select"]> | any;
-      let roleRes: Awaited<ReturnType<typeof supabase.from<"user_roles">>["select"]> | any;
+      let profileRes: any;
+      let roleRes: any;
 
       try {
         [profileRes, roleRes] = await withTimeout(
