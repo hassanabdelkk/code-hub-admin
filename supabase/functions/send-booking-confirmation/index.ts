@@ -52,7 +52,7 @@ interface TenantRow {
   sender_email: string | null; sender_name: string | null; reply_to_email: string | null;
   smtp_host: string | null; smtp_port: number | null; smtp_username: string | null; smtp_password: string | null;
   email_signature: string | null; emails_paused: boolean | null;
-  booking_confirmation_subject: string | null; booking_confirmation_body: string | null;
+  booking_confirmation_subject: string | null; booking_confirmation_body: string | null; booking_confirmation_button: string | null;
 }
 
 function hasValidSmtp(t: any): boolean {
