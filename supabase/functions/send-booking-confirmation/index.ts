@@ -139,7 +139,7 @@ serve(async (req) => {
 
     const tenantIds = Array.from(new Set(todo.map((a: any) => a.tenant_id).filter(Boolean)));
     const { data: tList } = await admin.from("tenants")
-      .select("id,name,domain,primary_domain,logo_url,primary_color,sender_email,sender_name,reply_to_email,smtp_host,smtp_port,smtp_username,smtp_password,email_signature,emails_paused,booking_confirmation_subject,booking_confirmation_body")
+      .select("id,name,domain,primary_domain,logo_url,primary_color,sender_email,sender_name,reply_to_email,smtp_host,smtp_port,smtp_username,smtp_password,email_signature,emails_paused,booking_confirmation_subject,booking_confirmation_body,booking_confirmation_button")
       .in("id", tenantIds);
     const tenantMap = new Map<string, TenantRow>((tList ?? []).map((t: any) => [t.id, t]));
 
