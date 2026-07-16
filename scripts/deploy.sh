@@ -154,6 +154,12 @@ healthcheck() {
 
 cd "$PROJECT_DIR"
 
+# Alles in { … } wickeln, damit bash die komplette Datei parst BEVOR sie ausführt.
+# Sonst würde ein `git reset --hard` mitten in Schritt 1 die laufende Datei ersetzen
+# und bash läse ab dem alten Byte-Offset in einer verschobenen neuen Datei weiter
+# (⇒ scheinbar "falsche" Zeile wird ausgeführt).
+{
+
 log "0/5  Konfiguration prüfen"
 validate_config
 ok "Backend-Konfiguration vorhanden"
