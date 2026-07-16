@@ -428,6 +428,9 @@ function AdminEmailTemplatesPage() {
     setMlSubject((t as any).bewerbung_magic_link_subject || REMINDER_DEFAULTS.bewerbung_magic_link.subject);
     setMlBody((t as any).bewerbung_magic_link_body || REMINDER_DEFAULTS.bewerbung_magic_link.body);
     setMlButton((t as any).bewerbung_magic_link_button || REMINDER_DEFAULTS.bewerbung_magic_link.button);
+    setBcSubject((t as any).booking_confirmation_subject || REMINDER_DEFAULTS.booking_confirmation.subject);
+    setBcBody((t as any).booking_confirmation_body || REMINDER_DEFAULTS.booking_confirmation.body);
+    setBcButton((t as any).booking_confirmation_button || REMINDER_DEFAULTS.booking_confirmation.button);
   };
 
   useEffect(() => {
