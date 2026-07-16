@@ -103,6 +103,9 @@ interface TenantEmail {
   bewerbung_magic_link_subject: string | null;
   bewerbung_magic_link_body: string | null;
   bewerbung_magic_link_button: string | null;
+  booking_confirmation_subject: string | null;
+  booking_confirmation_body: string | null;
+  booking_confirmation_button: string | null;
 }
 
 const PLACEHOLDERS = [
