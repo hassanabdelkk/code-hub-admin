@@ -61,6 +61,11 @@ const REMINDER_DEFAULTS = {
     body: `Guten Tag {{first_name}},\n\nkurze Erinnerung: In etwa 30 Minuten startet Ihr Bewerbungsgespräch.\n\nSo läuft es ab:\n\n1️⃣  Kurzes Video-/Chat-Gespräch (ca. 10–15 Min)\n2️⃣  Bei positiver Bewertung erhalten Sie direkt eine Zusage per E-Mail\n3️⃣  Anschließend Registrierung im Mitarbeiter-Portal – Vertrag digital unterschreiben und loslegen\n\nBitte starten Sie das Gespräch über diesen persönlichen Link:\n\n{{cta:Bewerbungsgespräch starten|{{portal_link}}}}\n\nTipp: Ruhige Umgebung, stabile Internet-Verbindung. Bei Problemen antworten Sie einfach auf diese E-Mail.\n\nViel Erfolg und bis gleich!\n{{recruiter_name}}\n{{tenant_name}}`,
     button: "Bewerbungsgespräch starten",
   },
+  booking_confirmation: {
+    subject: "✅ Termin bestätigt: {{appointment_date}}, {{appointment_time}} Uhr",
+    body: `Hallo {{first_name}},\n\nvielen Dank – Ihr Termin für das Bewerbungsgespräch bei {{tenant_name}} ist fest reserviert:\n\n📅  {{appointment_date}}\n🕐  {{appointment_time}} Uhr\n⏱️  Dauer: ca. {{duration_minutes}} Minuten\n\nSie finden den Termin als Kalendereintrag (.ics) im Anhang – einfach öffnen und in Outlook, Google oder Apple-Kalender speichern.\n\n30 Minuten vor Beginn schicken wir Ihnen zusätzlich den direkten Link zum Gespräch, damit Sie ihn nicht extra suchen müssen.\n\nSollten Sie den Termin verschieben oder absagen müssen, tun Sie das jederzeit hier:\n\n{{cta:Termin verwalten|{{cancel_url}}}}\n\nWir freuen uns auf das Gespräch!\n\nHerzliche Grüße\n{{recruiter_name}}`,
+    button: "Termin verwalten",
+  },
 
 };
 
