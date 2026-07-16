@@ -126,6 +126,49 @@ nichts geht → status.mb-portal.io schauen."
 
 ---
 
+## Backend deployen (self-hosted Supabase auf BACKEND_HOST)
+
+Analog zu `deploy.sh` (Frontend auf PORTAL_HOST) gibt es
+`scripts/deploy-backend.sh`. Läuft **lokal auf deinem Rechner**, macht per
+SSH auf BACKEND_HOST:
+
+1. Neue SQL-Migrations aus `supabase/manual-migrations/*.sql` anwenden
+   (mit automatischem `pg_dump`-Backup vorher).
+2. Edge Functions aus `supabase/functions/*` per `rsync --delete` syncen
+   und den Functions-Container neu starten.
+3. Health-Check gegen `api.mb-portal.com/auth/v1/health`.
+
+### Einmalige Vorbereitung
+
+```
+ssh-copy-id root@190.97.167.123
+cp scripts/backend-server.env.example scripts/backend-server.env
+# Werte in scripts/backend-server.env eintragen (Container-Namen mit
+# `ssh root@BACKEND_HOST 'docker ps --format {{.Names}}'` prüfen)
+```
+
+`scripts/backend-server.env` ist in `.gitignore` — bleibt lokal.
+
+### Ablauf
+
+```
+bash scripts/deploy-backend.sh --dry-run   # zuerst: was würde passieren?
+bash scripts/deploy-backend.sh             # dann echt deployen
+```
+
+### Wenn etwas schiefgeht
+
+- Migration failed → State-File wird nicht aktualisiert; Fehler fixen und
+  Skript erneut starten. Backup liegt in
+  `BACKEND_SUPABASE_DIR/backups/pre-deploy-*.sql.gz`.
+- Functions-Container startet nicht → `ssh root@BACKEND_HOST 'docker logs
+  supabase-edge-functions --tail 100'`.
+- „Tenant or user not found" → das war der alte Pooler-Weg (Port 6543).
+  `deploy-backend.sh` umgeht das, weil es direkt über `docker exec
+  supabase-db psql` geht.
+
+---
+
 ## Was dieses Runbook NICHT abdeckt
 
 - Server-Ausfall (Portal- oder Backend-Host offline) → braucht zweiten Stack + Replikation, separater Plan.
