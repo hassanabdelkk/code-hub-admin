@@ -28,9 +28,9 @@ if [[ "$DOMAIN" =~ ^https?:// ]] || [[ "$DOMAIN" == */* ]]; then
   exit 1
 fi
 
-APP_DIR="/opt/apps/portal"
-ENV_FILE="$APP_DIR/.env"
-SERVICE_NAME="portal.service"
+APP_DIR="${APP_DIR:-/opt/apps/portal}"
+ENV_FILE="${ENV_FILE:-$APP_DIR/.env}"
+SERVICE_NAME="${SERVICE_NAME:-portal.service}"
 
 if [[ ! -f "$ENV_FILE" ]]; then
   echo "✗ $ENV_FILE nicht gefunden." >&2
@@ -60,38 +60,8 @@ set_env() {
 set_env "VITE_SITE_URL"     "$SITE_URL"
 set_env "VITE_SUPABASE_URL" "$API_URL"
 
-echo "→ Frontend neu bauen…"
-cd "$APP_DIR"
-if command -v bun >/dev/null 2>&1; then
-  bun install --frozen-lockfile
-  bun run build
-else
-  npm ci
-  npm run build
-fi
-
-echo "→ Dienst neu starten…"
-systemctl restart "$SERVICE_NAME"
-sleep 3
-
-if systemctl is-active --quiet "$SERVICE_NAME"; then
-  echo "✓ $SERVICE_NAME läuft."
-else
-  echo "✗ $SERVICE_NAME ist nicht aktiv. Letzte Logs:" >&2
-  journalctl -u "$SERVICE_NAME" -n 80 --no-pager >&2
-  exit 1
-fi
-
-# Health-Check gegen localhost (nicht gegen die Domain — DNS ist ggf. noch nicht durch)
-PORT="$(grep -E '^PORT=' "$ENV_FILE" | head -n1 | cut -d= -f2)"
-PORT="${PORT:-3000}"
-
-if curl -fsS -o /dev/null "http://localhost:${PORT}/"; then
-  echo "✓ Health-Check auf http://localhost:${PORT}/ ok."
-else
-  echo "✗ Health-Check auf http://localhost:${PORT}/ fehlgeschlagen." >&2
-  exit 1
-fi
+echo "→ Deploy mit neuer .env starten…"
+PROJECT_DIR="$APP_DIR" ENV_FILE="$ENV_FILE" SERVICE_NAME="$SERVICE_NAME" bash "$APP_DIR/scripts/deploy.sh"
 
 echo ""
 echo "✅ Switch auf $DOMAIN abgeschlossen."
