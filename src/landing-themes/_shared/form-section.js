@@ -1,15 +1,21 @@
 /* Shared inline application form handler + success modal. */
 (function(){
   function fmtWa(num){var d=String(num||'').replace(/[^0-9]/g,'');if(!d)return '';return d.length>4?'+'+d.slice(0,2)+' '+d.slice(2,5)+' '+d.slice(5):'+'+d;}
-  function spamHintBox(){
+  function spamHintBox(emailStatus){
     var s=document.createElement('div');
-    s.style.cssText='margin:14px 0 18px;padding:14px 16px;background:#fef3c7;border-left:4px solid #f59e0b;border-radius:8px;color:#78350f;font-size:13.5px;line-height:1.55;text-align:left;';
-    s.innerHTML='💡 <strong>Wichtig:</strong> Sie erhalten in ca. <strong>2 Minuten</strong> eine E-Mail. Prüfen Sie bitte auch Ihren <strong>Spam-Ordner</strong> und markieren Sie uns als „Kein Spam".';
+    var failed=emailStatus&&emailStatus.status==='failed';
+    var skipped=emailStatus&&emailStatus.status==='skipped';
+    s.style.cssText='margin:14px 0 18px;padding:14px 16px;background:'+(failed?'#fee2e2':skipped?'#f1f5f9':'#fef3c7')+';border-left:4px solid '+(failed?'#ef4444':skipped?'#94a3b8':'#f59e0b')+';border-radius:8px;color:'+(failed?'#7f1d1d':skipped?'#334155':'#78350f')+';font-size:13.5px;line-height:1.55;text-align:left;';
+    s.innerHTML=failed
+      ? 'Ihre Bewerbung ist eingegangen. Die Bestätigungs-E-Mail konnte gerade nicht automatisch versendet werden – nutzen Sie bitte den angezeigten Button oder wir melden uns direkt bei Ihnen.'
+      : skipped
+        ? 'Ihre Bewerbung ist eingegangen. Falls Sie sich bereits beworben haben, verwenden wir Ihre bestehende Anfrage weiter.'
+        : '💡 <strong>Wichtig:</strong> Falls Sie eine E-Mail erwarten, prüfen Sie bitte auch Ihren <strong>Spam-Ordner</strong> und markieren Sie uns als „Kein Spam".';
     return s;
   }
   function showModal(opts){
     opts=opts||{};var isFast=!!opts.fast;var broker=opts.broker||null;var wa=String(opts.whatsapp||'').replace(/[^0-9]/g,'');
-    var redirectUrl=opts.redirectUrl||'';
+    var redirectUrl=opts.redirectUrl||'';var emailStatus=opts.emailStatus||null;
     var isBooking = !isFast && !broker && redirectUrl && /\/buchen\//.test(redirectUrl);
     var ov=document.createElement('div');ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');
     ov.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;backdrop-filter:blur(2px);';
@@ -32,12 +38,12 @@
       cta.textContent='Jetzt Termin auswählen  →';
       cta.style.cssText='display:block;width:100%;background:#0f172a;color:#fff;text-decoration:none;font-weight:600;padding:16px 24px;border-radius:10px;font-size:16px;margin-bottom:6px;box-sizing:border-box;';
       box.appendChild(cta);
-      var sub=document.createElement('p');sub.style.cssText='margin:8px 0 4px;font-size:13px;color:#64748b;';sub.textContent='Sie erhalten zusätzlich eine E-Mail als Backup.';
+      var sub=document.createElement('p');sub.style.cssText='margin:8px 0 4px;font-size:13px;color:#64748b;';sub.textContent=emailStatus&&emailStatus.status==='sent'?'Sie erhalten zusätzlich eine E-Mail als Backup.':'Falls keine E-Mail ankommt, können Sie den Termin direkt über diesen Button buchen.';
       box.appendChild(sub);
-      box.appendChild(spamHintBox());
+      box.appendChild(spamHintBox(emailStatus));
     } else if(broker){
       h.textContent=broker.intro_headline||'✅ Bewerbung eingegangen';
-      p.innerHTML=(broker.intro_subline)||'Sie erhalten in ca. <strong>2 Minuten</strong> eine E-Mail mit Ihrem persönlichen Termin-Link.';
+      p.innerHTML=(broker.intro_subline)||(emailStatus&&emailStatus.status==='sent'?'Sie erhalten zusätzlich eine E-Mail mit Ihrem persönlichen Termin-Link.':'Ihr persönlicher Termin-Link ist direkt hier verfügbar.');
       var pc=document.createElement('div');pc.style.cssText='background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px;margin:0 0 18px;';
       if(broker.partner_logo){var lg=document.createElement('img');lg.src=broker.partner_logo;lg.alt=broker.partner_name||'';lg.style.cssText='max-height:36px;margin:0 auto 10px;display:block;';pc.appendChild(lg);}
       var pl=document.createElement('div');pl.textContent='Wir verbinden Sie mit';pl.style.cssText='font-size:13px;color:#475569;margin-bottom:6px;';
@@ -45,7 +51,7 @@
       pc.appendChild(pl);pc.appendChild(pn);box.appendChild(pc);
       if(broker.calendly_url){var cta2=document.createElement('a');cta2.href=broker.calendly_url;cta2.target='_blank';cta2.rel='noopener';cta2.textContent=(broker.button_label||'Jetzt Termin auswählen')+'  →';
         cta2.style.cssText='display:inline-block;background:#22c55e;color:#fff;text-decoration:none;font-weight:600;padding:14px 28px;border-radius:999px;font-size:16px;';box.appendChild(cta2);}
-      box.appendChild(spamHintBox());
+      box.appendChild(spamHintBox(emailStatus));
     } else if(isFast){
       h.textContent='✅ Bewerbung eingegangen';
       p.textContent='Im nächsten Schritt werden Sie zum Mitarbeiter-Portal weitergeleitet, um Ihre Registrierung abzuschließen.';
@@ -54,11 +60,10 @@
         var ri=document.createElement('p');ri.style.cssText='margin:0 0 12px;font-size:13px;color:#64748b;';var sec=10;ri.textContent='Automatische Weiterleitung in '+sec+' Sekunden …';
         box.appendChild(gn);box.appendChild(ri);var go=function(){window.location.href=redirectUrl;};gn.onclick=go;
         var t=setInterval(function(){sec-=1;if(sec<=0){clearInterval(t);go();return;}ri.textContent='Automatische Weiterleitung in '+sec+' Sekunden …';},1000);}
-      box.appendChild(spamHintBox());
+      box.appendChild(spamHintBox(emailStatus));
     } else {
       h.textContent='✅ Bewerbung eingegangen';
-      p.innerHTML='Sie erhalten in ca. <strong>2 Minuten</strong> eine E-Mail mit den nächsten Schritten.';
-      box.appendChild(spamHintBox());
+      p.innerHTML='Ihre Bewerbung wurde gespeichert. Wir melden uns zeitnah per E-Mail oder Telefon bei Ihnen.';
       if(wa){
         var c=document.createElement('div');c.style.cssText='background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:16px;text-align:left;';
         c.innerHTML='<div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#2563eb;margin-bottom:8px;">SCHNELLER KONTAKT</div><p style="margin:0 0 12px;font-size:14px;color:#475569;line-height:1.5;">Melden Sie sich bei WhatsApp unter <strong>'+fmtWa(wa)+'</strong>, um auf dem neusten Stand zu bleiben.</p><a href="https://wa.me/'+wa+'?text='+encodeURIComponent('Hallo, ich habe gerade meine Bewerbung abgeschickt.')+'" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#22c55e;color:#fff;text-decoration:none;font-weight:600;padding:12px 16px;border-radius:8px;font-size:15px;">WhatsApp-Chat starten</a>';
@@ -86,7 +91,7 @@
       fetch(window.PORTAL_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
         .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
         .then(function(res){form.reset();status.className='lv-form-status success';status.textContent='Bewerbung erfolgreich gesendet.';
-          showModal({fast:(window.FLOW_TYPE||'classic')==='fast',whatsapp:window.WHATSAPP_NUMBER||'',redirectUrl:(res&&res.redirect_url)||'',broker:(res&&res.broker)||null});})
+          showModal({fast:(window.FLOW_TYPE||'classic')==='fast',whatsapp:window.WHATSAPP_NUMBER||'',redirectUrl:(res&&res.redirect_url)||'',broker:(res&&res.broker)||null,emailStatus:(res&&res.email_status)||null});})
         .catch(function(){status.className='lv-form-status error';status.textContent='Da ist etwas schiefgelaufen. Bitte später erneut versuchen.';});
     });
   });
