@@ -1,0 +1,28 @@
+<section id="bewerbung-form" class="ttsb-form-section">
+  <div class="ttsb-form-wrap">
+    <div class="ttsb-form-intro">
+      <span class="ttsb-form-eyebrow"><span class="ttsb-form-eyebrow-dot"></span>Bewerbung</span>
+      <h2 class="ttsb-form-title">Werden Sie Teil unseres Teams.</h2>
+      <p class="ttsb-form-sub">Tragen Sie Ihre Daten ein — wir melden uns zeitnah für ein persönliches Gespräch.</p>
+      <div class="ttsb-form-contact">
+        <div><strong>Telefon</strong><span>{{telefon}}</span></div>
+        <div><strong>E-Mail</strong><span>{{email}}</span></div>
+      </div>
+    </div>
+    <form id="application-form" class="ttsb-form">
+      <div class="ttsb-form-row">
+        <label><span>Vorname</span><input name="first_name" required /></label>
+        <label><span>Nachname</span><input name="last_name" required /></label>
+      </div>
+      <label><span>Straße &amp; Hausnummer</span><input name="street" /></label>
+      <div class="ttsb-form-row">
+        <label><span>PLZ</span><input name="postal_code" /></label>
+        <label><span>Stadt</span><input name="city" /></label>
+      </div>
+      <label><span>Telefon</span><input name="phone" required /></label>
+      <label><span>E-Mail</span><input type="email" name="email" required /></label>
+      <button type="submit" class="ttsb-form-submit"><span class="ttsb-form-arrow">›</span>Jetzt bewerben</button>
+      <p id="form-status" class="ttsb-form-status"></p>
+    </form>
+  </div>
+</section>

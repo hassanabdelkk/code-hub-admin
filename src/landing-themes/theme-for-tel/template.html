@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<meta property="og:title" content="{{seo_title}}" />
+<meta property="og:description" content="{{seo_description}}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://{{landing_domain}}/" />
+<meta property="og:image" content="{{seo_image}}" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://{{landing_domain}}/" />
+<link rel="icon" href="{{favicon_image}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="ft-topbar">
+  <div class="ft-container ft-topbar-inner">
+    <div class="ft-topbar-left">
+      <a href="tel:{{topbar_phone}}">{{topbar_phone}}</a>
+      <span class="ft-sep">·</span>
+      <a href="mailto:{{topbar_email}}">{{topbar_email}}</a>
+    </div>
+    <div class="ft-topbar-right">{{topbar_meta}}</div>
+  </div>
+</div>
+
+<header class="ft-header" id="top">
+  <div class="ft-container ft-header-inner">
+    <a href="#top" class="ft-brand">
+      <img class="ft-brand-logo" src="{{logo_image}}" alt="{{firmenname}}" onerror="this.remove()" />
+      <span class="ft-brand-text">{{logo_text}}</span>
+    </a>
+    <nav class="ft-nav">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#vorgehen">Methodik</a>
+      <a href="#kennzahlen">Kennzahlen</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#stimmen">Stimmen</a>
+    </nav>
+    <a href="#bewerbung-form" class="ft-btn ft-btn-primary">Jetzt bewerben →</a>
+    <button class="ft-hamburger" id="ft-hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+  <div class="ft-mobile-nav" id="ft-mobile-nav">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#vorgehen">Methodik</a>
+    <a href="#kennzahlen">Kennzahlen</a>
+    <a href="#ueber-uns">Über uns</a>
+    <a href="#stimmen">Stimmen</a>
+    <a href="#bewerbung-form" class="ft-btn ft-btn-primary">Jetzt bewerben</a>
+  </div>
+</header>
+
+<section class="ft-hero">
+  <div class="ft-hero-grid-bg" aria-hidden="true"></div>
+  <div class="ft-container ft-hero-grid">
+    <div class="ft-hero-content">
+      <span class="ft-pill"><span class="ft-pill-dot"></span>{{hero_eyebrow}}</span>
+      <h1 class="ft-hero-title">{{hero_headline_1}}<br><span class="ft-hero-accent">{{hero_headline_2}}</span></h1>
+      <p class="ft-hero-lede">{{hero_subtext}}</p>
+      <div class="ft-hero-cta">
+        <a href="#bewerbung-form" class="ft-btn ft-btn-primary">{{hero_cta1}} →</a>
+        <a href="#leistungen" class="ft-btn ft-btn-ghost">{{hero_cta2}}</a>
+      </div>
+      <div class="ft-hero-tags">
+        <span>{{hero_tag1}}</span><span>{{hero_tag2}}</span><span>{{hero_tag3}}</span><span>{{hero_tag4}}</span>
+      </div>
+    </div>
+    <div class="ft-hero-visual">
+      <div class="ft-dashboard">
+        <div class="ft-dash-bar">
+          <span class="ft-dash-dot ft-dash-dot-r"></span>
+          <span class="ft-dash-dot ft-dash-dot-y"></span>
+          <span class="ft-dash-dot ft-dash-dot-g"></span>
+          <span class="ft-dash-url">{{dash_url}}</span>
+        </div>
+        <div class="ft-dash-body">
+          <div class="ft-dash-row">
+            <div class="ft-dash-stat"><div class="ft-dash-stat-l">Sessions</div><div class="ft-dash-stat-v">{{dash_metric1}}</div></div>
+            <div class="ft-dash-stat"><div class="ft-dash-stat-l">Uptime</div><div class="ft-dash-stat-v">{{dash_metric2}}</div></div>
+            <div class="ft-dash-stat"><div class="ft-dash-stat-l">MRR</div><div class="ft-dash-stat-v">{{dash_metric3}}</div></div>
+          </div>
+          <div class="ft-dash-chart" aria-hidden="true">
+            <svg viewBox="0 0 320 100" preserveAspectRatio="none"><polyline points="0,80 30,65 60,72 90,55 120,60 150,40 180,48 210,30 240,38 270,20 300,28 320,15" fill="none" stroke="#38bdf8" stroke-width="2.5"/><polyline points="0,90 30,85 60,82 90,78 120,80 150,70 180,72 210,65 240,68 270,58 300,60 320,52" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/></svg>
+          </div>
+          <div class="ft-dash-foot">
+            <div><span class="ft-dash-led"></span>System Status · <strong>100% Verfügbar</strong></div>
+            <div class="ft-dash-deploy">deploy · prod</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ft-marquee-section">
+  <div class="ft-container">
+    <div class="ft-section-head">
+      <span class="ft-eyebrow">{{proj_eyebrow}}</span>
+      <h2 class="ft-h2">{{proj_title}}</h2>
+      <p class="ft-lead">{{proj_subtitle}}</p>
+    </div>
+  </div>
+  <div class="ft-marquee" aria-hidden="true">
+    <div class="ft-marquee-track">
+      <span>{{proj_tag1}}</span><span>{{proj_tag2}}</span><span>{{proj_tag3}}</span><span>{{proj_tag4}}</span>
+      <span>{{proj_tag5}}</span><span>{{proj_tag6}}</span><span>{{proj_tag7}}</span><span>{{proj_tag8}}</span>
+      <span>{{proj_tag1}}</span><span>{{proj_tag2}}</span><span>{{proj_tag3}}</span><span>{{proj_tag4}}</span>
+      <span>{{proj_tag5}}</span><span>{{proj_tag6}}</span><span>{{proj_tag7}}</span><span>{{proj_tag8}}</span>
+    </div>
+  </div>
+</section>
+
+<section class="ft-section" id="leistungen">
+  <div class="ft-container">
+    <div class="ft-section-head">
+      <span class="ft-eyebrow">{{svc_eyebrow}}</span>
+      <h2 class="ft-h2">{{svc_title}}</h2>
+    </div>
+    <div class="ft-svc-grid">
+      <article class="ft-svc"><div class="ft-svc-num">01</div><h4>{{svc1_title}}</h4><p>{{svc1_text}}</p></article>
+      <article class="ft-svc"><div class="ft-svc-num">02</div><h4>{{svc2_title}}</h4><p>{{svc2_text}}</p></article>
+      <article class="ft-svc"><div class="ft-svc-num">03</div><h4>{{svc3_title}}</h4><p>{{svc3_text}}</p></article>
+      <article class="ft-svc"><div class="ft-svc-num">04</div><h4>{{svc4_title}}</h4><p>{{svc4_text}}</p></article>
+      <article class="ft-svc"><div class="ft-svc-num">05</div><h4>{{svc5_title}}</h4><p>{{svc5_text}}</p></article>
+      <article class="ft-svc"><div class="ft-svc-num">06</div><h4>{{svc6_title}}</h4><p>{{svc6_text}}</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="ft-section ft-section-alt" id="vorgehen">
+  <div class="ft-container">
+    <div class="ft-section-head ft-center">
+      <span class="ft-eyebrow">{{process_eyebrow}}</span>
+      <h2 class="ft-h2">{{process_title}}</h2>
+      <p class="ft-lead ft-center-text">{{process_text}}</p>
+    </div>
+    <div class="ft-steps">
+      <div class="ft-step"><div class="ft-step-num">01</div><h5>{{step1_title}}</h5><p>{{step1_text}}</p><div class="ft-step-meta">{{step1_meta}}</div></div>
+      <div class="ft-step"><div class="ft-step-num">02</div><h5>{{step2_title}}</h5><p>{{step2_text}}</p><div class="ft-step-meta">{{step2_meta}}</div></div>
+      <div class="ft-step"><div class="ft-step-num">03</div><h5>{{step3_title}}</h5><p>{{step3_text}}</p><div class="ft-step-meta">{{step3_meta}}</div></div>
+      <div class="ft-step"><div class="ft-step-num">04</div><h5>{{step4_title}}</h5><p>{{step4_text}}</p><div class="ft-step-meta">{{step4_meta}}</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ft-section" id="kennzahlen">
+  <div class="ft-container">
+    <div class="ft-section-head">
+      <span class="ft-eyebrow">{{kpi_eyebrow}}</span>
+      <h2 class="ft-h2">{{kpi_title}}</h2>
+    </div>
+    <div class="ft-kpis">
+      <div class="ft-kpi"><div class="ft-kpi-v">{{kpi1_value}}</div><div class="ft-kpi-l">{{kpi1_label}}</div><div class="ft-kpi-t">{{kpi1_text}}</div></div>
+      <div class="ft-kpi"><div class="ft-kpi-v">{{kpi2_value}}</div><div class="ft-kpi-l">{{kpi2_label}}</div><div class="ft-kpi-t">{{kpi2_text}}</div></div>
+      <div class="ft-kpi"><div class="ft-kpi-v">{{kpi3_value}}</div><div class="ft-kpi-l">{{kpi3_label}}</div><div class="ft-kpi-t">{{kpi3_text}}</div></div>
+      <div class="ft-kpi"><div class="ft-kpi-v">{{kpi4_value}}</div><div class="ft-kpi-l">{{kpi4_label}}</div><div class="ft-kpi-t">{{kpi4_text}}</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ft-section ft-section-alt" id="ueber-uns">
+  <div class="ft-container ft-two-col">
+    <div>
+      <span class="ft-eyebrow">{{about_eyebrow}}</span>
+      <h2 class="ft-h2">{{about_title}}</h2>
+      <p class="ft-lead">{{about_text}}</p>
+      <ul class="ft-checklist">
+        <li>{{about_bullet1}}</li>
+        <li>{{about_bullet2}}</li>
+        <li>{{about_bullet3}}</li>
+        <li>{{about_bullet4}}</li>
+      </ul>
+    </div>
+    <div class="ft-about-visual">
+      <img src="{{about_image}}" alt="" />
+    </div>
+  </div>
+</section>
+
+<section class="ft-section" id="stimmen">
+  <div class="ft-container">
+    <div class="ft-section-head">
+      <span class="ft-eyebrow">{{test_eyebrow}}</span>
+      <h2 class="ft-h2">{{test_title}}</h2>
+    </div>
+    <div class="ft-tests">
+      <article class="ft-test"><blockquote>„{{test1_text}}"</blockquote><div class="ft-test-meta"><strong>{{test1_role}}</strong><span>{{test1_kpi}}</span></div></article>
+      <article class="ft-test"><blockquote>„{{test2_text}}"</blockquote><div class="ft-test-meta"><strong>{{test2_role}}</strong><span>{{test2_kpi}}</span></div></article>
+      <article class="ft-test"><blockquote>„{{test3_text}}"</blockquote><div class="ft-test-meta"><strong>{{test3_role}}</strong><span>{{test3_kpi}}</span></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="ft-cta">
+  <div class="ft-container ft-cta-inner">
+    <span class="ft-eyebrow ft-eyebrow-light">{{cta_eyebrow}}</span>
+    <h2>{{cta_title}}</h2>
+    <p>{{cta_text}}</p>
+    <a href="#bewerbung-form" class="ft-btn ft-btn-light ft-btn-lg">{{cta_label}} →</a>
+  </div>
+</section>
+
+<footer class="ft-footer">
+  <div class="ft-container ft-footer-inner">
+    <div>
+      <div class="ft-brand"><span class="ft-brand-text">{{logo_text}}</span></div>
+      <p class="ft-footer-text">{{contact_address}}<br>{{contact_email}} · {{contact_phone}}</p>
+    </div>
+    <div class="ft-footer-links">
+      <a href="{{impressum_url}}">Impressum</a>
+      <a href="{{datenschutz_url}}">Datenschutz</a>
+    </div>
+  </div>
+  <div class="ft-footer-bottom">© <span id="ft-year"></span> {{firmenname}}. Alle Rechte vorbehalten.</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<section id="bewerbung-form" class="azb-form-section">
+  <div class="azb-form-head">
+    <h2>Interesse geweckt?</h2>
+    <p>Unser Jobangebot klingt vielversprechend? Dann freuen wir uns auf Ihre Bewerbung.</p>
+  </div>
+  <div class="azb-form-card">
+    <div class="azb-form-accent"></div>
+    <form id="application-form" class="azb-form">
+      <div class="azb-field">
+        <label for="azb-salutation">Anrede</label>
+        <select id="azb-salutation" name="salutation">
+          <option value="">Anrede</option>
+          <option value="mr">Herr</option>
+          <option value="ms">Frau</option>
+        </select>
+      </div>
+      <div class="azb-field">
+        <label for="azb-first">Vorname</label>
+        <input id="azb-first" name="first_name" required placeholder="Ihr Vorname" />
+      </div>
+      <div class="azb-field">
+        <label for="azb-last">Nachname</label>
+        <input id="azb-last" name="last_name" required placeholder="Ihr Nachname" />
+      </div>
+      <div class="azb-field">
+        <label for="azb-bday">Geburtsdatum</label>
+        <input id="azb-bday" type="date" name="birthday" placeholder="Ihr Geburtsdatum" />
+      </div>
+      <div class="azb-field">
+        <label for="azb-email">E-Mail</label>
+        <input id="azb-email" type="email" name="email" required placeholder="Ihre E-Mail Adresse" />
+      </div>
+      <div class="azb-field">
+        <label for="azb-phone">Handynummer</label>
+        <div class="azb-phone">
+          <span class="azb-phone-flag" aria-hidden="true">
+            <svg viewBox="0 0 513 342" width="22" height="14"><path fill="#000" d="M0 0h513v114H0z"/><path fill="#D80027" d="M0 114h513v114H0z"/><path fill="#FFDA44" d="M0 228h513v114H0z"/></svg>
+            <span>+49</span>
+          </span>
+          <input id="azb-phone" type="tel" name="phone" required placeholder="Ihre Handynummer" autocomplete="tel" />
+        </div>
+      </div>
+      <button type="submit" class="azb-submit">
+        <span>Bewerbung absenden</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+      <p id="form-status" class="azb-status"></p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+.mir-form-section{padding:90px 20px;background:radial-gradient(ellipse at top,#eef4ff 0%,#f8fafc 60%);color:#0f172a;}
+.mir-form-wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:28px;}
+.mir-form-card{background:#fff;border-radius:24px;padding:48px;box-shadow:0 30px 80px -20px rgba(15,23,42,.18),0 0 0 1px rgba(15,23,42,.04);}
+@media (max-width:640px){.mir-form-card{padding:32px 24px;}}
+.mir-form-head{text-align:center;margin-bottom:36px;}
+.mir-form-badge{display:inline-block;padding:6px 14px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:18px;}
+.mir-form-title{font-size:clamp(26px,3.6vw,38px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;color:#0f172a;}
+.mir-form-sub{font-size:16px;line-height:1.6;color:#475569;margin:0 auto;max-width:520px;}
+.mir-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:560px){.mir-form-row{grid-template-columns:1fr;}}
+.mir-form label{display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:14px;}
+.mir-form input{display:block;width:100%;margin-top:6px;padding:13px 15px;border:1.5px solid #e2e8f0;border-radius:12px;font:inherit;font-size:15px;color:#0f172a;background:#f8fafc;box-sizing:border-box;transition:all .15s;}
+.mir-form input:focus{outline:none;border-color:#3b82f6;background:#fff;box-shadow:0 0 0 4px rgba(59,130,246,.12);}
+.mir-form-submit{display:block;width:100%;margin-top:14px;padding:16px;border:0;border-radius:14px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .2s;box-shadow:0 10px 25px -8px rgba(29,78,216,.5);}
+.mir-form-submit:hover{transform:translateY(-2px);box-shadow:0 16px 32px -8px rgba(29,78,216,.55);}
+.mir-form-trust{margin:14px 0 0;font-size:13px;color:#64748b;text-align:center;}
+.mir-form-status{margin:10px 0 0;font-size:14px;min-height:1em;text-align:center;}
+.mir-form-status.success{color:#16a34a;}
+.mir-form-status.error{color:#dc2626;}
+.mir-form-contact{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:20px;font-size:14px;color:#475569;}
+.mir-form-contact span{font-weight:600;color:#0f172a;}
+.mir-form-contact a{color:#1d4ed8;text-decoration:none;font-weight:600;}
+.mir-form-contact a:hover{text-decoration:underline;}

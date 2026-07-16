@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="qg-nav">
+  <div class="qg-nav-wrap">
+    <a href="#" class="qg-logo"><span class="qg-logo-dot"></span>{{logo_text}}</a>
+    <nav class="qg-nav-links">
+      <a href="#home">{{nav_home}}</a>
+      <a href="#how">{{nav_jobs}}</a>
+      <a href="#about">{{nav_about}}</a>
+      <a href="#salary">{{nav_salary}}</a>
+    </nav>
+    <a href="#bewerbung-form" class="qg-cta">{{cta_label}} <span>→</span></a>
+  </div>
+</header>
+
+<section id="home" class="qg-hero">
+  <div class="qg-hero-wrap">
+    <span class="qg-status"><span class="qg-status-dot"></span>{{hero_status}}</span>
+    <h1>{{hero_title}}</h1>
+    <p class="qg-lede">{{hero_sub}}</p>
+    <div class="qg-hero-ctas">
+      <a href="#bewerbung-form" class="qg-btn">{{cta_label}}</a>
+      <a href="#how" class="qg-btn qg-btn-ghost">Read the docs</a>
+    </div>
+    <div class="qg-hero-media"><img src="{{hero_image}}" alt="QA Ops Dashboard" /></div>
+  </div>
+</section>
+
+<section id="stats" class="qg-stats">
+  <div class="qg-section-wrap">
+    <div class="qg-bento">
+      <div class="qg-bento-cell qg-bento-big">
+        <div class="qg-mono qg-mono-xl">{{stat1_value}}</div>
+        <div class="qg-cell-label">{{stat1_text}}</div>
+      </div>
+      <div class="qg-bento-cell">
+        <div class="qg-mono qg-mono-lg">{{stat2_value}}</div>
+        <div class="qg-cell-label">{{stat2_text}}</div>
+      </div>
+      <div class="qg-bento-cell qg-bento-mint">
+        <div class="qg-mono qg-mono-lg">{{stat3_value}}</div>
+        <div class="qg-cell-label">{{stat3_text}}</div>
+      </div>
+      <div class="qg-bento-cell">
+        <div class="qg-mono qg-mono-lg">{{stat4_value}}</div>
+        <div class="qg-cell-label">{{stat4_text}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="qg-about">
+  <div class="qg-section-wrap qg-two-col">
+    <div>
+      <span class="qg-eyebrow">{{about_eyebrow}}</span>
+      <h2>{{about_title}}</h2>
+    </div>
+    <p>{{about_text}}</p>
+  </div>
+</section>
+
+<section id="how" class="qg-how">
+  <div class="qg-section-wrap">
+    <span class="qg-eyebrow">{{how_eyebrow}}</span>
+    <h2>{{how_title}}</h2>
+    <div class="qg-pipeline">
+      <div class="qg-pipe-step"><div class="qg-pipe-num">01</div><h3>{{step1_title}}</h3><p>{{step1_text}}</p></div>
+      <div class="qg-pipe-arrow">→</div>
+      <div class="qg-pipe-step"><div class="qg-pipe-num">02</div><h3>{{step2_title}}</h3><p>{{step2_text}}</p></div>
+      <div class="qg-pipe-arrow">→</div>
+      <div class="qg-pipe-step"><div class="qg-pipe-num">03</div><h3>{{step3_title}}</h3><p>{{step3_text}}</p></div>
+      <div class="qg-pipe-arrow">→</div>
+      <div class="qg-pipe-step qg-pipe-final"><div class="qg-pipe-num">04</div><h3>{{step4_title}}</h3><p>{{step4_text}}</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="salary" class="qg-salary">
+  <div class="qg-section-wrap">
+    <span class="qg-eyebrow">{{salary_eyebrow}}</span>
+    <h2>{{salary_title}}</h2>
+    <div class="qg-tiers">
+      <div class="qg-tier">
+        <div class="qg-tier-head"><span class="qg-mono">{{tier1_name}}</span><span class="qg-tier-hours">{{tier1_price}}</span></div>
+        <ul><li>{{tier1_b1}}</li><li>{{tier1_b2}}</li><li>{{tier1_b3}}</li></ul>
+        <a href="#bewerbung-form" class="qg-btn qg-btn-ghost qg-btn-block">Apply</a>
+      </div>
+      <div class="qg-tier qg-tier-featured">
+        <div class="qg-tier-head"><span class="qg-mono">{{tier2_name}}</span><span class="qg-tier-hours">{{tier2_price}}</span></div>
+        <ul><li>{{tier2_b1}}</li><li>{{tier2_b2}}</li><li>{{tier2_b3}}</li></ul>
+        <a href="#bewerbung-form" class="qg-btn qg-btn-block">Apply</a>
+      </div>
+      <div class="qg-tier">
+        <div class="qg-tier-head"><span class="qg-mono">{{tier3_name}}</span><span class="qg-tier-hours">{{tier3_price}}</span></div>
+        <ul><li>{{tier3_b1}}</li><li>{{tier3_b2}}</li><li>{{tier3_b3}}</li></ul>
+        <a href="#bewerbung-form" class="qg-btn qg-btn-ghost qg-btn-block">Apply</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="qg-foot">
+  <div class="qg-foot-wrap">
+    <div class="qg-foot-brand"><span class="qg-logo-dot"></span>{{firmenname}}</div>
+    <div class="qg-foot-meta">
+      <span class="qg-mono">{{contact_email}}</span>
+      <span class="qg-mono">{{contact_phone}}</span>
+    </div>
+    <div class="qg-foot-links">
+      <a href="{{impressum_url}}">Impressum</a>
+      <a href="{{datenschutz_url}}">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

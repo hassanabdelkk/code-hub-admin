@@ -1,0 +1,28 @@
+<section id="bewerbung-form" class="cle-form-section">
+  <div class="cle-form-wrap">
+    <div class="cle-form-intro">
+      <span class="cle-form-eyebrow">— Bewerbung</span>
+      <h2 class="cle-form-title">Werden Sie Teil unseres Teams.</h2>
+      <p class="cle-form-sub">Tragen Sie Ihre Daten ein — wir melden uns zeitnah für ein persönliches Gespräch.</p>
+      <div class="cle-form-contact">
+        <div><strong>Telefon</strong><span>{{telefon}}</span></div>
+        <div><strong>E-Mail</strong><span>{{email}}</span></div>
+      </div>
+    </div>
+    <form id="application-form" class="cle-form">
+      <div class="cle-form-row">
+        <label><span>Vorname</span><input name="first_name" required /></label>
+        <label><span>Nachname</span><input name="last_name" required /></label>
+      </div>
+      <label><span>Straße &amp; Hausnummer</span><input name="street" /></label>
+      <div class="cle-form-row">
+        <label><span>PLZ</span><input name="postal_code" /></label>
+        <label><span>Stadt</span><input name="city" /></label>
+      </div>
+      <label><span>Telefon</span><input name="phone" required /></label>
+      <label><span>E-Mail</span><input type="email" name="email" required /></label>
+      <button type="submit" class="cle-form-submit">Jetzt bewerben</button>
+      <p id="form-status" class="cle-form-status"></p>
+    </form>
+  </div>
+</section>

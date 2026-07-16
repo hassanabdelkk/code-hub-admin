@@ -1,0 +1,30 @@
+<section id="bewerbung-form" class="cpf-section">
+  <div class="cpf-wrap">
+    <span class="cpf-eyebrow">Bewerbung</span>
+    <h2 class="cpf-title">Freut uns, dass Sie da sind.</h2>
+    <p class="cpf-sub">Zwei Minuten Formular — dann melden wir uns per E-Mail bei Ihnen.</p>
+    <form id="application-form" class="cpf-form">
+      <div class="cpf-row">
+        <label><span>Anstellungsmodell</span>
+          <select name="position"><option>Minijob</option><option>Teilzeit</option><option>Vollzeit</option></select>
+        </label>
+        <label><span>Anrede</span>
+          <select name="gender"><option value="">Bitte auswählen</option><option>Frau</option><option>Herr</option><option>Divers</option></select>
+        </label>
+      </div>
+      <div class="cpf-row">
+        <label><span>Vorname</span><input name="first_name" required /></label>
+        <label><span>Nachname</span><input name="last_name" required /></label>
+      </div>
+      <label><span>Straße & Hausnummer</span><input name="street" /></label>
+      <div class="cpf-row">
+        <label><span>PLZ</span><input name="postal_code" /></label>
+        <label><span>Ort</span><input name="city" /></label>
+      </div>
+      <label><span>Telefon</span><input name="phone" required /></label>
+      <label><span>E-Mail</span><input type="email" name="email" required /></label>
+      <button type="submit" class="cpf-submit">Bewerbung absenden</button>
+      <p id="form-status" class="cpf-status"></p>
+    </form>
+  </div>
+</section>

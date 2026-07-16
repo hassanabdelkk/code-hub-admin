@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="jg-nav">
+  <div class="jg-nav-wrap">
+    <a href="#" class="jg-logo">
+      <svg class="jg-logo-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4l16 14h-4v18H24V24h-8v12H8V18H4L20 4z" fill="#0f1535"/><circle cx="28" cy="10" r="3" fill="#3b2bff"/></svg>
+      <span>{{logo_text}}</span>
+    </a>
+    <nav class="jg-nav-links">
+      <a href="#home" class="is-active">{{nav_home}}</a>
+      <a href="#how">{{nav_jobs}}</a>
+      <a href="#about">{{nav_about}}</a>
+      <a href="#salary">{{nav_salary}}</a>
+    </nav>
+    <a href="#bewerbung-form" class="jg-cta-pill">{{cta_label}}</a>
+  </div>
+</header>
+
+<section id="home" class="jg-hero">
+  <div class="jg-hero-wrap">
+    <div class="jg-hero-text">
+      <h1>{{hero_title}}</h1>
+      <p class="jg-hero-sub">{{hero_sub}}</p>
+      <div class="jg-hero-ctas">
+        <a href="#about" class="jg-btn-soft">{{hero_secondary}}</a>
+        <a href="#bewerbung-form" class="jg-btn-primary">{{cta_label}}</a>
+      </div>
+      <div class="jg-hero-bullets">
+        <p>{{hero_bullet1}}</p>
+        <p>{{hero_bullet2}}</p>
+        <p>{{hero_bullet3}}</p>
+        <p>{{hero_bullet4}}</p>
+      </div>
+    </div>
+    <div class="jg-hero-media">
+      <div class="jg-hero-blob"></div>
+      <img src="{{hero_image}}" alt="Remote Team" />
+      <div class="jg-hero-blob-accent"></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="jg-about">
+  <div class="jg-about-wrap">
+    <div class="jg-about-media">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" alt="Team" />
+    </div>
+    <div class="jg-about-body">
+      <span class="jg-eyebrow jg-eyebrow-light">{{about_eyebrow}}</span>
+      <h2 class="jg-section-title jg-section-title-light">{{about_title}}</h2>
+      <p class="jg-about-text">{{about_text}}</p>
+      <div class="jg-about-divider"></div>
+      <div class="jg-stats">
+        <div class="jg-stat"><div class="jg-stat-val">{{stat1_value}}</div><p>{{stat1_text}}</p></div>
+        <div class="jg-stat"><div class="jg-stat-val">{{stat2_value}}</div><p>{{stat2_text}}</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="jg-how">
+  <div class="jg-how-wrap">
+    <div class="jg-how-media">
+      <img src="https://job-gleiter.com/wp-content/uploads/2021/01/internet3-faq-pic2.png" alt="Ablauf" onerror="this.style.display='none'" />
+    </div>
+    <div class="jg-how-body">
+      <span class="jg-eyebrow">{{how_eyebrow}}</span>
+      <h2 class="jg-section-title jg-section-title-center">{{how_title}}</h2>
+      <div class="jg-steps">
+        <div class="jg-step">
+          <h3>{{step1_title}}</h3>
+          <div class="jg-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg></div>
+          <p>{{step1_text}}</p>
+        </div>
+        <div class="jg-step">
+          <h3>{{step2_title}}</h3>
+          <div class="jg-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg></div>
+          <p>{{step2_text}}</p>
+        </div>
+        <div class="jg-step">
+          <h3>{{step3_title}}</h3>
+          <div class="jg-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <p>{{step3_text}}</p>
+        </div>
+        <div class="jg-step">
+          <h3>{{step4_title}}</h3>
+          <div class="jg-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <p>{{step4_text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="salary" class="jg-salary">
+  <div class="jg-section-wrap">
+    <span class="jg-eyebrow jg-eyebrow-center">{{salary_eyebrow}}</span>
+    <h2 class="jg-section-title jg-section-title-center">{{salary_title}}</h2>
+    <div class="jg-tiers">
+      <div class="jg-tier">
+        <div class="jg-tier-price">{{tier1_price}}</div>
+        <div class="jg-tier-name">{{tier1_name}}</div>
+        <ul><li>{{tier1_b1}}</li><li>{{tier1_b2}}</li><li>{{tier1_b3}}</li></ul>
+        <a href="#bewerbung-form" class="jg-btn-soft">{{cta_label}}</a>
+      </div>
+      <div class="jg-tier">
+        <div class="jg-tier-price">{{tier2_price}}</div>
+        <div class="jg-tier-name">{{tier2_name}}</div>
+        <ul><li>{{tier2_b1}}</li><li>{{tier2_b2}}</li><li>{{tier2_b3}}</li></ul>
+        <a href="#bewerbung-form" class="jg-btn-soft">{{cta_label}}</a>
+      </div>
+      <div class="jg-tier">
+        <div class="jg-tier-price">{{tier3_price}}</div>
+        <div class="jg-tier-name">{{tier3_name}}</div>
+        <ul><li>{{tier3_b1}}</li><li>{{tier3_b2}}</li><li>{{tier3_b3}}</li></ul>
+        <a href="#bewerbung-form" class="jg-btn-soft">{{cta_label}}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="jg-foot">
+  <div class="jg-foot-wrap">
+    <div class="jg-foot-brand">{{firmenname}}</div>
+    <div class="jg-foot-meta">
+      <span>{{contact_email}}</span>
+      <span>{{contact_phone}}</span>
+    </div>
+    <div class="jg-foot-links">
+      <a href="{{impressum_url}}">Impressum</a>
+      <a href="{{datenschutz_url}}">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

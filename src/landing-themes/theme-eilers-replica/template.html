@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<meta property="og:title" content="{{seo_title}}" />
+<meta property="og:description" content="{{seo_description}}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://{{landing_domain}}/" />
+<meta property="og:image" content="{{seo_image}}" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://{{landing_domain}}/" />
+<link rel="icon" href="{{favicon_image}}" />
+<link rel="apple-touch-icon" href="{{favicon_image}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="brand">
+      <img class="brand-logo" src="{{logo_image}}" alt="{{firmenname}}" onerror="this.remove()" />
+      <svg class="brand-icon brand-fallback" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      <span class="brand-text brand-fallback">{{logo_text}}</span>
+    </a>
+    <nav class="primary-nav" id="primary-nav">
+      <a href="#top" class="nav-link active">Home</a>
+      <a href="#leistungen" class="nav-link">Leistungen</a>
+      <a href="#blog" class="nav-link">Blog</a>
+      <a href="#kontakt" class="nav-link">Kontakt</a>
+    </nav>
+    <div class="header-actions">
+      
+      <a href="#bewerbung-form" class="btn-solid">Jetzt bewerben
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile nav drawer -->
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="#top" class="mobile-nav-link">Home</a>
+    <a href="#leistungen" class="mobile-nav-link">Leistungen</a>
+    <a href="#blog" class="mobile-nav-link">Blog</a>
+    <a href="#kontakt" class="mobile-nav-link">Kontakt</a>
+    <a href="#bewerbung-form" class="btn-solid mobile-cta">Jetzt bewerben →</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <p class="eyebrow">{{hero_eyebrow}}</p>
+      <h1 class="hero-title">
+        {{hero_headline_pre}}<br>
+        <em>{{hero_headline_emphasis}}</em><br>
+        <em>{{hero_headline_post}}</em>
+      </h1>
+      <p class="hero-lede">{{hero_subtext}}</p>
+      <div class="hero-cta">
+        <a href="#bewerbung-form" class="btn-solid btn-lg">Jetzt bewerben
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#blog" class="btn-outline">Zum Blog</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-v">{{gruendungsjahr}}</div><div class="hero-stat-l">Gegründet</div></div>
+        <div><div class="hero-stat-v">{{sitz_stadt}}</div><div class="hero-stat-l">Sitz</div></div>
+        <div><div class="hero-stat-v">100%</div><div class="hero-stat-l">Eigentümergeführt</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="assets/hero-office.jpg" alt="Modernes Bürogebäude" />
+      <div class="hero-card glass">
+        <p class="eyebrow-sm">Schwerpunkt</p>
+        <p class="hero-card-text">Strategie, Organisation und Umsetzung — aus einer Hand</p>
+        <div class="hero-card-meta">
+          <span>Eigentümergeführt</span>
+          <span class="mono">{{sitz_stadt}}</span>
+        </div>
+      </div>
+      <div class="hero-pill">
+        <span class="dot-amber"></span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        SITZ {{sitz_stadt_upper}}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KPI BAND ===== -->
+<section class="kpi-band">
+  <div class="container kpi-inner">
+    <p class="kpi-label mono">{{firmenname}} · im Überblick</p>
+    <div class="kpi-items">
+      <div class="kpi-item"><span class="kpi-v serif">{{gruendungsjahr}}</span><span class="kpi-l">Gegründet</span></div>
+      <div class="kpi-item"><span class="kpi-v serif">{{sitz_stadt}}</span><span class="kpi-l">Sitz der Gesellschaft</span></div>
+      
+      <div class="kpi-item"><span class="kpi-v serif">{{hrb_nummer}}</span><span class="kpi-l">Amtsgericht {{sitz_stadt}}</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HALTUNG ===== -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="haltung-head">
+      <div>
+        <p class="eyebrow">Unsere Haltung</p>
+        <h2 class="section-title" style="margin-top:1.5rem;">Beratung ist <em>kein Produkt.</em></h2>
+      </div>
+      <div class="haltung-text">
+        <p>{{about_text_1}}</p>
+        <p>{{about_text_2}}</p>
+        <div class="approach-list">
+          <div class="approach-item">
+            <span class="approach-n">01</span>
+            <div><strong>Zuhören vor Empfehlen</strong><p>Wir beginnen mit Fragen, nicht mit Antworten.</p></div>
+          </div>
+          <div class="approach-item">
+            <span class="approach-n">02</span>
+            <div><strong>Unternehmerisch denken</strong><p>Wir handeln, als wäre es unser eigenes Unternehmen.</p></div>
+          </div>
+          <div class="approach-item">
+            <span class="approach-n">03</span>
+            <div><strong>Umsetzung als Maßstab</strong><p>Erfolg messen wir an dem, was im Alltag ankommt.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PHASEN ===== -->
+<section class="phases-band">
+  <div class="container">
+    <div class="phases-head">
+      <div>
+        <p class="eyebrow eyebrow-light">Wie wir arbeiten</p>
+        <h2 class="section-title section-title-light" style="margin-top:1.5rem;">Vier Phasen,<br><em>eine Linie.</em></h2>
+      </div>
+      <p class="phases-lede">Kein Standardablauf, aber ein klarer Rahmen. So sehen unsere Mandate fast immer aus — mit Anpassungen, die zur Situation passen.</p>
+    </div>
+    <div class="phases-grid">
+      <div class="phase">
+        <div class="phase-meta"><span class="phase-n">01 · DIAGNOSE</span><span class="phase-dur">2–4 Wochen</span></div>
+        <h3>Ergebnisoffen verstehen</h3>
+        <p>Zwei bis vier Wochen strukturierte Bestandsaufnahme. Wir hören zu, prüfen Hypothesen, sprechen mit Schlüsselpersonen — bevor wir empfehlen.</p>
+      </div>
+      <div class="phase">
+        <div class="phase-meta"><span class="phase-n">02 · KONZEPTION</span><span class="phase-dur">4–8 Wochen</span></div>
+        <h3>Optionen schärfen</h3>
+        <p>Entscheidungsoptionen mit klarer Faktenbasis. Belastbare Antworten auf die wenigen wirklich wichtigen Fragen — keine 90-Seiten-Decks.</p>
+      </div>
+      <div class="phase">
+        <div class="phase-meta"><span class="phase-n">03 · UMSETZUNG</span><span class="phase-dur">3–9 Monate</span></div>
+        <h3>Im Alltag verankern</h3>
+        <p>Wir bleiben dran, bis die Entscheidung im operativen Geschäft angekommen ist. Mit klaren Arbeitspaketen, festen Meilensteinen und Sparring auf Geschäftsleitungsebene.</p>
+      </div>
+      <div class="phase">
+        <div class="phase-meta"><span class="phase-n">04 · WIRKUNG</span><span class="phase-dur">6–12 Monate</span></div>
+        <h3>Nachgefragt, nicht nachgereicht</h3>
+        <p>Sechs und zwölf Monate nach Mandatsabschluss melden wir uns. Was hat sich gehalten? Was nicht? Diese Reviews fließen in jedes Folgemandat ein.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEISTUNGEN (5 Tabs) ===== -->
+<section class="section section-paper" id="leistungen">
+  <div class="container">
+    <div class="leistungen-header">
+      <p class="eyebrow">Leistungen</p>
+      <h2 class="section-title" style="margin-top:1.25rem;">Fünf Disziplinen.<br><em>Ein integriertes Beratungsverständnis.</em></h2>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="svc-tabs" role="tablist">
+      <button class="svc-tab svc-tab--active" role="tab" aria-selected="true"  data-svc="0"><span class="svc-tab-n">01</span><span>{{svc1_title}}</span></button>
+      <button class="svc-tab" role="tab" aria-selected="false" data-svc="1"><span class="svc-tab-n">02</span><span>{{svc2_title}}</span></button>
+      <button class="svc-tab" role="tab" aria-selected="false" data-svc="2"><span class="svc-tab-n">03</span><span>{{svc3_title}}</span></button>
+      <button class="svc-tab" role="tab" aria-selected="false" data-svc="3"><span class="svc-tab-n">04</span><span>{{svc4_title}}</span></button>
+      <button class="svc-tab" role="tab" aria-selected="false" data-svc="4"><span class="svc-tab-n">05</span><span>{{svc5_title}}</span></button>
+    </div>
+
+    <!-- Panels -->
+    <div class="svc-panels">
+
+      <!-- Panel 1 -->
+      <div class="svc-panel svc-panel--active" data-panel="0" role="tabpanel">
+        <div class="svc-panel-content">
+          <span class="svc-tag">{{svc1_tag}}</span>
+          <h3 class="svc-panel-title">{{svc1_title}}</h3>
+          <p class="svc-panel-desc">{{svc1_desc}}</p>
+          <ul class="check-list">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc1_bullet1}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc1_bullet2}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc1_bullet3}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc1_bullet4}}</li>
+          </ul>
+        </div>
+        <img class="svc-panel-img" src="{{svc1_image}}" alt="{{svc1_title}}" />
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="svc-panel" data-panel="1" role="tabpanel" hidden>
+        <div class="svc-panel-content">
+          <span class="svc-tag">{{svc2_tag}}</span>
+          <h3 class="svc-panel-title">{{svc2_title}}</h3>
+          <p class="svc-panel-desc">{{svc2_desc}}</p>
+          <ul class="check-list">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc2_bullet1}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc2_bullet2}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc2_bullet3}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc2_bullet4}}</li>
+          </ul>
+        </div>
+        <img class="svc-panel-img" src="{{svc2_image}}" alt="{{svc2_title}}" />
+      </div>
+
+      <!-- Panel 3 -->
+      <div class="svc-panel" data-panel="2" role="tabpanel" hidden>
+        <div class="svc-panel-content">
+          <span class="svc-tag">{{svc3_tag}}</span>
+          <h3 class="svc-panel-title">{{svc3_title}}</h3>
+          <p class="svc-panel-desc">{{svc3_desc}}</p>
+          <ul class="check-list">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc3_bullet1}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc3_bullet2}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc3_bullet3}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc3_bullet4}}</li>
+          </ul>
+        </div>
+        <img class="svc-panel-img" src="{{svc3_image}}" alt="{{svc3_title}}" />
+      </div>
+
+      <!-- Panel 4 -->
+      <div class="svc-panel" data-panel="3" role="tabpanel" hidden>
+        <div class="svc-panel-content">
+          <span class="svc-tag">{{svc4_tag}}</span>
+          <h3 class="svc-panel-title">{{svc4_title}}</h3>
+          <p class="svc-panel-desc">{{svc4_desc}}</p>
+          <ul class="check-list">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc4_bullet1}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc4_bullet2}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc4_bullet3}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc4_bullet4}}</li>
+          </ul>
+        </div>
+        <img class="svc-panel-img" src="{{svc4_image}}" alt="{{svc4_title}}" />
+      </div>
+
+      <!-- Panel 5 -->
+      <div class="svc-panel" data-panel="4" role="tabpanel" hidden>
+        <div class="svc-panel-content">
+          <span class="svc-tag">{{svc5_tag}}</span>
+          <h3 class="svc-panel-title">{{svc5_title}}</h3>
+          <p class="svc-panel-desc">{{svc5_desc}}</p>
+          <ul class="check-list">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc5_bullet1}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc5_bullet2}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc5_bullet3}}</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{{svc5_bullet4}}</li>
+          </ul>
+        </div>
+        <img class="svc-panel-img" src="{{svc5_image}}" alt="{{svc5_title}}" />
+      </div>
+
+    </div><!-- /svc-panels -->
+  </div>
+</section>
+
+<!-- ===== BRANCHEN ===== -->
+<section class="section section-navy">
+  <div class="container">
+    <div class="branchen-head">
+      <div>
+        <p class="eyebrow eyebrow-light">Branchen</p>
+        <h2 class="section-title section-title-light" style="margin-top:1.5rem;">Tiefe Branchen­expertise <em class="em-gold">als Standard.</em></h2>
+        <p class="branchen-lede">Wir arbeiten branchenübergreifend und bringen betriebswirtschaftliche Methodik dorthin, wo Entscheidungen anstehen — unabhängig von der Größe des Hauses.</p>
+      </div>
+    </div>
+    <div class="branchen-grid">
+      <div class="branche"><span class="branche-n">01.</span><span>Maschinen- und Anlagenbau</span></div>
+      <div class="branche"><span class="branche-n">02.</span><span>Automotive &amp; Mobility</span></div>
+      <div class="branche"><span class="branche-n">03.</span><span>Energie &amp; Versorgung</span></div>
+      <div class="branche"><span class="branche-n">04.</span><span>Chemie &amp; Werkstoffe</span></div>
+      <div class="branche"><span class="branche-n">05.</span><span>Konsumgüter &amp; Handel</span></div>
+      <div class="branche"><span class="branche-n">06.</span><span>Finanzdienstleistungen</span></div>
+      <div class="branche"><span class="branche-n">07.</span><span>Healthcare &amp; Life Sciences</span></div>
+      <div class="branche"><span class="branche-n">08.</span><span>Bau &amp; Immobilien</span></div>
+      <div class="branche"><span class="branche-n">09.</span><span>Logistik &amp; Transport</span></div>
+      <div class="branche"><span class="branche-n">10.</span><span>Technologie &amp; Software</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG STUB ===== -->
+<section class="section" id="blog">
+  <div class="container">
+    <div class="blog-head">
+      <p class="eyebrow">Blog &amp; Einblicke</p>
+      <h2 class="section-title" style="margin-top:1.25rem;">Perspektiven aus <em>der Praxis.</em></h2>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card">
+        <div class="blog-card-meta"><span class="blog-tag">Strategie</span><span class="blog-date">März 2024</span></div>
+        <h3 class="blog-card-title">Wachstum ohne Richtung ist nur Bewegung</h3>
+        <p class="blog-card-excerpt">Warum die meisten Wachstumsinitiativen scheitern — und was eine belastbare Strategie davon unterscheidet.</p>
+        <a href="#kontakt" class="blog-card-link">Weiterlesen →</a>
+      </article>
+      <article class="blog-card">
+        <div class="blog-card-meta"><span class="blog-tag">Organisation</span><span class="blog-date">Februar 2024</span></div>
+        <h3 class="blog-card-title">Die stille Kraft der Prozesse</h3>
+        <p class="blog-card-excerpt">Operative Exzellenz ist kein Zufall. Wie mittelständische Unternehmen systematisch Effizienz gewinnen.</p>
+        <a href="#kontakt" class="blog-card-link">Weiterlesen →</a>
+      </article>
+      <article class="blog-card">
+        <div class="blog-card-meta"><span class="blog-tag">Transformation</span><span class="blog-date">Januar 2024</span></div>
+        <h3 class="blog-card-title">Digital, aber menschlich</h3>
+        <p class="blog-card-excerpt">Digitale Transformation gelingt nicht durch Technologie allein — sondern durch Menschen, die sie tragen.</p>
+        <a href="#kontakt" class="blog-card-link">Weiterlesen →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / KONTAKT ===== -->
+<section class="cta-section" id="kontakt">
+  <div class="container cta-inner">
+    <p class="eyebrow eyebrow-light eyebrow-center">Karriere</p>
+    <h2 class="cta-title">Ihr nächster Schritt<br><em class="em-gold">beginnt hier.</em></h2>
+    <p class="cta-lede">{{cta_subtext}}</p>
+    <div class="cta-buttons">
+      <a href="#bewerbung-form" class="btn-solid btn-gold btn-lg">{{cta_label}}
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="cta-contact-strip">
+      <span>{{contact_email}}</span>
+      <span class="cta-divider">·</span>
+      <span>{{contact_phone}}</span>
+      <span class="cta-divider">·</span>
+      <span>{{contact_address}}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand-col">
+      <div class="brand brand-footer">
+        <img class="brand-logo" src="{{logo_image}}" alt="{{firmenname}}" onerror="this.remove()" />
+        <svg class="brand-icon brand-fallback" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span class="brand-text brand-fallback">{{logo_text}}</span>
+      </div>
+      <p class="footer-desc">{{firmenname}} — betriebswirtschaftliche und strategische Unternehmensberatung mit Sitz in {{sitz_stadt}}. Eigentümergeführt, persönlich, ergebnisorientiert.</p>
+      <div class="footer-pills">
+        <span class="footer-pill"><span class="dot-amber"></span> Gegründet {{gruendungsjahr}}</span>
+        <span class="footer-pill"><span class="dot-amber"></span> Sitz {{sitz_stadt}}</span>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-head">Leistungen</p>
+      <ul class="footer-list">
+        <li>{{svc1_title}}</li>
+        <li>{{svc2_title}}</li>
+        <li>{{svc3_title}}</li>
+        <li>{{svc4_title}}</li>
+        <li>{{svc5_title}}</li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-head">Unternehmen</p>
+      <ul class="footer-list">
+        <li><a href="#about">Über uns</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#bewerbung-form">Jetzt bewerben</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-head">Kontakt</p>
+      <ul class="footer-list">
+        <li>{{contact_address}}</li>
+        <li>{{contact_email}}</li>
+        <li>{{contact_phone}}</li>
+        <li class="footer-muted">{{hrb_nummer}} · AG {{sitz_stadt}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>© <span id="year"></span> {{firmenname}}</span>
+      <div class="footer-legal">
+        <a href="{{impressum_url}}">Impressum</a>
+        <a href="{{datenschutz_url}}">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

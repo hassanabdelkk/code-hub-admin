@@ -1,0 +1,71 @@
+{
+  "id": "theme-tts-beratung",
+  "name": "TTS Beratung Replica",
+  "slug": "tts-beratung",
+  "version": "1.0.0",
+  "description": "Digital-Beratung-Layout im Stil tts-beratung.de — heller Hintergrund mit warmem Verlauf, großes Hero mit Foto + Floating-KPI-Card, 3 Fachgebiete-Karten, Über-uns-Split mit Checkliste, 4 KPI-Boxen, CTA-Banner.",
+  "preview": "assets/preview.jpg",
+  "font_pair": { "sans": "Inter", "display": "Inter" },
+  "slots": [
+    { "key": "seo_title",        "label": "SEO-Titel",         "type": "text",     "default": "TTS-Beratung — Ihre digitale Zukunft beginnt heute" },
+    { "key": "seo_description",  "label": "Meta-Beschreibung", "type": "textarea", "default": "Beratung, Technik und Auswertung aus einer Hand — von Software & Apps bis IT-Security und Datenanalysen." },
+    { "key": "logo_text",        "label": "Logo-Text",         "type": "text",     "default": "TTS-Beratung" },
+    { "key": "logo_image",       "label": "Logo (optional)",   "type": "image",    "default": "" },
+    { "key": "firmenname",       "label": "Firmenname",        "type": "text",     "default": "TTS-Beratung" },
+
+    { "key": "nav_cta_label",    "label": "Nav-CTA",           "type": "text",     "default": "Jetzt bewerben" },
+
+    { "key": "hero_headline_1",  "label": "Headline Zeile 1",  "type": "text",     "default": "Ihre digitale Zukunft" },
+    { "key": "hero_headline_2",  "label": "Headline Zeile 2",  "type": "text",     "default": "beginnt heute." },
+    { "key": "hero_image",       "label": "Hero-Bild",         "type": "image",    "default": "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=1400&q=80" },
+    { "key": "hero_card_value",  "label": "Hero-Card Wert",    "type": "text",     "default": "100%" },
+    { "key": "hero_card_label",  "label": "Hero-Card Label",   "type": "text",     "default": "Kundenzufriedenheit" },
+    { "key": "hero_card_text",   "label": "Hero-Card Text",    "type": "textarea", "default": "Wir nehmen uns gewissenhaft der Digitalisierung Ihres Unternehmens an." },
+
+    { "key": "fach_eyebrow",     "label": "Fachgebiete Eyebrow","type": "text",    "default": "Unsere Fachgebiete" },
+    { "key": "fach_title",       "label": "Fachgebiete Titel", "type": "text",     "default": "Profitieren Sie von unserer jahrelangen Expertise in Sachen Digitalisierung." },
+    { "key": "fach1_title",      "label": "Fachgebiet 1 Titel","type": "text",     "default": "Software & Apps" },
+    { "key": "fach1_text",       "label": "Fachgebiet 1 Text", "type": "textarea", "default": "Wir begleiten digitale Entwicklungsprojekte mit einem Blick für Struktur, Funktion und langfristige Nutzbarkeit." },
+    { "key": "fach2_title",      "label": "Fachgebiet 2 Titel","type": "text",     "default": "IT-Security" },
+    { "key": "fach2_text",       "label": "Fachgebiet 2 Text", "type": "textarea", "default": "Sicherheitsthemen verständlich erfassen und systematisch bewerten — mit klaren Einschätzungen zu Risiken und Prioritäten." },
+    { "key": "fach3_title",      "label": "Fachgebiet 3 Titel","type": "text",     "default": "Datenanalysen" },
+    { "key": "fach3_text",       "label": "Fachgebiet 3 Text", "type": "textarea", "default": "Daten in eine nachvollziehbare Grundlage für Entscheidungen überführen — inkl. Optimierungspotenzial." },
+
+    { "key": "career_text",      "label": "Karriere-Banner",   "type": "text",     "default": "Wir suchen Verstärkung für unser Unternehmen." },
+    { "key": "career_cta",       "label": "Karriere-CTA",      "type": "text",     "default": "Jetzt bewerben" },
+
+    { "key": "about_eyebrow",    "label": "Über uns Eyebrow",  "type": "text",     "default": "Wir über uns" },
+    { "key": "about_title",      "label": "Über uns Titel",    "type": "text",     "default": "Beratung, Technik und Auswertung aus einer Hand." },
+    { "key": "about_text",       "label": "Über uns Text",     "type": "textarea", "default": "Wir begleiten Unternehmen bei digitalen Vorhaben mit einer Arbeitsweise, die Analyse, Sicherheit und Umsetzung sinnvoll zusammenführt. Beratung, die nicht abstrakt bleibt, sondern konkrete Orientierung für technische und organisatorische Entscheidungen schafft." },
+    { "key": "about_image",      "label": "Über uns Bild",     "type": "image",    "default": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80" },
+    { "key": "about_bullet1",    "label": "Bullet 1",          "type": "text",     "default": "Jahrelange Expertise" },
+    { "key": "about_bullet2",    "label": "Bullet 2",          "type": "text",     "default": "100% Zufriedenheit" },
+    { "key": "about_bullet3",    "label": "Bullet 3",          "type": "text",     "default": "Zertifizierte Experten" },
+    { "key": "about_bullet4",    "label": "Bullet 4",          "type": "text",     "default": "Deutschlandweit tätig" },
+    { "key": "about_bullet5",    "label": "Bullet 5",          "type": "text",     "default": "24/7 Kundenservice" },
+    { "key": "about_bullet6",    "label": "Bullet 6",          "type": "text",     "default": "Kurze Reaktionszeiten" },
+
+    { "key": "kpi1_value", "label": "KPI 1 Wert",  "type": "text",     "default": "50+" },
+    { "key": "kpi1_label", "label": "KPI 1 Label", "type": "text",     "default": "Zertifizierte Experten" },
+    { "key": "kpi1_text",  "label": "KPI 1 Text",  "type": "textarea", "default": "Wir beschäftigen zahlreiche Expertinnen und Experten in unserem Unternehmen." },
+    { "key": "kpi2_value", "label": "KPI 2 Wert",  "type": "text",     "default": "15+" },
+    { "key": "kpi2_label", "label": "KPI 2 Label", "type": "text",     "default": "Erfolgs- und Unternehmensjahre" },
+    { "key": "kpi2_text",  "label": "KPI 2 Text",  "type": "textarea", "default": "Seit jeher legen wir allergrößten Wert auf Integrität und Zufriedenheit." },
+    { "key": "kpi3_value", "label": "KPI 3 Wert",  "type": "text",     "default": "500+" },
+    { "key": "kpi3_label", "label": "KPI 3 Label", "type": "text",     "default": "Erfolgreiche Projekte" },
+    { "key": "kpi3_text",  "label": "KPI 3 Text",  "type": "textarea", "default": "Jeder Auftrag wird mit größtmöglicher Gewissenhaftigkeit durchgeführt." },
+    { "key": "kpi4_value", "label": "KPI 4 Wert",  "type": "text",     "default": "100%" },
+    { "key": "kpi4_label", "label": "KPI 4 Label", "type": "text",     "default": "Zufriedenheitsgarantie" },
+    { "key": "kpi4_text",  "label": "KPI 4 Text",  "type": "textarea", "default": "Die Zufriedenheit unserer Kundinnen und Kunden ist unser höchstes Gut." },
+
+    { "key": "cta_title",  "label": "CTA Titel", "type": "text",     "default": "Bereit für den nächsten Schritt?" },
+    { "key": "cta_text",   "label": "CTA Text",  "type": "textarea", "default": "Werden Sie Teil eines Teams, das digitale Vorhaben mit Klarheit und Verantwortung umsetzt." },
+    { "key": "cta_label",  "label": "CTA Label", "type": "text",     "default": "Jetzt bewerben" },
+
+    { "key": "contact_email",   "label": "E-Mail",        "type": "text", "default": "kontakt@tts-beratung.de" },
+    { "key": "contact_phone",   "label": "Telefon",       "type": "text", "default": "+49 30 000 000 00" },
+    { "key": "contact_address", "label": "Adresse",       "type": "text", "default": "Berlin, Deutschland" },
+    { "key": "impressum_url",   "label": "Impressum-URL", "type": "text", "default": "impressum.html" },
+    { "key": "datenschutz_url", "label": "Datenschutz-URL","type": "text","default": "datenschutz.html" }
+  ]
+}

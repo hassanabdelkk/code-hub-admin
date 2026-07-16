@@ -1,0 +1,33 @@
+<section id="bewerbung-form" class="thf-section">
+  <div class="thf-wrap">
+    <div class="thf-head">
+      <span class="thf-eyebrow">Bewerbung</span>
+      <h2>Nur wenige Angaben — und Sie sind dabei</h2>
+      <p>Wir melden uns innerhalb von 24 Stunden per E-Mail bei Ihnen.</p>
+    </div>
+    <form id="application-form" class="thf-form">
+      <div class="thf-row">
+        <label><span>Position</span>
+          <select name="position"><option>Minijob</option><option>Teilzeit</option><option>Vollzeit</option></select>
+        </label>
+        <label><span>Geschlecht</span>
+          <select name="gender"><option value="">Bitte auswählen</option><option>Männlich</option><option>Weiblich</option><option>Divers</option></select>
+        </label>
+      </div>
+      <div class="thf-row">
+        <label><span>Vorname</span><input name="first_name" placeholder="Max" required /></label>
+        <label><span>Nachname</span><input name="last_name" placeholder="Müller" required /></label>
+      </div>
+      <label><span>Straße & Hausnummer</span><input name="street" placeholder="Musterstraße 1" /></label>
+      <div class="thf-row">
+        <label><span>PLZ</span><input name="postal_code" placeholder="17854" /></label>
+        <label><span>Ort</span><input name="city" placeholder="Musterort" /></label>
+      </div>
+      <label><span>Telefon</span><input name="phone" placeholder="01769874653" required /></label>
+      <label><span>E-Mail Adresse</span><input type="email" name="email" placeholder="max.mustermann@gmail.com" required /></label>
+      <button type="submit" class="thf-submit">Bewerbung absenden →</button>
+      <p id="form-status" class="thf-status"></p>
+      <p class="thf-fine">Ihre Daten werden vertraulich behandelt (DSGVO-konform).</p>
+    </form>
+  </div>
+</section>

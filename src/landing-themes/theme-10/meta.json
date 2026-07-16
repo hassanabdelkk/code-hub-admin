@@ -1,0 +1,14 @@
+{
+  "id": "theme-10",
+  "name": "Design Studio Core — Gold Executive",
+  "description": "Dunkler, eleganter Executive-Look mit Gold-Akzenten. Strategische Unternehmensberatung mit Hero-Marquee, Expertise-Grid, 4-Schritte-Ansatz und Trust-Bar. Ideal für seriöse Consulting-Marken.",
+  "slots": [
+    { "key": "logo_image", "label": "Logo (Bild-URL, optional)", "type": "text", "default": "assets/logo.png" },
+    { "key": "favicon_image", "label": "Favicon (Bild-URL, optional)", "type": "text", "default": "assets/favicon.png" },
+    { "key": "hero_kicker", "label": "Hero-Kicker (klein)", "type": "text", "default": "Strategische Unternehmensberatung" },
+    { "key": "hero_title", "label": "Hero-Überschrift (HTML erlaubt)", "type": "longtext", "default": "Wir denken<br/>voraus<span class=\"dot\">.</span>" },
+    { "key": "hero_subtitle", "label": "Hero-Untertitel", "type": "longtext", "default": "Strategische Beratung, die Unternehmen transformiert. Mutig, durchdacht und mit messbaren Ergebnissen." },
+    { "key": "hero_cta_primary", "label": "Hero-CTA primär", "type": "text", "default": "Mehr über uns →" },
+    { "key": "hero_cta_secondary", "label": "Hero-CTA sekundär", "type": "text", "default": "Kontakt aufnehmen" }
+  ]
+}

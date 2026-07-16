@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="qr-nav">
+  <div class="qr-nav-wrap">
+    <a href="#" class="qr-brand"><span class="qr-issue">№07</span> {{logo_text}}</a>
+    <a href="#bewerbung-form" class="qr-cta">{{hero_cta}}</a>
+  </div>
+</header>
+
+<section class="qr-hero">
+  <div class="qr-hero-wrap">
+    <div class="qr-hero-text">
+      <span class="qr-eyebrow">{{hero_eyebrow}}</span>
+      <h1>{{hero_title}}</h1>
+      <p class="qr-lede">{{hero_sub}}</p>
+      <a href="#bewerbung-form" class="qr-btn">{{hero_cta}} →</a>
+    </div>
+    <figure class="qr-hero-fig">
+      <img src="{{hero_image}}" alt="Testing im Homeoffice" />
+      <figcaption>Feldbericht — Home-Setup, KW 07</figcaption>
+    </figure>
+  </div>
+  <div class="qr-kpis">
+    <div><strong>{{kpi_1}}</strong><span>{{kpi_1_lbl}}</span></div>
+    <div><strong>{{kpi_2}}</strong><span>{{kpi_2_lbl}}</span></div>
+    <div><strong>{{kpi_3}}</strong><span>{{kpi_3_lbl}}</span></div>
+    <div><strong>{{kpi_4}}</strong><span>{{kpi_4_lbl}}</span></div>
+  </div>
+</section>
+
+<section class="qr-role">
+  <div class="qr-wrap qr-two">
+    <div><h2>{{role_title}}</h2></div>
+    <div><p>{{role_text}}</p></div>
+  </div>
+</section>
+
+<section class="qr-process">
+  <div class="qr-wrap">
+    <h2>{{process_title}}</h2>
+    <ol class="qr-steps">
+      <li><span>01</span><h3>{{s1_t}}</h3><p>{{s1_x}}</p></li>
+      <li><span>02</span><h3>{{s2_t}}</h3><p>{{s2_x}}</p></li>
+      <li><span>03</span><h3>{{s3_t}}</h3><p>{{s3_x}}</p></li>
+      <li><span>04</span><h3>{{s4_t}}</h3><p>{{s4_x}}</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="qr-table-sec">
+  <div class="qr-wrap">
+    <h2>{{table_title}}</h2>
+    <table class="qr-table">
+      <thead><tr><th>Modell</th><th>Umfang</th><th>Vergütung</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>{{m1_n}}</td><td>{{m1_h}}</td><td>{{m1_p}}</td><td><a href="#bewerbung-form">Bewerben →</a></td></tr>
+        <tr><td>{{m2_n}}</td><td>{{m2_h}}</td><td>{{m2_p}}</td><td><a href="#bewerbung-form">Bewerben →</a></td></tr>
+        <tr><td>{{m3_n}}</td><td>{{m3_h}}</td><td>{{m3_p}}</td><td><a href="#bewerbung-form">Bewerben →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="qr-quote">
+  <div class="qr-wrap">
+    <blockquote>„{{quote}}"</blockquote>
+    <cite>— {{quote_author}}</cite>
+  </div>
+</section>
+
+<section class="qr-final">
+  <div class="qr-wrap">
+    <h2>{{final_title}}</h2>
+    <a href="#bewerbung-form" class="qr-btn qr-btn-light">{{final_cta}} →</a>
+  </div>
+</section>
+
+<footer class="qr-foot">
+  <div class="qr-wrap qr-foot-wrap">
+    <span>{{firmenname}}</span>
+    <span>{{contact_email}} · {{contact_phone}}</span>
+    <span><a href="{{impressum_url}}">Impressum</a> · <a href="{{datenschutz_url}}">Datenschutz</a></span>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

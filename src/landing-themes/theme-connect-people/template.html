@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="cp-nav">
+  <div class="cp-nav-wrap">
+    <a href="#" class="cp-brand"><span class="cp-dot"></span>{{logo_text}}</a>
+    <a href="#bewerbung-form" class="cp-cta">{{hero_cta}}</a>
+  </div>
+</header>
+
+<section class="cp-hero">
+  <div class="cp-hero-wrap">
+    <div class="cp-hero-text">
+      <span class="cp-eyebrow">{{hero_eyebrow}}</span>
+      <h1>{{hero_title}}</h1>
+      <p class="cp-lede">{{hero_sub}}</p>
+      <a href="#bewerbung-form" class="cp-btn">{{hero_cta}}</a>
+      <p class="cp-note">✓ {{hero_note}}</p>
+    </div>
+    <div class="cp-hero-media">
+      <div class="cp-hero-frame">
+        <img src="{{hero_image}}" alt="Mitarbeiterin im Homeoffice" />
+      </div>
+      <div class="cp-hero-badge">
+        <strong>19–21€</strong><span>pro Stunde</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cp-why">
+  <div class="cp-wrap">
+    <h2>{{why_title}}</h2>
+    <div class="cp-benefits">
+      <article><div class="cp-bicon">⏱</div><h3>{{b1_t}}</h3><p>{{b1_x}}</p></article>
+      <article><div class="cp-bicon">€</div><h3>{{b2_t}}</h3><p>{{b2_x}}</p></article>
+      <article><div class="cp-bicon">☺</div><h3>{{b3_t}}</h3><p>{{b3_x}}</p></article>
+      <article><div class="cp-bicon">✦</div><h3>{{b4_t}}</h3><p>{{b4_x}}</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="cp-role">
+  <div class="cp-wrap cp-two">
+    <div><h2>{{role_title}}</h2></div>
+    <div><p>{{role_text}}</p></div>
+  </div>
+</section>
+
+<section class="cp-story">
+  <div class="cp-wrap">
+    <blockquote>„{{story_quote}}"</blockquote>
+    <cite>— {{story_author}}</cite>
+  </div>
+</section>
+
+<section class="cp-faq">
+  <div class="cp-wrap">
+    <h2>{{faq_title}}</h2>
+    <div class="cp-faqs">
+      <details><summary>{{q1}}</summary><p>{{a1}}</p></details>
+      <details><summary>{{q2}}</summary><p>{{a2}}</p></details>
+      <details><summary>{{q3}}</summary><p>{{a3}}</p></details>
+      <details><summary>{{q4}}</summary><p>{{a4}}</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cp-final">
+  <div class="cp-wrap">
+    <h2>{{final_title}}</h2>
+    <p>{{final_sub}}</p>
+    <a href="#bewerbung-form" class="cp-btn cp-btn-alt">{{final_cta}}</a>
+  </div>
+</section>
+
+<footer class="cp-foot">
+  <div class="cp-wrap cp-foot-wrap">
+    <span>© {{firmenname}}</span>
+    <span>{{contact_email}} · {{contact_phone}}</span>
+    <span><a href="{{impressum_url}}">Impressum</a> · <a href="{{datenschutz_url}}">Datenschutz</a></span>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

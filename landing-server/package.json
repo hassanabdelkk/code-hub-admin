@@ -1,0 +1,10 @@
+{
+  "name": "landing-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --max-old-space-size=128 server.js",
+    "dev": "node --watch server.js"
+  }
+}

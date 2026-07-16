@@ -1,0 +1,14 @@
+.qrf-section{background:#fbf7ee;padding:64px 0;font-family:'Inter',system-ui,sans-serif;color:#1a1a1a}
+.qrf-wrap{max-width:720px;margin:0 auto;padding:0 24px}
+.qrf-eyebrow{display:inline-block;font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:#c9971b;font-weight:600;margin-bottom:12px}
+.qrf-title{font-family:'Playfair Display',Georgia,serif;font-size:36px;color:#122036;margin:0 0 8px}
+.qrf-sub{color:#5a5a5a;margin:0 0 32px}
+.qrf-form{display:grid;gap:16px}
+.qrf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.qrf-form label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#4a4a4a}
+.qrf-form input,.qrf-form select{padding:12px 14px;border:1px solid #dfd6c1;background:#fff;border-radius:2px;font-family:inherit;font-size:15px;color:#1a1a1a}
+.qrf-form input:focus,.qrf-form select:focus{outline:none;border-color:#122036}
+.qrf-submit{margin-top:8px;background:#122036;color:#fff;padding:14px 28px;border:0;border-radius:2px;font-weight:600;letter-spacing:.03em;cursor:pointer;font-family:inherit;font-size:15px}
+.qrf-submit:hover{background:#c9971b;color:#122036}
+.qrf-status{font-size:13px;margin:8px 0 0;color:#4a4a4a}
+@media(max-width:600px){.qrf-row{grid-template-columns:1fr}}

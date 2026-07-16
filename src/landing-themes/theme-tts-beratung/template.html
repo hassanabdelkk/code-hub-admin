@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<meta property="og:title" content="{{seo_title}}" />
+<meta property="og:description" content="{{seo_description}}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://{{landing_domain}}/" />
+<meta property="og:image" content="{{seo_image}}" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://{{landing_domain}}/" />
+<link rel="icon" href="{{favicon_image}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="tts-header" id="top">
+  <div class="tts-container tts-header-inner">
+    <a href="#top" class="tts-brand">
+      <img class="tts-brand-logo" src="{{logo_image}}" alt="{{firmenname}}" onerror="this.remove()" />
+      <span class="tts-brand-text">{{logo_text}}</span>
+    </a>
+    <nav class="tts-nav">
+      <a href="#top" class="tts-nav-link tts-nav-active">Startseite</a>
+      <a href="#unternehmen" class="tts-nav-link">Unternehmen</a>
+      <a href="#fachgebiete" class="tts-nav-link">Fachgebiete</a>
+      <a href="#team" class="tts-nav-link">Unser Team</a>
+      <a href="#karriere" class="tts-nav-link">Karriere</a>
+      <a href="#kontakt" class="tts-nav-link">Kontakt</a>
+    </nav>
+    <a href="#bewerbung-form" class="tts-cta-pill"><span class="tts-cta-arrow">›</span>{{nav_cta_label}}</a>
+    <button class="tts-hamburger" id="tts-hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+  <div class="tts-mobile-nav" id="tts-mobile-nav">
+    <a href="#top">Startseite</a>
+    <a href="#unternehmen">Unternehmen</a>
+    <a href="#fachgebiete">Fachgebiete</a>
+    <a href="#team">Unser Team</a>
+    <a href="#karriere">Karriere</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#bewerbung-form" class="tts-cta-pill">{{nav_cta_label}}</a>
+  </div>
+</header>
+
+<section class="tts-hero">
+  <div class="tts-hero-bg" aria-hidden="true"></div>
+  <div class="tts-container">
+    <h1 class="tts-hero-title">{{hero_headline_1}}<br>{{hero_headline_2}}</h1>
+    <div class="tts-hero-stage">
+      <img class="tts-hero-image" src="{{hero_image}}" alt="" />
+      <aside class="tts-hero-card">
+        <div class="tts-hero-card-value">{{hero_card_value}}</div>
+        <div class="tts-hero-card-label">{{hero_card_label}}</div>
+        <p>{{hero_card_text}}</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="tts-section" id="fachgebiete">
+  <div class="tts-container">
+    <div class="tts-section-head">
+      <span class="tts-eyebrow"><span class="tts-eyebrow-dot"></span>{{fach_eyebrow}}</span>
+      <h2 class="tts-h2">{{fach_title}}</h2>
+    </div>
+    <div class="tts-fach-grid">
+      <article class="tts-fach">
+        <div class="tts-fach-icon tts-fach-icon-1"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>{{fach1_title}}</h3>
+        <p>{{fach1_text}}</p>
+        <a href="#bewerbung-form" class="tts-link">Mehr erfahren →</a>
+      </article>
+      <article class="tts-fach">
+        <div class="tts-fach-icon tts-fach-icon-2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>{{fach2_title}}</h3>
+        <p>{{fach2_text}}</p>
+        <a href="#bewerbung-form" class="tts-link">Mehr erfahren →</a>
+      </article>
+      <article class="tts-fach">
+        <div class="tts-fach-icon tts-fach-icon-3"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+        <h3>{{fach3_title}}</h3>
+        <p>{{fach3_text}}</p>
+        <a href="#bewerbung-form" class="tts-link">Mehr erfahren →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="tts-career-banner" id="karriere">
+  <div class="tts-container tts-career-inner">
+    <div>
+      <span class="tts-career-info">Info</span>
+      <p>{{career_text}}</p>
+    </div>
+    <a href="#bewerbung-form" class="tts-cta-pill tts-cta-pill-light"><span class="tts-cta-arrow">›</span>{{career_cta}}</a>
+  </div>
+</section>
+
+<section class="tts-section tts-section-alt" id="unternehmen">
+  <div class="tts-container tts-about-grid">
+    <div class="tts-about-media">
+      <img src="{{about_image}}" alt="" />
+    </div>
+    <div class="tts-about-content">
+      <span class="tts-eyebrow"><span class="tts-eyebrow-dot"></span>{{about_eyebrow}}</span>
+      <h2 class="tts-h2">{{about_title}}</h2>
+      <p class="tts-lead">{{about_text}}</p>
+      <ul class="tts-checklist">
+        <li>{{about_bullet1}}</li>
+        <li>{{about_bullet2}}</li>
+        <li>{{about_bullet3}}</li>
+        <li>{{about_bullet4}}</li>
+        <li>{{about_bullet5}}</li>
+        <li>{{about_bullet6}}</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="tts-section" id="team">
+  <div class="tts-container">
+    <div class="tts-kpi-grid">
+      <article class="tts-kpi"><div class="tts-kpi-v">{{kpi1_value}}</div><h4>{{kpi1_label}}</h4><p>{{kpi1_text}}</p></article>
+      <article class="tts-kpi"><div class="tts-kpi-v">{{kpi2_value}}</div><h4>{{kpi2_label}}</h4><p>{{kpi2_text}}</p></article>
+      <article class="tts-kpi"><div class="tts-kpi-v">{{kpi3_value}}</div><h4>{{kpi3_label}}</h4><p>{{kpi3_text}}</p></article>
+      <article class="tts-kpi"><div class="tts-kpi-v">{{kpi4_value}}</div><h4>{{kpi4_label}}</h4><p>{{kpi4_text}}</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="tts-cta" id="kontakt">
+  <div class="tts-container tts-cta-inner">
+    <h2>{{cta_title}}</h2>
+    <p>{{cta_text}}</p>
+    <a href="#bewerbung-form" class="tts-cta-pill tts-cta-pill-lg"><span class="tts-cta-arrow">›</span>{{cta_label}}</a>
+  </div>
+</section>
+
+<footer class="tts-footer">
+  <div class="tts-container tts-footer-inner">
+    <div>
+      <div class="tts-brand"><span class="tts-brand-text">{{logo_text}}</span></div>
+      <p class="tts-footer-text">{{contact_address}}<br>{{contact_email}} · {{contact_phone}}</p>
+    </div>
+    <div class="tts-footer-links">
+      <a href="{{impressum_url}}">Impressum</a>
+      <a href="{{datenschutz_url}}">Datenschutz</a>
+    </div>
+  </div>
+  <div class="tts-footer-bottom">© <span id="tts-year"></span> {{firmenname}}. Alle Rechte vorbehalten.</div>
+</footer>
+
+</body>
+</html>

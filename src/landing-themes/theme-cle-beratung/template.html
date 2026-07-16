@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<meta property="og:title" content="{{seo_title}}" />
+<meta property="og:description" content="{{seo_description}}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://{{landing_domain}}/" />
+<meta property="og:image" content="{{seo_image}}" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://{{landing_domain}}/" />
+<link rel="icon" href="{{favicon_image}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="cle-header" id="top">
+  <div class="cle-container cle-header-inner">
+    <a href="#top" class="cle-brand">
+      <img class="cle-brand-logo" src="{{logo_image}}" alt="{{firmenname}}" onerror="this.closest('.cle-brand').classList.add('no-logo')" onload="this.closest('.cle-brand').classList.add('has-logo')" />
+      <span class="cle-brand-text">{{logo_text}}</span>
+    </a>
+    <nav class="cle-nav">
+      <a href="#top" class="cle-nav-link cle-nav-active">Startseite</a>
+      <a href="#leistungen" class="cle-nav-link">Leistungen</a>
+      <a href="#stories" class="cle-nav-link">Stories</a>
+      <a href="#methodik" class="cle-nav-link">Methodik</a>
+      <a href="#kontakt" class="cle-nav-link">Kontakt</a>
+    </nav>
+    <a href="#kontakt" class="cle-btn cle-btn-primary">Jetzt bewerben</a>
+    <button class="cle-hamburger" id="cle-hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+  <div class="cle-mobile-nav" id="cle-mobile-nav">
+    <a href="#top">Startseite</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#stories">Stories</a>
+    <a href="#methodik">Methodik</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#kontakt" class="cle-btn cle-btn-primary">Jetzt bewerben</a>
+  </div>
+</header>
+
+<section class="cle-hero">
+  <div class="cle-hero-bg" aria-hidden="true"></div>
+  <div class="cle-container cle-hero-grid">
+    <div class="cle-hero-content">
+      <span class="cle-pill"><span class="cle-pill-dot">✦</span>{{hero_eyebrow}}</span>
+      <h1 class="cle-hero-title">{{hero_headline_1}}<br>{{hero_headline_2}}</h1>
+      <p class="cle-hero-lede">{{hero_subtext}}</p>
+      <div class="cle-hero-cta">
+        <a href="#kontakt" class="cle-btn cle-btn-light">{{hero_cta1_label}}</a>
+        <a href="#leistungen" class="cle-btn cle-btn-ghost">{{hero_cta2_label}}</a>
+      </div>
+      <div class="cle-hero-kpis">
+        <div class="cle-kpi"><div class="cle-kpi-v">{{kpi1_value}}</div><div class="cle-kpi-l">{{kpi1_label}}</div></div>
+        <div class="cle-kpi"><div class="cle-kpi-v">{{kpi2_value}}</div><div class="cle-kpi-l">{{kpi2_label}}</div></div>
+        <div class="cle-kpi cle-kpi-wide"><div class="cle-kpi-v">{{kpi3_value}}</div><div class="cle-kpi-l">{{kpi3_label}}</div></div>
+      </div>
+    </div>
+    <div class="cle-hero-visual">
+      <img class="cle-hero-image" src="{{hero_image}}" alt="" />
+      <div class="cle-hero-card">
+        <h3>{{hero_card_title}}</h3>
+        <p>{{hero_card_text}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cle-section" id="leistungen">
+  <div class="cle-container cle-two-col">
+    <div>
+      <span class="cle-eyebrow">{{leistung_eyebrow}}</span>
+      <h2 class="cle-h2">{{leistung_title}}</h2>
+      <p class="cle-lead">{{leistung_text}}</p>
+      <ul class="cle-checklist">
+        <li>{{leistung_bullet1}}</li>
+        <li>{{leistung_bullet2}}</li>
+        <li>{{leistung_bullet3}}</li>
+        <li>{{leistung_bullet4}}</li>
+      </ul>
+    </div>
+    <div class="cle-svc-grid">
+      <article class="cle-svc"><div class="cle-svc-num">01</div><h4>{{svc1_title}}</h4><p>{{svc1_text}}</p><a href="#kontakt" class="cle-link">Mehr erfahren →</a></article>
+      <article class="cle-svc"><div class="cle-svc-num">02</div><h4>{{svc2_title}}</h4><p>{{svc2_text}}</p><a href="#kontakt" class="cle-link">Mehr erfahren →</a></article>
+      <article class="cle-svc"><div class="cle-svc-num">03</div><h4>{{svc3_title}}</h4><p>{{svc3_text}}</p><a href="#kontakt" class="cle-link">Mehr erfahren →</a></article>
+      <article class="cle-svc"><div class="cle-svc-num">04</div><h4>{{svc4_title}}</h4><p>{{svc4_text}}</p><a href="#kontakt" class="cle-link">Mehr erfahren →</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="cle-section cle-section-alt" id="stories">
+  <div class="cle-container">
+    <div class="cle-section-head">
+      <span class="cle-eyebrow">{{story_eyebrow}}</span>
+      <h2 class="cle-h2">{{story_title}}</h2>
+    </div>
+    <div class="cle-stories">
+      <article class="cle-story"><img src="{{story1_image}}" alt=""><div class="cle-story-body"><span class="cle-tag">{{story1_tag}}</span><h4>{{story1_title}}</h4><p>{{story1_text}}</p><ul><li>{{story1_bullet1}}</li><li>{{story1_bullet2}}</li></ul></div></article>
+      <article class="cle-story"><img src="{{story2_image}}" alt=""><div class="cle-story-body"><span class="cle-tag">{{story2_tag}}</span><h4>{{story2_title}}</h4><p>{{story2_text}}</p><ul><li>{{story2_bullet1}}</li><li>{{story2_bullet2}}</li></ul></div></article>
+      <article class="cle-story"><img src="{{story3_image}}" alt=""><div class="cle-story-body"><span class="cle-tag">{{story3_tag}}</span><h4>{{story3_title}}</h4><p>{{story3_text}}</p><ul><li>{{story3_bullet1}}</li><li>{{story3_bullet2}}</li></ul></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="cle-section" id="methodik">
+  <div class="cle-container">
+    <div class="cle-section-head cle-center">
+      <span class="cle-eyebrow">{{framework_eyebrow}}</span>
+      <h2 class="cle-h2">{{framework_title}}</h2>
+      <p class="cle-lead cle-center-text">{{framework_text}}</p>
+    </div>
+    <div class="cle-steps">
+      <div class="cle-step"><div class="cle-step-num">1</div><h5>{{step1_title}}</h5><p>{{step1_text}}</p></div>
+      <div class="cle-step"><div class="cle-step-num">2</div><h5>{{step2_title}}</h5><p>{{step2_text}}</p></div>
+      <div class="cle-step"><div class="cle-step-num">3</div><h5>{{step3_title}}</h5><p>{{step3_text}}</p></div>
+      <div class="cle-step"><div class="cle-step-num">4</div><h5>{{step4_title}}</h5><p>{{step4_text}}</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cle-testimonial">
+  <div class="cle-container cle-testimonial-inner">
+    <blockquote>„{{testimonial_text}}"</blockquote>
+    <div class="cle-testimonial-author">
+      <img src="{{testimonial_image}}" alt="">
+      <div><strong>{{testimonial_name}}</strong><span>{{testimonial_role}}</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cle-cta" id="kontakt">
+  <div class="cle-container cle-cta-inner">
+    <h2>{{cta_title}}</h2>
+    <p>{{cta_text}}</p>
+    <a href="#kontakt" class="cle-btn cle-btn-light cle-btn-lg">{{cta_label}}</a>
+  </div>
+</section>
+
+<footer class="cle-footer">
+  <div class="cle-container cle-footer-inner">
+    <div>
+      <div class="cle-brand"><span class="cle-brand-text">{{logo_text}}</span></div>
+      <p class="cle-footer-text">{{contact_address}}<br>{{contact_email}} · {{contact_phone}}</p>
+    </div>
+    <div class="cle-footer-links">
+      <a href="{{impressum_url}}">Impressum</a>
+      <a href="{{datenschutz_url}}">Datenschutz</a>
+    </div>
+  </div>
+  <div class="cle-footer-bottom">© <span id="cle-year"></span> {{firmenname}}. Alle Rechte vorbehalten.</div>
+</footer>
+
+</body>
+</html>

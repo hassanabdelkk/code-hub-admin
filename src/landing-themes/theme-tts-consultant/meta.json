@@ -1,0 +1,77 @@
+{
+  "id": "theme-tts-consultant",
+  "name": "TTS-Beratung Replica — Digitalisierungs-Beratung",
+  "description": "1:1 Replica von tts-beratung.de: heller Hintergrund, blaue Akzente, Hero mit Bild & Stat-Card, 3 Fachgebiete-Karten, Karriere-Banner, Über-uns mit Bullet-Liste und 4 Stat-Kacheln. Voll rebrandable.",
+  "slots": [
+    { "key": "logo_image", "label": "Logo (optional, ersetzt Wordmark)", "type": "image", "default": "" },
+    { "key": "nav_label_start", "label": "Nav: Startseite", "type": "text", "default": "Startseite" },
+    { "key": "nav_label_company", "label": "Nav: Unternehmen", "type": "text", "default": "Unternehmen" },
+    { "key": "nav_label_services", "label": "Nav: Fachgebiete", "type": "text", "default": "Fachgebiete" },
+    { "key": "nav_label_team", "label": "Nav: Unser Team", "type": "text", "default": "Unser Team" },
+    { "key": "nav_label_career", "label": "Nav: Karriere", "type": "text", "default": "Karriere" },
+    { "key": "nav_label_contact", "label": "Nav: Kontakt", "type": "text", "default": "Kontakt" },
+    { "key": "nav_cta_label", "label": "Nav-CTA Label", "type": "text", "default": "Jetzt bewerben" },
+    { "key": "cta_url", "label": "Bewerbungs-URL (Jetzt bewerben)", "type": "text", "default": "/bewerbung" },
+    { "key": "cta_label", "label": "CTA-Button-Beschriftung", "type": "text", "default": "Jetzt bewerben" },
+
+    { "key": "hero_title", "label": "Hero-Überschrift", "type": "longtext", "default": "Ihre digitale Zukunft beginnt heute." },
+    { "key": "hero_image", "label": "Hero-Bild (URL)", "type": "image", "default": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1400&q=80" },
+    { "key": "hero_stat_value", "label": "Hero-Stat Wert", "type": "text", "default": "95%" },
+    { "key": "hero_stat_label", "label": "Hero-Stat Label", "type": "text", "default": "Kundenzufriedenheit" },
+    { "key": "hero_stat_body", "label": "Hero-Stat Beschreibung", "type": "longtext", "default": "Wir nehmen uns gewissenhaft der Digitalisierung Ihres Unternehmens an." },
+
+    { "key": "services_kicker", "label": "Fachgebiete Kicker", "type": "text", "default": "Unsere Fachgebiete" },
+    { "key": "services_title", "label": "Fachgebiete-Headline", "type": "longtext", "default": "Profitieren Sie von unserer jahrelangen Expertise in Sachen Digitalisierung." },
+
+    { "key": "service_1_title", "label": "Service 1 Titel", "type": "text", "default": "Software & Apps" },
+    { "key": "service_1_body", "label": "Service 1 Beschreibung", "type": "longtext", "default": "Wir begleiten digitale Entwicklungsprojekte mit einem Blick für Struktur, Funktion und langfristige Nutzbarkeit. Dabei verbinden wir technische Umsetzung mit einer klaren fachlichen Einordnung der Anforderungen." },
+    { "key": "service_1_link", "label": "Service 1 Link", "type": "text", "default": "#fachgebiete" },
+
+    { "key": "service_2_title", "label": "Service 2 Titel", "type": "text", "default": "IT-Security" },
+    { "key": "service_2_body", "label": "Service 2 Beschreibung", "type": "longtext", "default": "Wir unterstützen Unternehmen dabei, Sicherheitsthemen verständlich zu erfassen und systematisch zu bewerten. Dabei geht es nicht nur um Schutzmaßnahmen, sondern auch um klare Einschätzungen zu Risiken und Prioritäten." },
+    { "key": "service_2_link", "label": "Service 2 Link", "type": "text", "default": "#fachgebiete" },
+
+    { "key": "service_3_title", "label": "Service 3 Titel", "type": "text", "default": "Datenanalysen" },
+    { "key": "service_3_body", "label": "Service 3 Beschreibung", "type": "longtext", "default": "Wir helfen dabei, Daten in eine nachvollziehbare Grundlage für Entscheidungen zu überführen. Dabei betrachten wir nicht nur Zahlen, sondern auch deren Aussagekraft im jeweiligen fachlichen Zusammenhang sowie Optimierungspotenzial." },
+    { "key": "service_3_link", "label": "Service 3 Link", "type": "text", "default": "#fachgebiete" },
+
+    { "key": "career_kicker", "label": "Karriere-Banner Kicker", "type": "text", "default": "Info" },
+    { "key": "career_title", "label": "Karriere-Banner Titel", "type": "text", "default": "Wir suchen nach Verstärkung für unser Unternehmen." },
+    { "key": "career_cta_label", "label": "Karriere-Banner CTA", "type": "text", "default": "Jetzt bewerben" },
+
+    { "key": "about_kicker", "label": "Über uns Kicker", "type": "text", "default": "Wir über uns" },
+    { "key": "about_title", "label": "Über uns Headline", "type": "longtext", "default": "Beratung, Technik und Auswertung aus einer Hand." },
+    { "key": "about_body", "label": "Über uns Text", "type": "longtext", "default": "TTS-Beratung begleitet Unternehmen bei digitalen Vorhaben mit einer Arbeitsweise, die Analyse, Sicherheit und Umsetzung sinnvoll zusammenführt. Unser Schwerpunkt liegt auf Beratung, die nicht abstrakt bleibt, sondern konkrete Orientierung für technische und organisatorische Entscheidungen schafft. Wir betrachten Anforderungen immer im Zusammenhang mit Prozessen, Risiken und tatsächlichem Nutzen." },
+    { "key": "about_subtitle", "label": "Über uns Subheadline", "type": "longtext", "default": "Gerade in Bereichen wie Software Engineering, IT-Security und Datenanalysen ist diese Klarheit entscheidend." },
+    { "key": "about_image_1", "label": "Über uns Bild 1", "type": "image", "default": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80" },
+    { "key": "about_image_2", "label": "Über uns Bild 2", "type": "image", "default": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" },
+    { "key": "about_bullet_1", "label": "Vorteil 1", "type": "text", "default": "Jahrelange Expertise" },
+    { "key": "about_bullet_2", "label": "Vorteil 2", "type": "text", "default": "100% Zufriedenheit" },
+    { "key": "about_bullet_3", "label": "Vorteil 3", "type": "text", "default": "Zertifizierte Experten" },
+    { "key": "about_bullet_4", "label": "Vorteil 4", "type": "text", "default": "Deutschlandweit tätig" },
+    { "key": "about_bullet_5", "label": "Vorteil 5", "type": "text", "default": "24/7 Kundenservice" },
+    { "key": "about_bullet_6", "label": "Vorteil 6", "type": "text", "default": "Kurze Reaktionszeiten" },
+    { "key": "about_cta_label", "label": "Über uns CTA", "type": "text", "default": "Mehr erfahren" },
+    { "key": "about_cta_link", "label": "Über uns CTA Link", "type": "text", "default": "#unternehmen" },
+
+    { "key": "stat_1_value", "label": "Stat 1 Wert", "type": "text", "default": "30+" },
+    { "key": "stat_1_label", "label": "Stat 1 Label", "type": "text", "default": "Zertifizierte Experten" },
+    { "key": "stat_1_body", "label": "Stat 1 Beschreibung", "type": "longtext", "default": "Wir beschäftigen in unserem Unternehmen zahlreiche Expertinnen und Experten." },
+    { "key": "stat_2_value", "label": "Stat 2 Wert", "type": "text", "default": "15+" },
+    { "key": "stat_2_label", "label": "Stat 2 Label", "type": "text", "default": "Erfolgs- und Unternehmensjahre" },
+    { "key": "stat_2_body", "label": "Stat 2 Beschreibung", "type": "longtext", "default": "Seit jeher legen wir allergrößten Wert auf Integrität und Zufriedenheit." },
+    { "key": "stat_3_value", "label": "Stat 3 Wert", "type": "text", "default": "200+" },
+    { "key": "stat_3_label", "label": "Stat 3 Label", "type": "text", "default": "Erfolgreiche Projekte" },
+    { "key": "stat_3_body", "label": "Stat 3 Beschreibung", "type": "longtext", "default": "Jedweder Auftrag wird mit größtmöglicher Gewissenhaftigkeit durchgeführt." },
+    { "key": "stat_4_value", "label": "Stat 4 Wert", "type": "text", "default": "100%" },
+    { "key": "stat_4_label", "label": "Stat 4 Label", "type": "text", "default": "Zufriedenheitsgarantie" },
+    { "key": "stat_4_body", "label": "Stat 4 Beschreibung", "type": "longtext", "default": "Die Zufriedenheit unserer Kundinnen und Kunden ist unser höchstes Gut." },
+
+    { "key": "footer_tagline", "label": "Footer Tagline", "type": "longtext", "default": "Ihr Partner für Digitalisierung, IT-Security und Datenanalyse." },
+    { "key": "footer_address", "label": "Footer Adresse", "type": "longtext", "default": "Musterstraße 1\n12345 Musterstadt\nDeutschland" },
+    { "key": "footer_email", "label": "Footer E-Mail", "type": "text", "default": "info@tts-beratung.de" },
+    { "key": "footer_phone", "label": "Footer Telefon", "type": "text", "default": "+49 (0) 123 456 789" },
+    { "key": "impressum_url", "label": "Impressum-Link", "type": "text", "default": "impressum.html" },
+    { "key": "datenschutz_url", "label": "Datenschutz-Link", "type": "text", "default": "datenschutz.html" }
+  ]
+}

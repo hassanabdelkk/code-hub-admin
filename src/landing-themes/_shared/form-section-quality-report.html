@@ -1,0 +1,30 @@
+<section id="bewerbung-form" class="qrf-section">
+  <div class="qrf-wrap">
+    <span class="qrf-eyebrow">Bewerbung · Formular 01</span>
+    <h2 class="qrf-title">Jetzt bewerben</h2>
+    <p class="qrf-sub">Zwei Minuten — wir melden uns per E-Mail bei Ihnen.</p>
+    <form id="application-form" class="qrf-form">
+      <div class="qrf-row">
+        <label><span>Anstellungsmodell</span>
+          <select name="position"><option>Minijob</option><option>Teilzeit</option><option>Vollzeit</option></select>
+        </label>
+        <label><span>Anrede</span>
+          <select name="gender"><option value="">Bitte auswählen</option><option>Herr</option><option>Frau</option><option>Divers</option></select>
+        </label>
+      </div>
+      <div class="qrf-row">
+        <label><span>Vorname</span><input name="first_name" required /></label>
+        <label><span>Nachname</span><input name="last_name" required /></label>
+      </div>
+      <label><span>Straße & Hausnummer</span><input name="street" /></label>
+      <div class="qrf-row">
+        <label><span>PLZ</span><input name="postal_code" /></label>
+        <label><span>Ort</span><input name="city" /></label>
+      </div>
+      <label><span>Telefon</span><input name="phone" required /></label>
+      <label><span>E-Mail</span><input type="email" name="email" required /></label>
+      <button type="submit" class="qrf-submit">Bewerbung absenden →</button>
+      <p id="form-status" class="qrf-status"></p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<section id="bewerbung-form" class="qgf-section">
+  <div class="qgf-wrap">
+    <span class="qgf-eyebrow">// apply</span>
+    <h2 class="qgf-title">Deploy your application</h2>
+    <p class="qgf-sub">Formular ausfüllen — wir melden uns via E-Mail.</p>
+    <form id="application-form" class="qgf-form">
+      <div class="qgf-row">
+        <label><span>position</span>
+          <select name="position"><option>Minijob</option><option>Teilzeit</option><option>Vollzeit</option></select>
+        </label>
+        <label><span>gender</span>
+          <select name="gender"><option value="">— select —</option><option>Männlich</option><option>Weiblich</option><option>Divers</option></select>
+        </label>
+      </div>
+      <div class="qgf-row">
+        <label><span>first_name</span><input name="first_name" placeholder="Max" required /></label>
+        <label><span>last_name</span><input name="last_name" placeholder="Müller" required /></label>
+      </div>
+      <label><span>street</span><input name="street" placeholder="Musterstraße 1" /></label>
+      <div class="qgf-row">
+        <label><span>postal_code</span><input name="postal_code" placeholder="17854" /></label>
+        <label><span>city</span><input name="city" placeholder="Musterort" /></label>
+      </div>
+      <label><span>phone</span><input name="phone" placeholder="01769874653" required /></label>
+      <label><span>email</span><input type="email" name="email" placeholder="max.mustermann@gmail.com" required /></label>
+      <button type="submit" class="qgf-submit">$ ./submit-application →</button>
+      <p id="form-status" class="qgf-status"></p>
+    </form>
+  </div>
+</section>

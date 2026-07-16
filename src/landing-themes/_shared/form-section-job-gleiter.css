@@ -1,0 +1,15 @@
+.jgf-section{padding:80px 0;background:#fff;font-family:'Inter',system-ui,sans-serif}
+.jgf-wrap{max-width:780px;margin:0 auto;padding:0 28px;text-align:center}
+.jgf-eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#3b2bff;margin-bottom:14px;padding:6px 14px;background:#ece9ff;border-radius:999px}
+.jgf-title{font-size:clamp(28px,3.4vw,42px);font-weight:900;letter-spacing:-.02em;margin:0 0 14px;color:#0f1535}
+.jgf-sub{color:#5b6079;font-size:16px;margin:0 0 36px}
+.jgf-form{display:grid;gap:16px;text-align:left;background:#f4f3ff;padding:36px;border-radius:24px;box-shadow:0 16px 40px rgba(15,21,53,.08)}
+.jgf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:600px){.jgf-row{grid-template-columns:1fr}}
+.jgf-form label{display:grid;gap:6px}
+.jgf-form span{font-size:13px;font-weight:700;color:#0f1535;letter-spacing:.02em}
+.jgf-form input,.jgf-form select{width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid #d9d4ff;background:#fff;font-size:15px;font-family:inherit;color:#0f1535;transition:border-color .2s,box-shadow .2s}
+.jgf-form input:focus,.jgf-form select:focus{outline:none;border-color:#3b2bff;box-shadow:0 0 0 3px rgba(59,43,255,.15)}
+.jgf-submit{margin-top:8px;background:#3b2bff;color:#fff;padding:16px 28px;border:0;border-radius:999px;font-weight:700;font-size:16px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 28px rgba(59,43,255,.35)}
+.jgf-submit:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(59,43,255,.45)}
+.jgf-status{margin:8px 0 0;font-size:14px;color:#5b6079;text-align:center;min-height:20px}

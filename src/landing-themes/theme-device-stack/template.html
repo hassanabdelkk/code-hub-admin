@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{brand_name}} — {{hero_title}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav class="ds-nav">
+  <div class="ds-nav-inner">
+    <div class="ds-brand"><span class="ds-dot"></span>{{brand_name}}</div>
+    <a href="#bewerbung-form" class="ds-nav-cta">{{hero_cta}}</a>
+  </div>
+</nav>
+
+<header class="ds-hero">
+  <div class="ds-hero-inner">
+    <span class="ds-eyebrow"><span class="ds-live"></span>{{hero_eyebrow}}</span>
+    <h1>{{hero_title}}</h1>
+    <p class="ds-lede">{{hero_subtitle}}</p>
+    <div class="ds-hero-ctas">
+      <a href="#bewerbung-form" class="ds-cta">{{hero_cta}} →</a>
+      <a href="#services" class="ds-cta ds-cta-ghost">Leistungen ansehen</a>
+    </div>
+    <div class="ds-hero-image">
+      <img src="{{hero_image}}" alt="Multi-Device Testing" />
+    </div>
+    <div class="ds-kpis">
+      <div><strong>{{kpi_1_num}}</strong><span>{{kpi_1_label}}</span></div>
+      <div><strong>{{kpi_2_num}}</strong><span>{{kpi_2_label}}</span></div>
+      <div><strong>{{kpi_3_num}}</strong><span>{{kpi_3_label}}</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="ds-services">
+  <div class="ds-services-inner">
+    <h2>{{svc_title}}</h2>
+    <div class="ds-services-grid">
+      <div class="ds-svc"><span class="ds-svc-num">01</span><h3>{{svc_1_title}}</h3><p>{{svc_1_text}}</p></div>
+      <div class="ds-svc"><span class="ds-svc-num">02</span><h3>{{svc_2_title}}</h3><p>{{svc_2_text}}</p></div>
+      <div class="ds-svc"><span class="ds-svc-num">03</span><h3>{{svc_3_title}}</h3><p>{{svc_3_text}}</p></div>
+      <div class="ds-svc"><span class="ds-svc-num">04</span><h3>{{svc_4_title}}</h3><p>{{svc_4_text}}</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-process">
+  <div class="ds-process-inner">
+    <h2>{{process_title}}</h2>
+    <div class="ds-steps">
+      <div class="ds-step"><code>01</code><p>{{p1}}</p></div>
+      <div class="ds-arrow">→</div>
+      <div class="ds-step"><code>02</code><p>{{p2}}</p></div>
+      <div class="ds-arrow">→</div>
+      <div class="ds-step"><code>03</code><p>{{p3}}</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-final">
+  <h2>{{final_title}}</h2>
+  <a href="#bewerbung-form" class="ds-cta ds-cta-large">{{final_cta}} →</a>
+</section>
+
+<footer class="ds-footer">© <span id="ds-year"></span> {{brand_name}}</footer>
+<script src="script.js"></script>
+</body>
+</html>
