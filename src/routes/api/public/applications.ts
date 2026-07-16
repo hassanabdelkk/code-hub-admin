@@ -198,6 +198,7 @@ export const Route = createFileRoute("/api/public/applications")({
           if ((existing as any)?.id) appId = (existing as any).id as string;
         }
 
+        const wasNewlyCreated = !appId;
         if (!appId) {
           appId = crypto.randomUUID();
           // Vor-/Nachname aus explizitem Feld, sonst aus full_name gesplittet
