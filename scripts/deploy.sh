@@ -247,20 +247,47 @@ if [ -z "$TARGET_DB_URL" ] && [ -f "$PROJECT_DIR/.env" ]; then
   TARGET_DB_URL="$(grep -E '^TARGET_DB_URL=' "$PROJECT_DIR/.env" | cut -d= -f2- || true)"
 fi
 
-if [ -d "$MIG_DIR" ] && [ -n "$TARGET_DB_URL" ]; then
+# State-File einmalig vorpopulieren: bei leerem State gelten alle
+# vorhandenen Migrations als bereits eingespielt (historisch längst in der DB).
+# Ab dem nächsten Deploy werden nur NEUE Dateien angewendet.
+if [ -d "$MIG_DIR" ] && [ ! -s "$STATE_FILE" ]; then
+  existing_count=$(ls "$MIG_DIR"/*.sql 2>/dev/null | wc -l | tr -d ' ')
+  if [ "$existing_count" -gt 0 ]; then
+    warn "State-File leer — markiere $existing_count bestehende Migrations als bereits angewendet (Erst-Bootstrap)"
+    for sql in "$MIG_DIR"/*.sql; do
+      basename "$sql" >> "$STATE_FILE"
+    done
+  fi
+fi
+
+# Preflight: DB-Connection einmal testen, damit ein defekter TARGET_DB_URL
+# den Portal-Restart nicht blockiert.
+db_reachable=0
+if [ -n "$TARGET_DB_URL" ]; then
+  if psql "$TARGET_DB_URL" -tAc 'select 1' >/dev/null 2>&1; then
+    db_reachable=1
+  else
+    warn "TARGET_DB_URL nicht erreichbar (psql-Preflight fehlgeschlagen) — Migrations-Schritt wird übersprungen"
+  fi
+fi
+
+if [ -d "$MIG_DIR" ] && [ "$db_reachable" = "1" ]; then
   for sql in $(ls "$MIG_DIR"/*.sql 2>/dev/null | sort); do
     name="$(basename "$sql")"
     if grep -qxF "$name" "$STATE_FILE"; then
       echo "  · $name (bereits angewendet, übersprungen)"
     else
       echo "  · $name → einspielen…"
-      psql "$TARGET_DB_URL" -v ON_ERROR_STOP=1 -f "$sql"
-      echo "$name" >> "$STATE_FILE"
-      ok "$name angewendet"
+      if psql "$TARGET_DB_URL" -v ON_ERROR_STOP=1 -f "$sql"; then
+        echo "$name" >> "$STATE_FILE"
+        ok "$name angewendet"
+      else
+        warn "$name fehlgeschlagen — bitte manuell prüfen. Deploy läuft weiter."
+      fi
     fi
   done
 else
-  echo "  (keine Manual-Migrations oder TARGET_DB_URL nicht gesetzt — übersprungen)"
+  echo "  (keine Manual-Migrations, TARGET_DB_URL nicht gesetzt oder DB unreachable — übersprungen)"
 fi
 
 # ── 4) Portal-Service neu starten ──────────────────────────────────────────
