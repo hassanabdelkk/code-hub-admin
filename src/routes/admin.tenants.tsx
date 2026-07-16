@@ -792,6 +792,7 @@ function TestEmailButton({ tenantId, smtpConfigured }: { tenantId: string; smtpC
           firstName: "Test",
           lastName: "Benutzer",
           tenantId,
+          registrationLink: `${window.location.origin}/login`,
           testMode: true,
         },
         EMAIL_SEND_TIMEOUT_MS,
