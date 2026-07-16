@@ -252,3 +252,6 @@ fi
 
 find "$RELEASES_DIR" -mindepth 1 -maxdepth 1 -type d | sort | head -n -5 | xargs -r rm -rf
 ok "Deploy fertig ✅"
+exit 0
+}
+
