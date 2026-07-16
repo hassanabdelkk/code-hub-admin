@@ -35,6 +35,9 @@ interface DomainHealth {
   http_status: number | null;
   latency_ms: number | null;
   error: string | null;
+  checked_url: string;
+  root_status: DomainStatus;
+  portal_status: DomainStatus;
 }
 
 async function pingDomain(host: string, timeoutMs = 5000): Promise<{ status: DomainStatus; http_status: number | null; latency_ms: number | null; error: string | null }> {
@@ -59,6 +62,38 @@ async function pingDomain(host: string, timeoutMs = 5000): Promise<{ status: Dom
     const msg = String(e?.message ?? e);
     return { status: "down", http_status: null, latency_ms: latency, error: msg };
   }
+}
+
+async function checkDomain(domain: string): Promise<{
+  status: DomainStatus;
+  http_status: number | null;
+  latency_ms: number | null;
+  error: string | null;
+  checked_url: string;
+  root_status: DomainStatus;
+  portal_status: DomainStatus;
+}> {
+  const rootHost = domain;
+  const portalHost = `portal.${domain}`;
+  const [root, portal] = await Promise.all([
+    pingDomain(rootHost),
+    pingDomain(portalHost),
+  ]);
+  const rootAlive = root.status !== "down";
+  const portalAlive = portal.status !== "down";
+  const preferred = portalAlive ? { host: portalHost, ...portal } : rootAlive ? { host: rootHost, ...root } : { host: rootHost, ...root };
+
+  return {
+    status: portalAlive || rootAlive ? preferred.status : "down",
+    http_status: preferred.http_status,
+    latency_ms: preferred.latency_ms,
+    error: portalAlive || rootAlive
+      ? null
+      : `Root und Portal nicht erreichbar. Root: ${root.error ?? "keine Antwort"}; Portal: ${portal.error ?? "keine Antwort"}`,
+    checked_url: `https://${preferred.host}/`,
+    root_status: root.status,
+    portal_status: portal.status,
+  };
 }
 
 export const checkDomainsHealth = createServerFn({ method: "POST" })
@@ -86,7 +121,7 @@ export const checkDomainsHealth = createServerFn({ method: "POST" })
       const primary = t.primary_domain ? normalizeDomain(t.primary_domain) : normalizeDomain(t.domain);
       for (const d of all) {
         checks.push(
-          pingDomain(`portal.${d}`).then((r) => ({
+          checkDomain(d).then((r) => ({
             tenant_id: t.id,
             tenant_name: t.name,
             domain: d,
