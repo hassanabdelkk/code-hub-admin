@@ -1,67 +1,54 @@
-# Backend-Deploy vom lokalen Rechner
 
-## Ziel
-Ein Skript `scripts/deploy-backend.sh` auf deinem lokalen Rechner, das per SSH das self-hosted Supabase auf `.123` auf den aktuellen Stand bringt — genauso einfach wie `deploy.sh` für das Frontend auf `.124`.
+## Was ist passiert?
 
-## Was „up to date bringen" konkret heißt
+Der Build ist **erfolgreich** durchgelaufen und das neue Release wurde aktiviert:
 
-Drei Dinge können sich im Repo ändern und müssen auf `.123` landen:
-
-1. **SQL-Migrations** — neue Dateien in `supabase/manual-migrations/*.sql`
-2. **Edge Functions** — neue/geänderte Ordner in `supabase/functions/*`
-3. **(optional) Supabase-Config** — z.B. `GOTRUE_SITE_URL` in der Supabase-`.env` auf `.123` beim Domain-Switch
-
-## Voraussetzung (einmalig)
-
-SSH-Key von deinem Laptop auf `.123` einrichten:
 ```
-ssh-copy-id root@<ip-123>
-```
-Damit das Skript ohne Passwort-Eingabe läuft.
-
-## Skript-Ablauf `scripts/deploy-backend.sh`
-
-Läuft **lokal**, macht alles per `ssh` / `rsync` auf `.123`:
-
-```text
-0/4  Check: SSH auf .123 möglich? Repo aktuell? (git status sauber)
-1/4  SQL-Migrations
-     - rsync supabase/manual-migrations/ → .123:/opt/supabase/manual-migrations/
-     - ssh .123: für jede neue .sql (State-File .migrations-applied)
-       docker exec -i supabase-db psql -U postgres -d postgres -f <file>
-     - Neu angewendete Migrations werden ins State-File geschrieben
-2/4  Edge Functions
-     - rsync supabase/functions/ → .123:/opt/supabase/volumes/functions/
-       (--delete, damit gelöschte Functions auch verschwinden)
-     - ssh .123: docker compose -f /opt/supabase/docker-compose.yml
-                 restart functions
-3/4  Health-Check
-     - ssh .123: docker ps → alle Supabase-Container "healthy"?
-     - curl https://api.mb-portal.com/auth/v1/health → 200?
-4/4  Fertig ✅ — kurze Zusammenfassung (X Migrations, Y Functions)
+▸ 3/5  Build atomar aktivieren
+  ✓ Release aktiviert: /opt/apps/portal/.releases/20260716-175926
 ```
 
-## Sicherheitsnetze
+Dann brach der Deploy an Schritt **4/5 „Manual-Migrations prüfen"** ab:
 
-- **State-File** auf `.123` verhindert Doppel-Anwendung von Migrations (wie bei `deploy.sh`).
-- **Dry-Run-Modus**: `deploy-backend.sh --dry-run` zeigt nur, was passieren würde.
-- **Backup vor Migrations**: `pg_dump` in `/opt/supabase/backups/pre-deploy-<timestamp>.sql` auf `.123` — falls eine Migration schiefgeht, ist der vorherige Stand da.
-- **Atomic pro Migration**: Jede `.sql` läuft mit `-v ON_ERROR_STOP=1` in einer Transaktion; Fehler → Abbruch, State-File wird nicht aktualisiert.
+```
+· 20260602000000_tenant_primary_domain.sql → einspielen…
+psql: error: FATAL: Tenant or user not found
+```
 
-## Neue Dateien
+**Folge:** Schritt 5/5 (`systemctl restart portal.service`) wurde **nicht** ausgeführt. Das Portal läuft also noch mit dem alten Symlink → die neue `form-section.js` ist zwar gebaut, aber nicht live.
 
-- `scripts/deploy-backend.sh` — lokal ausführbar (`bash scripts/deploy-backend.sh`)
-- `scripts/backend-server.env.example` — Vorlage für lokale Config (`BACKEND_HOST=…`, `BACKEND_USER=root`, `BACKEND_SUPABASE_DIR=/opt/supabase`)
-- `RUNBOOK.md` — neuer Abschnitt „Backend deployen" mit Ein-Zeiler + Troubleshooting
+## Warum der psql-Fehler?
 
-## Nicht enthalten
+Zwei kombinierte Ursachen:
 
-- Keine Änderung am Supabase-Docker-Stack selbst (Versions-Updates von Supabase machst du weiterhin manuell — das ist selten und riskant).
-- Kein automatisches `.env`-Rewrite auf `.123`. Config-Änderungen (z.B. `GOTRUE_SITE_URL`) bleiben manuell dokumentiert im `RUNBOOK.md`, weil sie selten und heikel sind.
+1. **`TARGET_DB_URL` in `.env` ist falsch/veraltet** — `FATAL: Tenant or user not found` ist der klassische Supabase-Pooler-Fehler, wenn der Username (`postgres.<projectref>`) auf ein nicht mehr existierendes Cloud-Projekt zeigt oder das Format falsch ist. Auf `.124` soll dort die self-hosted DB auf `.123` stehen — nicht die alte Lovable-Cloud-URL.
+2. **State-File `.deploy-migrations-applied` ist leer** → das Skript versucht **alle 60+ historischen Migrations** neu einzuspielen, obwohl sie längst in der DB sind. Beim ersten Fehler bricht `set -e` sofort ab.
 
-## Technische Details
+## Lösung — zwei Schritte
 
-- `rsync -avz --delete` für Functions (idempotent, schnell, löscht Entferntes).
-- State-File auf `.123`: `/opt/supabase/.migrations-applied` (Zeilen mit Dateinamen, `grep -qxF`).
-- psql via `docker exec -i supabase-db psql -U postgres -d postgres` — umgeht den Pooler (6543) komplett, deshalb kein „Tenant or user not found" mehr.
-- Passwort für `postgres`-User wird auf `.123` aus `/opt/supabase/.env` (`POSTGRES_PASSWORD`) gelesen; das Skript braucht es lokal nicht.
+### Schritt 1 — Portal jetzt sofort auf neuen Release umschalten (30 Sek.)
+
+Auf `.124`:
+
+```bash
+systemctl restart portal.service
+systemctl status portal.service --no-pager | head -15
+```
+
+Damit ist die neue `form-section.js` mit den Termin-CTAs im Portal-Build aktiv. Dann Landing-Pages neu generieren (Admin → Landing-Generator) — die statischen HTMLs auf dem Landing-Server holen sich dann die neue Datei.
+
+### Schritt 2 — Deploy-Skript entschärfen, damit das nicht wieder passiert
+
+Zwei kleine Anpassungen in `scripts/deploy.sh` Schritt 4:
+
+- **State-File vorpopulieren**, falls leer: alle bereits vorhandenen `manual-migrations/*.sql` einmalig als „angewendet" markieren. Neue Migrations werden ab jetzt normal erkannt und eingespielt.
+- **Migrations-Fehler nicht fatal**: wenn `psql` fehlschlägt, `warn` loggen und weitermachen — der Service-Restart darf davon nicht abhängen. Neue Migrations bitte weiterhin bewusst manuell prüfen; das war vor unserer Deploy-Automatisierung auch der Prozess.
+
+Optional zusätzlich: einen kurzen Preflight, der `TARGET_DB_URL` einmal mit `psql -c 'select 1'` testet und bei Fehler direkt sagt „Connection kaputt — Migrations-Schritt übersprungen".
+
+## Reihenfolge nach Approval
+
+1. Ich passe `scripts/deploy.sh` an (State-File-Vorpopulierung + Fehler-Tolerierung).
+2. Du machst auf `.124`: `systemctl restart portal.service` (bringt die aktuelle Build-Version sofort live).
+3. Danach `git pull` auf `.124` (holt die deploy.sh-Änderung); künftige `bash scripts/deploy.sh`-Läufe brechen dann nicht mehr am Migrations-Schritt ab.
+4. Landing-Pages im Admin neu generieren → Vermittlungs-Popup zeigt den Termin-Button.
