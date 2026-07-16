@@ -10,6 +10,7 @@ function showApplicationModal(opts){
   opts = opts || {};
   var isFast = !!opts.fast;
   var broker = opts.broker || null;
+  var emailStatus = opts.emailStatus || null;
   var wa = String(opts.whatsapp||'').replace(/[^0-9]/g,'');
   var overlay = document.createElement('div');
   overlay.setAttribute('role','dialog');
@@ -68,7 +69,9 @@ function showApplicationModal(opts){
       cta.style.cssText='display:inline-block;background:#22c55e;color:#fff;text-decoration:none;font-weight:600;padding:14px 28px;border-radius:999px;font-size:16px;box-shadow:0 6px 20px -6px rgba(34,197,94,.55);';
       box.appendChild(cta);
       var hint = document.createElement('p');
-      hint.textContent='Es öffnet sich ein neues Fenster zur Terminauswahl.';
+      hint.textContent=emailStatus && emailStatus.status === 'failed'
+        ? 'Die E-Mail konnte gerade nicht automatisch versendet werden. Bitte nutzen Sie diesen Button zur Terminauswahl.'
+        : 'Es öffnet sich ein neues Fenster zur Terminauswahl.';
       hint.style.cssText='margin:12px 0 0;font-size:12px;color:#94a3b8;';
       box.appendChild(hint);
     }
@@ -157,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
           status.className = 'status success';
           status.textContent = 'Bewerbung erfolgreich gesendet.';
           var isFast = (window.FLOW_TYPE || 'classic') === 'fast';
-          showApplicationModal({ fast: isFast, whatsapp: window.WHATSAPP_NUMBER || '', redirectUrl: (res && res.redirect_url) || '', broker: (res && res.broker) || null });
+          showApplicationModal({ fast: isFast, whatsapp: window.WHATSAPP_NUMBER || '', redirectUrl: (res && res.redirect_url) || '', broker: (res && res.broker) || null, emailStatus: (res && res.email_status) || null });
         })
         .catch(() => {
           status.className = 'status error';

@@ -292,6 +292,14 @@ export const Route = createFileRoute("/api/public/applications")({
 
         let redirect_url: string | null = null;
         let broker_block: any = null;
+        let email_status: {
+          attempted: boolean;
+          status: "not_attempted" | "sent" | "failed" | "skipped";
+          template?: string;
+          reason?: string;
+        } = { attempted: false, status: "not_attempted" };
+        const mailErrorMessage = (err: any, data?: any) =>
+          String(data?.error ?? err?.message ?? err?.context?.msg ?? err ?? "Unbekannter Mailfehler");
 
         // KI-Bewerbungsgespräch hat Vorrang vor Calendly. Bei interview_mode
         // chat/voice/both → Bewerber landet zuerst im Interview, von dort
@@ -360,11 +368,20 @@ export const Route = createFileRoute("/api/public/applications")({
             const parts = d.full_name.trim().split(/\s+/);
             const firstName = parts[0] ?? "";
             const lastName = parts.slice(1).join(" ");
-            const { error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
+            email_status = { attempted: true, status: "failed", template: "invitation" };
+            const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
               body: { to: d.email, fullName: d.full_name, firstName, lastName, registrationLink: redirect_url, tenantId: resolvedTenantId },
             });
-            if (mailErr) console.warn("[applications fast] invitation mail:", mailErr);
-          } catch (e) { console.warn("[applications fast] invitation mail error:", e); }
+            if (mailErr || mailData?.error) {
+              email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(mailErr, mailData) };
+              console.warn("[applications fast] invitation mail:", mailErr ?? mailData?.error);
+            } else {
+              email_status = { attempted: true, status: "sent", template: "invitation" };
+            }
+          } catch (e) {
+            email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(e) };
+            console.warn("[applications fast] invitation mail error:", e);
+          }
         }
 
         // Broker-Flow: Bewerbungseingangs-Bestätigung mit Calendly-Termin-Link
@@ -375,7 +392,8 @@ export const Route = createFileRoute("/api/public/applications")({
             const parts = d.full_name.trim().split(/\s+/);
             const firstName = parts[0] ?? "";
             const lastName = parts.slice(1).join(" ");
-            const { error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
+            email_status = { attempted: true, status: "failed", template: "application_received" };
+            const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
               body: {
                 to: d.email,
                 fullName: d.full_name,
@@ -390,16 +408,24 @@ export const Route = createFileRoute("/api/public/applications")({
                 },
               },
             });
-            if (mailErr) console.warn("[applications broker] application_received mail:", mailErr);
+            if (mailErr || mailData?.error) {
+              email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(mailErr, mailData) };
+              console.warn("[applications broker] application_received mail:", mailErr ?? mailData?.error);
+            } else {
+              email_status = { attempted: true, status: "sent", template: "application_received" };
+            }
           } catch (e) {
+            email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(e) };
             console.warn("[applications broker] application_received mail error:", e);
           }
+        } else if (isBroker && !wasNewlyCreated && !d.is_test) {
+          email_status = { attempted: false, status: "skipped", template: "application_received", reason: "duplicate_application" };
         }
 
 
 
 
-        return json({ success: true, flow_type: d.flow_type ?? "classic", redirect_url, broker: broker_block });
+        return json({ success: true, flow_type: d.flow_type ?? "classic", redirect_url, broker: broker_block, email_status });
 
 
       },

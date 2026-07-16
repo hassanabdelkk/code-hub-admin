@@ -1,38 +1,62 @@
-## Ziel
-Das Portal soll nach jedem Deploy stabil starten und der Landing-Generator darf nicht mehr regelmäßig mit „Unauthorized: Invalid token“ / „Liste laden fehlgeschlagen“ hängen bleiben.
+## Diagnose
 
-## Was im Log auffällt
-- Der Build läuft durch.
-- Der Auth-Attacher-Guard läuft durch, also wurde `src/start.ts` diesmal nicht wieder falsch überschrieben.
-- Danach ist `portal.service` nicht stabil aktiv, weil Port `3000` offenbar noch belegt ist.
-- Zusätzlich gibt es alte Chunk-Datei-Fehler (`ENOENT ... .output/server/_ssr/...mjs`). Das passt zu einem nicht-atomaren Deploy: Browser/Server referenzieren während oder kurz nach dem Build alte Hash-Dateien, die schon ersetzt wurden.
-- Es fehlt auf dem Portal-Server `SUPABASE_SERVICE_ROLE_KEY`; einige Admin-Funktionen importieren den Admin-Client noch auf Modulebene. Dadurch kann der Server bei bestimmten Routen/Server-Funktionen unnötig hart fehlschlagen.
+Es gibt zwei getrennte Probleme:
+
+1. **Falscher Domain-Health-Check**
+   - Der aktuelle Check prüft immer `portal.<domain>`.
+   - Bei Vermittlungs-Landings ist aber die erreichbare Seite `cac-vermittlung.de` bzw. `mm-personalvermittlung.de` ohne `portal.`.
+   - Deshalb werden diese Tenants fälschlich als „alle Domains down“ erkannt und der Mail-Versand automatisch wieder pausiert.
+
+2. **Bewerbung zeigt Erfolg, obwohl Mailversand fehlschlagen kann**
+   - Die Bewerbungs-API speichert die Bewerbung und versucht danach die Mail zu senden.
+   - Wenn der Mailversand fehlschlägt, wird der Fehler aktuell nur geloggt, aber die Landing Page bekommt trotzdem `success: true`.
+   - Darum sieht der Bewerber „Prüfen Sie Spam“, obwohl intern keine Mail rausging.
+   - Die Anzeige „Keine E-Mail“ in `/admin/bewerbungen` bezieht sich auf Reminder-Logs, nicht zwingend auf die direkte Bewerbungseingangs-Mail. Das ist verwirrend.
 
 ## Plan
-1. **Deploy-Skript robust machen**
-   - Vor dem Restart prüfen, ob Port `3000` noch von einem alten Prozess belegt ist.
-   - Falls ja: sauber stoppen, kurz warten, notfalls gezielt den alten Listener beenden.
-   - Nach Restart nicht nur `systemctl is-active`, sondern auch einen lokalen HTTP-Healthcheck ausführen.
 
-2. **Nicht-atomare `.output`-Deploys entschärfen**
-   - Build zuerst in einen separaten Release-/Temp-Ordner schreiben oder die alte `.output` erst ersetzen, wenn der neue Build vollständig fertig ist.
-   - Damit verschwinden die `ENOENT reading ... old-hash.mjs` Fehler, die beim Überschreiben laufender Builds entstehen.
+### 1. Domain-Health-Check für Landing-Domains korrigieren
+- Den Health-Check so ändern, dass er nicht blind `portal.<domain>` prüft.
+- Pro Tenant werden künftig beide Varianten geprüft:
+  - `https://<domain>/`
+  - `https://portal.<domain>/`
+- Eine Domain gilt als erreichbar, wenn mindestens eine der Varianten antwortet.
+- Auto-Pause passiert nur noch, wenn wirklich keine Variante erreichbar ist.
+- Die Admin-Ansicht `/admin/domains` zeigt klar an, welche URL geprüft wurde und ob Root oder Portal erreichbar ist.
 
-3. **Admin-Client-Imports korrigieren**
-   - Module-level Imports von `@/integrations/supabase/client.server` in Server-Fn-Dateien entfernen.
-   - Stattdessen `supabaseAdmin` nur innerhalb der jeweiligen `.handler()` laden, nachdem der Admin geprüft wurde.
-   - Betroffene Dateien: `admin-employees.functions.ts`, `admin-delete.functions.ts`, `admin-contract.functions.ts`, `contract-pdf.functions.ts`, `email-log-ack.functions.ts`.
+### 2. Auto-Pause robuster machen
+- Bei Vermittlungs-/Landing-Domains wird `portal.` nicht mehr als Pflicht vorausgesetzt.
+- Die Fehlermeldung wird angepasst von „portal.domain down“ auf „Root und Portal nicht erreichbar“, wenn beide Varianten fehlschlagen.
+- Das verhindert, dass der Versand nach manueller Reaktivierung direkt wieder deaktiviert wird, obwohl die Landing Page erreichbar ist.
 
-4. **Guard gegen Rückfall ergänzen**
-   - Einen zweiten Build-Guard hinzufügen, der verhindert, dass `client.server` wieder auf Modulebene in `.functions.ts` importiert wird.
-   - So bricht der Deploy künftig früh ab, statt live mit Auth-/Runtime-Fehlern zu starten.
+### 3. Bewerbungsmail-Fehler sichtbar machen
+- Die Bewerbungs-API soll beim direkten Mailversand das Ergebnis erfassen:
+  - erfolgreich gesendet
+  - Tenant pausiert
+  - SMTP-Fehler
+  - Edge-/Function-Fehler
+- Für Broker-/Vermittlungsbewerbungen wird weiterhin die Bewerbung gespeichert, aber der Rückgabewert enthält künftig einen klaren `email_status`.
+- Dadurch kann die Landing Page künftig eine ehrlichere Meldung anzeigen, z. B. „Bewerbung eingegangen, E-Mail wird geprüft“ oder „Bewerbung eingegangen, E-Mail konnte gerade nicht gesendet werden“.
 
-5. **Portal-Server-Konfiguration absichern**
-   - `setup-server2.sh`/Deploy-Hinweise so anpassen, dass alle nötigen Runtime-Variablen im `portal.service` landen.
-   - Falls der Service-Role-Key auf dem Portal bewusst nicht liegen soll, dann müssen die wenigen Funktionen, die ihn wirklich brauchen, anders abgesichert/ausgelagert werden. Für die aktuellen Admin-Aktionen wird er aber verwendet.
+### 4. Admin-Anzeige „Keine E-Mail“ entwirren
+- In `/admin/bewerbungen` die bisherige „Keine E-Mail“-Anzeige präzisieren:
+  - „Keine Reminder-Mail“ statt „Keine E-Mail“, wenn es nur um Reminder geht.
+- Optional zusätzlich die direkte Bewerbungsmail aus `email_send_log` anzeigen, damit sichtbar ist, ob die Eingangs-/Terminmail gesendet oder fehlgeschlagen ist.
 
-6. **Nach Umsetzung verifizieren**
-   - Prüfen, dass der Build-Guard greift.
-   - Prüfen, dass `start.ts` weiterhin nur den robusten Bearer-Attacher nutzt.
-   - Prüfen, dass keine kritischen Module-level Admin-Client-Imports mehr vorhanden sind.
-   - Dann kannst du mit einem kurzen Deploy-Befehl testen; falls Port 3000 belegt ist, soll das Skript ihn selbst reparieren.
+### 5. Verifikation
+- Nach Änderung prüfen:
+  - `cac-vermittlung.de` wird als erreichbar erkannt, auch wenn `portal.cac-vermittlung.de` nicht erreichbar ist.
+  - Reaktivierter Versand bleibt aktiv, solange Root-Domain erreichbar ist.
+  - Neue Bewerbung erzeugt entweder einen `sent`- oder `failed`-Eintrag im Mail-Protokoll.
+  - Landing-Page-Erfolgsmeldung passt zum tatsächlichen Mailstatus.
+
+## Technische Details
+
+Betroffene Stellen:
+- `src/routes/api/public/domain-health-cron.ts`
+- `src/lib/tenant-domains.functions.ts`
+- `src/routes/admin.domains.tsx`
+- `src/routes/api/public/applications.ts`
+- `src/routes/admin.bewerbungen.tsx`
+
+Keine Datenbankmigration ist zwingend nötig, weil `email_send_log` bereits von `send-invitation-email` beschrieben wird.

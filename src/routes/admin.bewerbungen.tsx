@@ -202,7 +202,9 @@ function AdminBewerbungenPage() {
 
   // Reminder-Log (letzter Eintrag pro application_id)
   type ReminderInfo = { kind: string; status: string; sent_at: string };
+  type DirectEmailInfo = { template: string; status: string; created_at: string; error: string | null };
   const [reminderByApp, setReminderByApp] = useState<Map<string, ReminderInfo>>(new Map());
+  const [directEmailByRecipient, setDirectEmailByRecipient] = useState<Map<string, DirectEmailInfo>>(new Map());
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -219,6 +221,34 @@ function AdminBewerbungenPage() {
         }
       }
       setReminderByApp(m);
+    })();
+    return () => { cancelled = true; };
+  }, [applications]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from("email_send_log")
+        .select("tenant_id, recipient_email, template_name, status, created_at, error_message")
+        .in("template_name", ["application_received", "invitation"])
+        .order("created_at", { ascending: false })
+        .limit(1000);
+      if (cancelled || !data) return;
+      const m = new Map<string, DirectEmailInfo>();
+      for (const r of data as any[]) {
+        const email = String(r.recipient_email ?? "").toLowerCase().trim();
+        const tenantId = String(r.tenant_id ?? "");
+        const key = `${tenantId}:${email}`;
+        if (!email || m.has(key)) continue;
+        m.set(key, {
+          template: r.template_name ?? "invitation",
+          status: r.status ?? "unknown",
+          created_at: r.created_at,
+          error: r.error_message ?? null,
+        });
+      }
+      setDirectEmailByRecipient(m);
     })();
     return () => { cancelled = true; };
   }, [applications]);
@@ -253,6 +283,7 @@ function AdminBewerbungenPage() {
         contractSigned: !!p.contract_signed_at,
       } : null;
       const sched = bookingByApp.get(a.id) ?? (a.scheduled_at ? new Date(a.scheduled_at) : null);
+      const tenantEmailKey = `${String(a.tenant_id ?? "")}:${email}`;
       return {
         id: a.id,
         name: a.full_name || `${a.first_name ?? ""} ${a.last_name ?? ""}`.trim() || email || "—",
@@ -263,9 +294,10 @@ function AdminBewerbungenPage() {
         source: resolveSource(a),
         createdAt: a.created_at,
         hasProfile: !!prof,
+        directEmail: email ? directEmailByRecipient.get(tenantEmailKey) ?? null : null,
       };
     }).sort((a, b) => (b.lastActivity || "").localeCompare(a.lastActivity || ""));
-  }, [applications, bookingByApp, landingById, profileByKey, emailConfirmedUserIds]);
+  }, [applications, bookingByApp, landingById, profileByKey, emailConfirmedUserIds, directEmailByRecipient]);
 
   // Gruppierte Tabs — statt 12 Chips nur 6 sinnvolle Buckets
   const GROUPS: { key: string; label: string; emoji: string; phases: Phase[] }[] = [
@@ -500,6 +532,28 @@ function AdminBewerbungenPage() {
                               {meta?.emoji} {meta?.label}
                             </span>
                             {(() => {
+                              const direct = r.directEmail;
+                              if (direct) {
+                                const when = new Date(direct.created_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+                                const isSent = direct.status === "sent";
+                                const isFailed = direct.status === "failed";
+                                const label = direct.template === "application_received" ? "Bewerbungsmail" : "Einladung";
+                                const cls = isSent
+                                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300"
+                                  : isFailed
+                                    ? "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300"
+                                    : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300";
+                                const icon = isSent ? "✓" : isFailed ? "⚠" : "•";
+                                const statusText = isSent ? "gesendet" : isFailed ? "fehlgeschlagen" : direct.status;
+                                const tooltip = isFailed && direct.error
+                                  ? `${label} konnte am ${when} nicht versendet werden: ${direct.error}`
+                                  : `${label} ${statusText} · ${when}`;
+                                return (
+                                  <span className={`inline-block px-1.5 py-0.5 rounded ${cls}`} title={tooltip}>
+                                    {icon} {label} {statusText} · {when}
+                                  </span>
+                                );
+                              }
                               const rem = reminderByApp.get(r.id);
                               const kindLabel = (k?: string) =>
                                 k === "no_booking_24h" ? "24 h-Erinnerung" :
@@ -510,9 +564,9 @@ function AdminBewerbungenPage() {
                                 return (
                                   <span
                                     className="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
-                                    title="Bisher wurde für diesen Bewerber keine automatische Erinnerungs-E-Mail versendet."
+                                    title="Bisher wurde für diesen Bewerber keine automatische Erinnerungs-E-Mail protokolliert."
                                   >
-                                    – Keine E-Mail
+                                    – Keine Reminder-Mail
                                   </span>
                                 );
                               }

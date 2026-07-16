@@ -25,6 +25,32 @@ async function pingDomain(host: string, timeoutMs = 5000) {
   }
 }
 
+async function checkDomain(domain: string) {
+  const rootHost = domain;
+  const portalHost = `portal.${domain}`;
+  const [root, portal] = await Promise.all([
+    pingDomain(rootHost),
+    pingDomain(portalHost),
+  ]);
+  const rootAlive = root.status !== "down";
+  const portalAlive = portal.status !== "down";
+  const preferred = portalAlive ? { host: portalHost, ...portal } : rootAlive ? { host: rootHost, ...root } : { host: rootHost, ...root };
+
+  return {
+    status: portalAlive || rootAlive ? preferred.status : "down",
+    http_status: preferred.http_status,
+    latency_ms: preferred.latency_ms,
+    error: portalAlive || rootAlive
+      ? null
+      : `Root und Portal nicht erreichbar. Root: ${root.error ?? "keine Antwort"}; Portal: ${portal.error ?? "keine Antwort"}`,
+    checked_url: `https://${preferred.host}/`,
+    root_status: root.status,
+    root_error: root.error,
+    portal_status: portal.status,
+    portal_error: portal.error,
+  };
+}
+
 function isAuthorized(request: Request, url: URL) {
   const cronSecret = process.env.CRON_SECRET?.trim();
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -64,7 +90,7 @@ export const Route = createFileRoute("/api/public/domain-health-cron")({
 
           let downCount = 0;
           for (const d of all) {
-            const r = await pingDomain(`portal.${d}`);
+            const r = await checkDomain(d);
             results.push({ tenant_id: t.id, tenant_name: t.name, domain: d, is_primary: d === primary, ...r });
 
             if (r.status === "down") {
@@ -74,7 +100,7 @@ export const Route = createFileRoute("/api/public/domain-health-cron")({
                   action: "domain_down_alert",
                   entity_type: "tenant",
                   entity_id: t.id,
-                  comment: `Domain portal.${d} ist DOWN (${r.error ?? "no response"}). ${d === primary ? "AKTIVE Versand-Domain — sofortiger Wechsel auf Alias nötig!" : "Inaktive Alias-Domain."}`,
+                  comment: `Domain ${d} ist DOWN (${r.error ?? "no response"}). ${d === primary ? "AKTIVE Versand-Domain — sofortiger Wechsel auf Alias nötig!" : "Inaktive Alias-Domain."}`,
                 });
               } catch {}
             }
