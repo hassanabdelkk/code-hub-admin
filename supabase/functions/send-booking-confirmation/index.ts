@@ -38,12 +38,13 @@ Sie finden den Termin als Kalendereintrag (.ics) im Anhang – einfach öffnen u
 
 Sollten Sie den Termin verschieben oder absagen müssen, tun Sie das jederzeit hier:
 
-{{cta:Termin verwalten|{{cancel_url}}}}
+{{cta:{{button_label}}|{{cancel_url}}}}
 
 Wir freuen uns auf das Gespräch!
 
 Herzliche Grüße
 {{recruiter_name}}`;
+const DEFAULT_BUTTON = "Termin verwalten";
 
 interface TenantRow {
   id: string; name: string; domain: string | null; primary_domain: string | null;
