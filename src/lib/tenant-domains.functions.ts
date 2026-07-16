@@ -20,7 +20,7 @@ function normalizeDomain(d: string): string {
 }
 
 // ============================================================
-// 1) Domain-Health-Check (on-demand, pingt portal.<domain>)
+// 1) Domain-Health-Check (on-demand, pingt Root + portal.<domain>)
 // ============================================================
 
 type DomainStatus = "ok" | "down" | "slow" | "unknown";
