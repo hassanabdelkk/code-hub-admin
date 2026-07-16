@@ -172,10 +172,25 @@ git reset --hard "origin/$REPO_BRANCH"
 ok "Repo auf neuesten Stand"
 
 # ── 2) Dependencies + Build ────────────────────────────────────────────────
-log "2/5  bun install + build"
-bun install --frozen-lockfile
 export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=4096}"
-bun run build
+if command -v bun >/dev/null 2>&1; then
+  log "2/5  bun install + build"
+  bun install --frozen-lockfile
+  bun run build
+elif command -v npm >/dev/null 2>&1; then
+  log "2/5  npm ci + build (bun nicht gefunden)"
+  if [ -f package-lock.json ]; then
+    npm ci
+  else
+    npm install
+  fi
+  npm run build
+else
+  echo "  ✗ Weder 'bun' noch 'npm' gefunden. Bitte installieren:" >&2
+  echo "      curl -fsSL https://bun.sh/install | bash    # empfohlen" >&2
+  echo "      # oder: apt-get install -y nodejs npm" >&2
+  exit 1
+fi
 ok "Build fertig"
 
 # ── 3) Build atomar als Release aktivieren ─────────────────────────────────
