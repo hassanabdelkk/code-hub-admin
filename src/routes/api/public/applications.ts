@@ -507,11 +507,11 @@ export const Route = createFileRoute("/api/public/applications")({
               const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
                 body: { to: d.email, fullName: d.full_name, firstName, lastName, registrationLink: redirect_url, tenantId: resolvedTenantId },
               });
-            if (mailErr || mailData?.error) {
-              email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(mailErr, mailData) };
+              if (mailErr || mailData?.error) {
+                email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(mailErr, mailData) };
                 await logMailResult("invitation", "failed", mailErrorMessage(mailErr, mailData));
-            } else {
-              email_status = { attempted: true, status: "sent", template: "invitation" };
+              } else {
+                email_status = { attempted: true, status: "sent", template: "invitation" };
                 await logMailResult("invitation", "sent");
               }
             }
@@ -579,11 +579,11 @@ export const Route = createFileRoute("/api/public/applications")({
                   },
                 },
               });
-            if (mailErr || mailData?.error) {
-              email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(mailErr, mailData) };
+              if (mailErr || mailData?.error) {
+                email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(mailErr, mailData) };
                 await logMailResult("application_received", "failed", mailErrorMessage(mailErr, mailData), { action_link_present: !!confirmationActionLink });
-            } else {
-              email_status = { attempted: true, status: "sent", template: "application_received" };
+              } else {
+                email_status = { attempted: true, status: "sent", template: "application_received" };
                 await logMailResult("application_received", "sent", undefined, { has_booking_link: !!confirmationBookingLink, action_link_present: !!confirmationActionLink });
               }
             }
