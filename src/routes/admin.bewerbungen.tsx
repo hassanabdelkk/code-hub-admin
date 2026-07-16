@@ -230,7 +230,7 @@ function AdminBewerbungenPage() {
     (async () => {
       const { data } = await supabase
         .from("email_send_log")
-        .select("recipient_email, template_name, status, created_at, error_message")
+        .select("tenant_id, recipient_email, template_name, status, created_at, error_message")
         .in("template_name", ["application_received", "invitation"])
         .order("created_at", { ascending: false })
         .limit(1000);
@@ -238,8 +238,10 @@ function AdminBewerbungenPage() {
       const m = new Map<string, DirectEmailInfo>();
       for (const r of data as any[]) {
         const email = String(r.recipient_email ?? "").toLowerCase().trim();
-        if (!email || m.has(email)) continue;
-        m.set(email, {
+        const tenantId = String(r.tenant_id ?? "");
+        const key = `${tenantId}:${email}`;
+        if (!email || m.has(key)) continue;
+        m.set(key, {
           template: r.template_name ?? "invitation",
           status: r.status ?? "unknown",
           created_at: r.created_at,
@@ -281,6 +283,7 @@ function AdminBewerbungenPage() {
         contractSigned: !!p.contract_signed_at,
       } : null;
       const sched = bookingByApp.get(a.id) ?? (a.scheduled_at ? new Date(a.scheduled_at) : null);
+      const tenantEmailKey = `${String(a.tenant_id ?? "")}:${email}`;
       return {
         id: a.id,
         name: a.full_name || `${a.first_name ?? ""} ${a.last_name ?? ""}`.trim() || email || "—",
@@ -291,7 +294,7 @@ function AdminBewerbungenPage() {
         source: resolveSource(a),
         createdAt: a.created_at,
         hasProfile: !!prof,
-        directEmail: email ? directEmailByRecipient.get(email) ?? null : null,
+        directEmail: email ? directEmailByRecipient.get(tenantEmailKey) ?? null : null,
       };
     }).sort((a, b) => (b.lastActivity || "").localeCompare(a.lastActivity || ""));
   }, [applications, bookingByApp, landingById, profileByKey, emailConfirmedUserIds, directEmailByRecipient]);
