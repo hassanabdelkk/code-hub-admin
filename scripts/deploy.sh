@@ -23,7 +23,7 @@ SERVICE_NAME="${SERVICE_NAME:-portal.service}"
 PORT="${PORT:-3000}"
 HOST="${HOST:-127.0.0.1}"
 RELEASES_DIR="${RELEASES_DIR:-$PROJECT_DIR/.releases}"
-ACTIVE_RELEASE_LINK="${ACTIVE_RELEASE_LINK:-$PROJECT_DIR/.current}"
+ACTIVE_RELEASE_LINK="${ACTIVE_RELEASE_LINK:-$PROJECT_DIR/current}"
 # Optional: DB-URL für Manual-Migrations (aus .env laden falls nicht gesetzt)
 TARGET_DB_URL="${TARGET_DB_URL:-}"
 
