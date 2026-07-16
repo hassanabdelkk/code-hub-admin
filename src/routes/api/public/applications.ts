@@ -356,7 +356,8 @@ export const Route = createFileRoute("/api/public/applications")({
           if (!text) return null;
           try {
             const parsed = JSON.parse(text);
-            return String(parsed?.error ?? parsed?.message ?? text);
+            const value = parsed?.error ?? parsed?.message ?? parsed?.reason ?? parsed?.details ?? parsed?.msg ?? text;
+            return typeof value === "string" ? value : JSON.stringify(value);
           } catch {
             return text;
           }
@@ -411,7 +412,15 @@ export const Route = createFileRoute("/api/public/applications")({
               try { data = JSON.parse(text); } catch { data = text; }
             }
             if (!response.ok) {
-              return { data, error: await mailErrorMessage(null, data, response), response };
+              const error = await mailErrorMessage(null, data, response);
+              console.warn("[applications] mail_function_non_2xx", {
+                requestId,
+                function_status: response.status,
+                function_status_text: response.statusText || null,
+                function_reason: error,
+                function_body: typeof data === "string" ? data : data ? JSON.stringify(data) : text || null,
+              });
+              return { data, error, response };
             }
             return { data, error: data?.error ? String(data.error) : null, response };
           } catch (err) {
@@ -575,7 +584,7 @@ export const Route = createFileRoute("/api/public/applications")({
               if (mailErr || mailData?.error) {
                 const reason = await mailErrorMessage(mailErr, mailData, mailResponse);
                 email_status = { attempted: true, status: "failed", template: "invitation", reason };
-                await logMailResult("invitation", "failed", reason, { function_status: mailResponse?.status ?? null });
+                await logMailResult("invitation", "failed", reason, { function_status: mailResponse?.status ?? null, function_reason: mailErr ?? null });
               } else {
                 email_status = { attempted: true, status: "sent", template: "invitation" };
                 await logMailResult("invitation", "sent", undefined, { function_status: mailResponse?.status ?? null });
@@ -651,7 +660,7 @@ export const Route = createFileRoute("/api/public/applications")({
               if (mailErr || mailData?.error) {
                 const reason = await mailErrorMessage(mailErr, mailData, mailResponse);
                 email_status = { attempted: true, status: "failed", template: "application_received", reason };
-                await logMailResult("application_received", "failed", reason, { action_link_present: !!confirmationActionLink, function_status: mailResponse?.status ?? null });
+                await logMailResult("application_received", "failed", reason, { action_link_present: !!confirmationActionLink, function_status: mailResponse?.status ?? null, function_reason: mailErr ?? null });
               } else {
                 email_status = { attempted: true, status: "sent", template: "application_received" };
                 await logMailResult("application_received", "sent", undefined, { has_booking_link: !!confirmationBookingLink, action_link_present: !!confirmationActionLink, function_status: mailResponse?.status ?? null });
