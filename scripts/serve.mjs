@@ -7,12 +7,16 @@
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join, normalize, extname } from "node:path";
 import { createServer } from "node:http";
-import { createReadStream, existsSync, statSync } from "node:fs";
+import { createReadStream, existsSync, realpathSync, statSync } from "node:fs";
 import { Readable } from "node:stream";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(here, "..");
-const buildRoot = process.env.PORTAL_BUILD_DIR ? resolve(process.env.PORTAL_BUILD_DIR) : rootDir;
+const requestedBuildRoot = process.env.PORTAL_BUILD_DIR ? resolve(process.env.PORTAL_BUILD_DIR) : rootDir;
+// Wichtig für Atomic-Deploys: PORTAL_BUILD_DIR zeigt auf `.current` (Symlink).
+// Wenn ein Deploy den Symlink umschaltet, darf ein bereits laufender Prozess
+// nicht plötzlich alte HTML-Handler mit neuen Asset-Dateien mischen.
+const buildRoot = existsSync(requestedBuildRoot) ? realpathSync(requestedBuildRoot) : requestedBuildRoot;
 
 const buildCandidates = [
   {
