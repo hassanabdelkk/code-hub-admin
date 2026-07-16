@@ -413,13 +413,13 @@ export const Route = createFileRoute("/api/public/applications")({
             }
             if (!response.ok) {
               const error = await mailErrorMessage(null, data, response);
-              console.warn("[applications] mail_function_non_2xx", {
+              console.warn("[applications] mail_function_non_2xx " + JSON.stringify({
                 requestId,
                 function_status: response.status,
                 function_status_text: response.statusText || null,
                 function_reason: error,
                 function_body: typeof data === "string" ? data : data ? JSON.stringify(data) : text || null,
-              });
+              }));
               return { data, error, response };
             }
             return { data, error: data?.error ? String(data.error) : null, response };
@@ -471,14 +471,10 @@ export const Route = createFileRoute("/api/public/applications")({
           if (logErr) console.warn("[applications] mail_failure_log_failed", { requestId, template, reason: logErr.message });
         };
         const logMailAttempt = (template: "invitation" | "application_received", extra?: Record<string, unknown>) => {
-          console.log("[applications] mail_attempt", {
-            requestId,
-            application_id: appId,
-            tenant_id: resolvedTenantId,
-            recipient: d.email,
-            template,
-            ...extra,
-          });
+          console.log("[applications] mail_attempt " + JSON.stringify({
+            requestId, application_id: appId, tenant_id: resolvedTenantId,
+            recipient: d.email, template, ...extra,
+          }));
         };
         const logMailResult = async (
           template: "invitation" | "application_received",
@@ -487,19 +483,14 @@ export const Route = createFileRoute("/api/public/applications")({
           extra?: Record<string, unknown>,
         ) => {
           const payload = {
-            requestId,
-            application_id: appId,
-            tenant_id: resolvedTenantId,
-            recipient: d.email,
-            template,
-            status,
-            reason: reason ?? null,
-            ...extra,
+            requestId, application_id: appId, tenant_id: resolvedTenantId,
+            recipient: d.email, template, status, reason: reason ?? null, ...extra,
           };
-          if (status === "sent") console.log("[applications] mail_sent", payload);
-          else if (status === "skipped") console.log("[applications] mail_skipped", payload);
+          const line = JSON.stringify(payload);
+          if (status === "sent") console.log("[applications] mail_sent " + line);
+          else if (status === "skipped") console.log("[applications] mail_skipped " + line);
           else {
-            console.warn("[applications] mail_failed", payload);
+            console.warn("[applications] mail_failed " + line);
             await writeMailFailureLog(template, reason || "unknown_mail_error", extra);
           }
         };
