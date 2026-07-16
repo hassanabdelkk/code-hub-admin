@@ -4,7 +4,7 @@ import { z } from "zod";
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept, Origin",
   "Access-Control-Max-Age": "86400",
 };
 
@@ -36,7 +36,13 @@ function json(body: unknown, status = 200) {
 export const Route = createFileRoute("/api/public/applications")({
   server: {
     handlers: {
-      OPTIONS: async () => new Response(null, { status: 204, headers: CORS }),
+      OPTIONS: async ({ request }) => {
+        console.log("[applications] preflight", {
+          origin: request.headers.get("origin") || null,
+          requestedHeaders: request.headers.get("access-control-request-headers") || null,
+        });
+        return new Response(null, { status: 204, headers: CORS });
+      },
       POST: async ({ request }) => {
         const requestId = crypto.randomUUID().slice(0, 8);
         const origin = request.headers.get("origin") || null;
