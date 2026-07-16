@@ -38,12 +38,13 @@ Sie finden den Termin als Kalendereintrag (.ics) im Anhang – einfach öffnen u
 
 Sollten Sie den Termin verschieben oder absagen müssen, tun Sie das jederzeit hier:
 
-{{cta:Termin verwalten|{{cancel_url}}}}
+{{cta:{{button_label}}|{{cancel_url}}}}
 
 Wir freuen uns auf das Gespräch!
 
 Herzliche Grüße
 {{recruiter_name}}`;
+const DEFAULT_BUTTON = "Termin verwalten";
 
 interface TenantRow {
   id: string; name: string; domain: string | null; primary_domain: string | null;
@@ -51,7 +52,7 @@ interface TenantRow {
   sender_email: string | null; sender_name: string | null; reply_to_email: string | null;
   smtp_host: string | null; smtp_port: number | null; smtp_username: string | null; smtp_password: string | null;
   email_signature: string | null; emails_paused: boolean | null;
-  booking_confirmation_subject: string | null; booking_confirmation_body: string | null;
+  booking_confirmation_subject: string | null; booking_confirmation_body: string | null; booking_confirmation_button: string | null;
 }
 
 function hasValidSmtp(t: any): boolean {
@@ -138,7 +139,7 @@ serve(async (req) => {
 
     const tenantIds = Array.from(new Set(todo.map((a: any) => a.tenant_id).filter(Boolean)));
     const { data: tList } = await admin.from("tenants")
-      .select("id,name,domain,primary_domain,logo_url,primary_color,sender_email,sender_name,reply_to_email,smtp_host,smtp_port,smtp_username,smtp_password,email_signature,emails_paused,booking_confirmation_subject,booking_confirmation_body")
+      .select("id,name,domain,primary_domain,logo_url,primary_color,sender_email,sender_name,reply_to_email,smtp_host,smtp_port,smtp_username,smtp_password,email_signature,emails_paused,booking_confirmation_subject,booking_confirmation_body,booking_confirmation_button")
       .in("id", tenantIds);
     const tenantMap = new Map<string, TenantRow>((tList ?? []).map((t: any) => [t.id, t]));
 
@@ -183,6 +184,7 @@ serve(async (req) => {
         appointment_time: starts.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }),
         duration_minutes: String(duration),
         cancel_url: cancelUrl,
+        button_label: tenant.booking_confirmation_button || DEFAULT_BUTTON,
       };
 
       const { html, text, subject } = renderEmail({

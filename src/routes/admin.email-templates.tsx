@@ -61,6 +61,11 @@ const REMINDER_DEFAULTS = {
     body: `Guten Tag {{first_name}},\n\nkurze Erinnerung: In etwa 30 Minuten startet Ihr Bewerbungsgespräch.\n\nSo läuft es ab:\n\n1️⃣  Kurzes Video-/Chat-Gespräch (ca. 10–15 Min)\n2️⃣  Bei positiver Bewertung erhalten Sie direkt eine Zusage per E-Mail\n3️⃣  Anschließend Registrierung im Mitarbeiter-Portal – Vertrag digital unterschreiben und loslegen\n\nBitte starten Sie das Gespräch über diesen persönlichen Link:\n\n{{cta:Bewerbungsgespräch starten|{{portal_link}}}}\n\nTipp: Ruhige Umgebung, stabile Internet-Verbindung. Bei Problemen antworten Sie einfach auf diese E-Mail.\n\nViel Erfolg und bis gleich!\n{{recruiter_name}}\n{{tenant_name}}`,
     button: "Bewerbungsgespräch starten",
   },
+  booking_confirmation: {
+    subject: "✅ Termin bestätigt: {{appointment_date}}, {{appointment_time}} Uhr",
+    body: `Hallo {{first_name}},\n\nvielen Dank – Ihr Termin für das Bewerbungsgespräch bei {{tenant_name}} ist fest reserviert:\n\n📅  {{appointment_date}}\n🕐  {{appointment_time}} Uhr\n⏱️  Dauer: ca. {{duration_minutes}} Minuten\n\nSie finden den Termin als Kalendereintrag (.ics) im Anhang – einfach öffnen und in Outlook, Google oder Apple-Kalender speichern.\n\n30 Minuten vor Beginn schicken wir Ihnen zusätzlich den direkten Link zum Gespräch, damit Sie ihn nicht extra suchen müssen.\n\nSollten Sie den Termin verschieben oder absagen müssen, tun Sie das jederzeit hier:\n\n{{cta:Termin verwalten|{{cancel_url}}}}\n\nWir freuen uns auf das Gespräch!\n\nHerzliche Grüße\n{{recruiter_name}}`,
+    button: "Termin verwalten",
+  },
 
 };
 
@@ -103,6 +108,9 @@ interface TenantEmail {
   bewerbung_magic_link_subject: string | null;
   bewerbung_magic_link_body: string | null;
   bewerbung_magic_link_button: string | null;
+  booking_confirmation_subject: string | null;
+  booking_confirmation_body: string | null;
+  booking_confirmation_button: string | null;
 }
 
 const PLACEHOLDERS = [
@@ -345,10 +353,13 @@ function AdminEmailTemplatesPage() {
   const [mlSubject, setMlSubject] = useState("");
   const [mlBody, setMlBody] = useState("");
   const [mlButton, setMlButton] = useState("");
+  const [bcSubject, setBcSubject] = useState("");
+  const [bcBody, setBcBody] = useState("");
+  const [bcButton, setBcButton] = useState("");
 
   const loadTenants = async () => {
     setLoading(true);
-    const FULL_COLS = "id, name, domain, primary_color, logo_url, sender_email, sender_name, reply_to_email, smtp_host, smtp_port, smtp_username, smtp_password, welcome_email_subject, welcome_email_body, reset_email_subject, reset_email_body, email_signature, team_leader_name, reminder_confirm_subject, reminder_confirm_body, reminder_completion_subject, reminder_completion_body, reminder_no_booking_subject, reminder_no_booking_body, reminder_recovery_subject, reminder_recovery_body, reminder_chat_subject, reminder_chat_body, reminder_app_no_booking_subject, reminder_app_no_booking_body, reminder_app_no_show_subject, reminder_app_no_show_body, reminder_app_registration_subject, reminder_app_registration_body, bewerbung_magic_link_subject, bewerbung_magic_link_body, bewerbung_magic_link_button";
+    const FULL_COLS = "id, name, domain, primary_color, logo_url, sender_email, sender_name, reply_to_email, smtp_host, smtp_port, smtp_username, smtp_password, welcome_email_subject, welcome_email_body, reset_email_subject, reset_email_body, email_signature, team_leader_name, reminder_confirm_subject, reminder_confirm_body, reminder_completion_subject, reminder_completion_body, reminder_no_booking_subject, reminder_no_booking_body, reminder_recovery_subject, reminder_recovery_body, reminder_chat_subject, reminder_chat_body, reminder_app_no_booking_subject, reminder_app_no_booking_body, reminder_app_no_show_subject, reminder_app_no_show_body, reminder_app_registration_subject, reminder_app_registration_body, bewerbung_magic_link_subject, bewerbung_magic_link_body, bewerbung_magic_link_button, booking_confirmation_subject, booking_confirmation_body, booking_confirmation_button";
     const FALLBACK_COLS = "id, name, domain, primary_color, logo_url, sender_email, sender_name, reply_to_email, smtp_host, smtp_port, smtp_username, smtp_password, welcome_email_subject, welcome_email_body, reset_email_subject, reset_email_body, email_signature, team_leader_name, reminder_confirm_subject, reminder_confirm_body, reminder_completion_subject, reminder_completion_body, reminder_no_booking_subject, reminder_no_booking_body, reminder_recovery_subject, reminder_recovery_body, reminder_chat_subject, reminder_chat_body";
 
     setLimitedTemplateMode(false);
@@ -417,6 +428,9 @@ function AdminEmailTemplatesPage() {
     setMlSubject((t as any).bewerbung_magic_link_subject || REMINDER_DEFAULTS.bewerbung_magic_link.subject);
     setMlBody((t as any).bewerbung_magic_link_body || REMINDER_DEFAULTS.bewerbung_magic_link.body);
     setMlButton((t as any).bewerbung_magic_link_button || REMINDER_DEFAULTS.bewerbung_magic_link.button);
+    setBcSubject((t as any).booking_confirmation_subject || REMINDER_DEFAULTS.booking_confirmation.subject);
+    setBcBody((t as any).booking_confirmation_body || REMINDER_DEFAULTS.booking_confirmation.body);
+    setBcButton((t as any).booking_confirmation_button || REMINDER_DEFAULTS.booking_confirmation.button);
   };
 
   useEffect(() => {
@@ -469,6 +483,9 @@ function AdminEmailTemplatesPage() {
         bewerbung_magic_link_subject: mlSubject,
         bewerbung_magic_link_body: mlBody,
         bewerbung_magic_link_button: mlButton || null,
+        booking_confirmation_subject: bcSubject,
+        booking_confirmation_body: bcBody,
+        booking_confirmation_button: bcButton || null,
       });
     }
     const { error } = await supabase
@@ -685,6 +702,7 @@ function AdminEmailTemplatesPage() {
                 <TabsTrigger value="app_no_show" className="text-xs">Vermittlung: No-Show</TabsTrigger>
                 <TabsTrigger value="app_registration" className="text-xs">Vermittlung: Registrierung offen</TabsTrigger>
                 <TabsTrigger value="magic_link" className="text-xs">Vermittlung: Interview-Einladung</TabsTrigger>
+                <TabsTrigger value="booking_confirmation" className="text-xs">Terminbestätigung</TabsTrigger>
               </TabsList>
               <TabsContent value="confirm">
                 <TemplateEditor
@@ -787,6 +805,22 @@ function AdminEmailTemplatesPage() {
                 <div className="mt-4">
                   <Label className="text-xs font-medium">Button-Beschriftung</Label>
                   <Input value={mlButton} onChange={(e) => setMlButton(e.target.value)} placeholder="Bewerbungsgespräch starten" className="mt-1 max-w-sm" />
+                </div>
+              </TabsContent>
+              <TabsContent value="booking_confirmation">
+                <div className="rounded-md border border-teal-300 bg-teal-50 dark:bg-teal-950/30 dark:border-teal-700 px-3 py-2 mb-3 text-[11px] text-teal-900 dark:text-teal-200">
+                  Wird <strong>direkt nach jeder Terminbuchung</strong> (eigenes Buchungssystem <em>und</em> Calendly-gebuchte Vermittlungs-Termine) an den Bewerber gesendet – mit Kalendereintrag (.ics) im Anhang. Cron alle 2 Min, einmal pro Bewerbung. Platzhalter: <code>{"{{first_name}}"}</code>, <code>{"{{appointment_date}}"}</code>, <code>{"{{appointment_time}}"}</code>, <code>{"{{duration_minutes}}"}</code>, <code>{"{{cancel_url}}"}</code>, <code>{"{{recruiter_name}}"}</code>, <code>{"{{tenant_name}}"}</code>.
+                </div>
+                <TemplateEditor
+                  label="Terminbestätigung (mit .ics-Kalendereintrag)"
+                  subject={bcSubject} onSubjectChange={setBcSubject}
+                  body={bcBody} onBodyChange={setBcBody}
+                  signature={signature} onSignatureChange={setSignature}
+                  tenant={selectedTenant}
+                />
+                <div className="mt-4">
+                  <Label className="text-xs font-medium">Button-Beschriftung</Label>
+                  <Input value={bcButton} onChange={(e) => setBcButton(e.target.value)} placeholder="Termin verwalten" className="mt-1 max-w-sm" />
                 </div>
               </TabsContent>
             </Tabs>
