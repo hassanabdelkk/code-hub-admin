@@ -167,13 +167,20 @@ function generateEmailHtml(
   const resolvedBody = replacePlaceholders(body, tenant);
   const resolvedSignature = replacePlaceholders(signature, tenant);
 
-  // Convert newlines to <br> and detect {{portal_link}}/{{reset_link}} for CTA button
+  // Bereits gerenderte <a>-Tags (aus CTA-Buttons) vor Auto-Linkify schützen,
+  // sonst wird die URL im href="..." erneut umschlossen und das Tag zerrissen.
+  const anchors: string[] = [];
   const bodyHtml = resolvedBody
+    .replace(/<a\b[^>]*>[\s\S]*?<\/a>/gi, (m) => {
+      anchors.push(m);
+      return `\u0000A${anchors.length - 1}\u0000`;
+    })
     .replace(/\n/g, "<br>")
     .replace(
       /(https?:\/\/[^\s<]+)/g,
       `<a href="$1" style="color:${color};text-decoration:underline;">$1</a>`
-    );
+    )
+    .replace(/\u0000A(\d+)\u0000/g, (_m, i) => anchors[Number(i)] ?? "");
 
   const logoHtml = tenant.logo_url
     ? `<div style="text-align:center;margin-bottom:24px;"><img src="${tenant.logo_url}" alt="${tenant.name}" style="max-height:48px;max-width:200px;" /></div>`
