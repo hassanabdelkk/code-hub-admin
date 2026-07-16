@@ -155,7 +155,8 @@ export const Route = createFileRoute("/api/public/applications")({
         // 'calendly' → Calendly-Flow; 'internal' → eigenes Buchungssystem.
         const bookingMode: "calendly" | "internal" =
           (landingPage?.booking_mode as any) ?? "calendly";
-        const isBroker = d.flow_type === "broker" && !!partner && !d.is_test && bookingMode === "calendly";
+        const isBrokerFlow = d.flow_type === "broker" && !!partner && !d.is_test;
+        const isBroker = isBrokerFlow && bookingMode === "calendly";
         const useCalendly = !isBroker && !!calendlyOnLanding && !d.is_test && bookingMode === "calendly";
 
         // Tenant-Fallback #3: Landing-Page hat i.d.R. tenant_id → nutzen wenn
@@ -384,10 +385,11 @@ export const Route = createFileRoute("/api/public/applications")({
           }
         }
 
-        // Broker-Flow: Bewerbungseingangs-Bestätigung mit Calendly-Termin-Link
-        // versenden. Nur beim ersten Einreichen (wasNewlyCreated), damit
+        // Broker-Flow: Bewerbungseingangs-Bestätigung mit Termin-Link
+        // versenden (Calendly oder eigenes Buchungssystem). Nur beim ersten Einreichen (wasNewlyCreated), damit
         // wiederholte Submits durch dieselbe Person keine Doppel-Mails erzeugen.
-        if (isBroker && wasNewlyCreated && resolvedTenantId && broker_block?.calendly_url && !d.is_test) {
+        const brokerBookingLink = broker_block?.calendly_url || ownBookingUrl;
+        if (isBrokerFlow && wasNewlyCreated && resolvedTenantId && brokerBookingLink && !d.is_test) {
           try {
             const parts = d.full_name.trim().split(/\s+/);
             const firstName = parts[0] ?? "";
@@ -399,12 +401,13 @@ export const Route = createFileRoute("/api/public/applications")({
                 fullName: d.full_name,
                 firstName,
                 lastName,
-                registrationLink: broker_block.calendly_url,
+                registrationLink: brokerBookingLink,
                 tenantId: resolvedTenantId,
                 templateName: "application_received",
                 placeholders: {
-                  partner_name: broker_block.partner_name ?? "",
-                  calendly_link: broker_block.calendly_url,
+                  partner_name: partner?.name ?? broker_block?.partner_name ?? "",
+                  calendly_link: brokerBookingLink,
+                  booking_link: brokerBookingLink,
                 },
               },
             });
@@ -418,7 +421,7 @@ export const Route = createFileRoute("/api/public/applications")({
             email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(e) };
             console.warn("[applications broker] application_received mail error:", e);
           }
-        } else if (isBroker && !wasNewlyCreated && !d.is_test) {
+        } else if (isBrokerFlow && !wasNewlyCreated && !d.is_test) {
           email_status = { attempted: false, status: "skipped", template: "application_received", reason: "duplicate_application" };
         }
 
