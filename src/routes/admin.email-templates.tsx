@@ -702,6 +702,7 @@ function AdminEmailTemplatesPage() {
                 <TabsTrigger value="app_no_show" className="text-xs">Vermittlung: No-Show</TabsTrigger>
                 <TabsTrigger value="app_registration" className="text-xs">Vermittlung: Registrierung offen</TabsTrigger>
                 <TabsTrigger value="magic_link" className="text-xs">Vermittlung: Interview-Einladung</TabsTrigger>
+                <TabsTrigger value="booking_confirmation" className="text-xs">Terminbestätigung</TabsTrigger>
               </TabsList>
               <TabsContent value="confirm">
                 <TemplateEditor
