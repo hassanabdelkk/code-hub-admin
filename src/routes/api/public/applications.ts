@@ -562,6 +562,10 @@ export const Route = createFileRoute("/api/public/applications")({
             if (preflightReason) {
               email_status = { attempted: true, status: "failed", template: "application_received", reason: preflightReason };
               await logMailResult("application_received", "failed", preflightReason, { preflight: true, tenant_name: tenant?.name ?? null });
+            } else if (!confirmationActionLink) {
+              const reason = "confirmation_action_link_missing";
+              email_status = { attempted: true, status: "failed", template: "application_received", reason };
+              await logMailResult("application_received", "failed", reason, { preflight: true });
             } else {
               const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
                 body: {
