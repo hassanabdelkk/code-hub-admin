@@ -198,6 +198,7 @@ export const Route = createFileRoute("/api/public/applications")({
           if ((existing as any)?.id) appId = (existing as any).id as string;
         }
 
+        const wasNewlyCreated = !appId;
         if (!appId) {
           appId = crypto.randomUUID();
           // Vor-/Nachname aus explizitem Feld, sonst aus full_name gesplittet
@@ -366,9 +367,36 @@ export const Route = createFileRoute("/api/public/applications")({
           } catch (e) { console.warn("[applications fast] invitation mail error:", e); }
         }
 
-        // Kein Bewerbungseingang-Confirm mehr — Broker-Flow versendet nur
-        // Kein-Termin / No-Show Reminder (send-application-reminders) und
-        // accept/reject Mails (Admin-Aktion).
+        // Broker-Flow: Bewerbungseingangs-Bestätigung mit Calendly-Termin-Link
+        // versenden. Nur beim ersten Einreichen (wasNewlyCreated), damit
+        // wiederholte Submits durch dieselbe Person keine Doppel-Mails erzeugen.
+        if (isBroker && wasNewlyCreated && resolvedTenantId && broker_block?.calendly_url && !d.is_test) {
+          try {
+            const parts = d.full_name.trim().split(/\s+/);
+            const firstName = parts[0] ?? "";
+            const lastName = parts.slice(1).join(" ");
+            const { error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
+              body: {
+                to: d.email,
+                fullName: d.full_name,
+                firstName,
+                lastName,
+                registrationLink: broker_block.calendly_url,
+                tenantId: resolvedTenantId,
+                templateName: "application_received",
+                placeholders: {
+                  partner_name: broker_block.partner_name ?? "",
+                  calendly_link: broker_block.calendly_url,
+                },
+              },
+            });
+            if (mailErr) console.warn("[applications broker] application_received mail:", mailErr);
+          } catch (e) {
+            console.warn("[applications broker] application_received mail error:", e);
+          }
+        }
+
+
 
 
         return json({ success: true, flow_type: d.flow_type ?? "classic", redirect_url, broker: broker_block });
