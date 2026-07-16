@@ -529,6 +529,28 @@ function AdminBewerbungenPage() {
                               {meta?.emoji} {meta?.label}
                             </span>
                             {(() => {
+                              const direct = r.directEmail;
+                              if (direct) {
+                                const when = new Date(direct.created_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+                                const isSent = direct.status === "sent";
+                                const isFailed = direct.status === "failed";
+                                const label = direct.template === "application_received" ? "Bewerbungsmail" : "Einladung";
+                                const cls = isSent
+                                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300"
+                                  : isFailed
+                                    ? "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300"
+                                    : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300";
+                                const icon = isSent ? "✓" : isFailed ? "⚠" : "•";
+                                const statusText = isSent ? "gesendet" : isFailed ? "fehlgeschlagen" : direct.status;
+                                const tooltip = isFailed && direct.error
+                                  ? `${label} konnte am ${when} nicht versendet werden: ${direct.error}`
+                                  : `${label} ${statusText} · ${when}`;
+                                return (
+                                  <span className={`inline-block px-1.5 py-0.5 rounded ${cls}`} title={tooltip}>
+                                    {icon} {label} {statusText} · {when}
+                                  </span>
+                                );
+                              }
                               const rem = reminderByApp.get(r.id);
                               const kindLabel = (k?: string) =>
                                 k === "no_booking_24h" ? "24 h-Erinnerung" :
@@ -539,9 +561,9 @@ function AdminBewerbungenPage() {
                                 return (
                                   <span
                                     className="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
-                                    title="Bisher wurde für diesen Bewerber keine automatische Erinnerungs-E-Mail versendet."
+                                    title="Bisher wurde für diesen Bewerber keine automatische Erinnerungs-E-Mail protokolliert."
                                   >
-                                    – Keine E-Mail
+                                    – Keine Reminder-Mail
                                   </span>
                                 );
                               }
