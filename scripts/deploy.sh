@@ -152,6 +152,33 @@ healthcheck() {
   return 1
 }
 
+asset_healthcheck() {
+  local html assets path failed=0
+  html="$(curl -fsS "http://$HOST:$PORT/login" 2>/dev/null || true)"
+  if [ -z "$html" ]; then
+    echo "  ✗ /login liefert kein HTML" >&2
+    return 1
+  fi
+
+  assets="$(printf '%s' "$html" | grep -oE '"/assets/[^"?]+\.(js|css)"' | tr -d '"' | sort -u || true)"
+  if [ -z "$assets" ]; then
+    echo "  ✗ Keine JS/CSS-Assets in /login gefunden" >&2
+    return 1
+  fi
+
+  while IFS= read -r path; do
+    [ -z "$path" ] && continue
+    if ! curl -fsS -o /dev/null "http://$HOST:$PORT$path"; then
+      echo "  ✗ Asset fehlt oder lädt nicht: $path" >&2
+      failed=1
+    fi
+  done <<EOF_ASSETS
+$assets
+EOF_ASSETS
+
+  return "$failed"
+}
+
 cd "$PROJECT_DIR"
 
 # Alles in { … } wickeln, damit bash die komplette Datei parst BEVOR sie ausführt.
@@ -242,7 +269,7 @@ log "5/5  $SERVICE_NAME neu starten"
 systemctl stop "$SERVICE_NAME" || true
 ensure_port_free
 systemctl start "$SERVICE_NAME"
-if systemctl is-active --quiet "$SERVICE_NAME" && healthcheck; then
+if systemctl is-active --quiet "$SERVICE_NAME" && healthcheck && asset_healthcheck; then
   systemctl status "$SERVICE_NAME" --no-pager | head -n 10
 else
   echo "  ✗ $SERVICE_NAME ist nach dem Restart nicht gesund. Letzte Logs:" >&2
