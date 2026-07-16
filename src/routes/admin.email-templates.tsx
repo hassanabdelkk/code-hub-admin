@@ -483,6 +483,9 @@ function AdminEmailTemplatesPage() {
         bewerbung_magic_link_subject: mlSubject,
         bewerbung_magic_link_body: mlBody,
         bewerbung_magic_link_button: mlButton || null,
+        booking_confirmation_subject: bcSubject,
+        booking_confirmation_body: bcBody,
+        booking_confirmation_button: bcButton || null,
       });
     }
     const { error } = await supabase
