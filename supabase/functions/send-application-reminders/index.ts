@@ -708,15 +708,10 @@ serve(async (req) => {
         failed++; results.push({ app: app.id, kind, status: "failed", reason: errMsg });
         const streak = (failStreakByTenant.get(tenant.id) ?? 0) + 1;
         failStreakByTenant.set(tenant.id, streak);
-        if (streak >= AUTO_PAUSE_AFTER_FAILS) {
+        // Auto-Pause deaktiviert: E-Mails werden nie automatisch pausiert.
+        // Fehler werden geloggt und im Email-Center sichtbar; Admin entscheidet manuell.
+        if (false && streak >= AUTO_PAUSE_AFTER_FAILS) {
           pausedInThisRun.add(tenant.id);
-          try {
-            await admin.from("tenants").update({
-              emails_paused: true,
-              emails_paused_reason: `auto: ${AUTO_PAUSE_AFTER_FAILS} SMTP-Fehler in Reminder-Cron`,
-              emails_paused_at: new Date().toISOString(),
-            } as any).eq("id", tenant.id);
-          } catch { /* best-effort */ }
         }
       }
     }
