@@ -17,6 +17,7 @@
 set -euo pipefail
 
 PROJECT_DIR="${PROJECT_DIR:-/opt/apps/portal}"
+ENV_FILE="${ENV_FILE:-$PROJECT_DIR/.env}"
 REPO_BRANCH="${REPO_BRANCH:-main}"
 SERVICE_NAME="${SERVICE_NAME:-portal.service}"
 PORT="${PORT:-3000}"
@@ -29,6 +30,74 @@ TARGET_DB_URL="${TARGET_DB_URL:-}"
 log() { printf "\n\033[1;36m▸ %s\033[0m\n" "$*"; }
 ok()  { printf "\033[1;32m  ✓ %s\033[0m\n" "$*"; }
 warn() { printf "\033[1;33m  ! %s\033[0m\n" "$*"; }
+
+env_file_value() {
+  local key="$1"
+  [ -f "$ENV_FILE" ] || return 0
+  grep -E "^${key}=" "$ENV_FILE" | tail -n1 | cut -d= -f2- | sed -E 's/^"(.*)"$/\1/'
+}
+
+config_value() {
+  local key="$1" val="${!key-}"
+  if [ -z "$val" ]; then
+    val="$(env_file_value "$key" || true)"
+  fi
+  printf '%s' "$val"
+}
+
+mask_value() {
+  local val="$1"
+  if [ ${#val} -le 12 ]; then
+    printf '***'
+  else
+    printf '%s…%s' "${val:0:8}" "${val: -4}"
+  fi
+}
+
+validate_config() {
+  if [ ! -f "$ENV_FILE" ]; then
+    echo "  ✗ $ENV_FILE fehlt. Deploy abgebrochen, damit kein kaputtes Login gebaut wird." >&2
+    echo "    Benötigt: VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY" >&2
+    exit 1
+  fi
+
+  local missing=()
+  for key in VITE_SUPABASE_URL VITE_SUPABASE_PUBLISHABLE_KEY SUPABASE_URL SUPABASE_PUBLISHABLE_KEY; do
+    if [ -z "$(config_value "$key")" ]; then
+      missing+=("$key")
+    fi
+  done
+
+  if [ ${#missing[@]} -gt 0 ]; then
+    echo "  ✗ Pflichtwerte fehlen in $ENV_FILE: ${missing[*]}" >&2
+    echo "    Deploy abgebrochen, damit das Portal nicht ohne Backend-Werte online geht." >&2
+    exit 1
+  fi
+
+  local vite_url vite_key server_url server_key
+  vite_url="$(config_value VITE_SUPABASE_URL)"
+  vite_key="$(config_value VITE_SUPABASE_PUBLISHABLE_KEY)"
+  server_url="$(config_value SUPABASE_URL)"
+  server_key="$(config_value SUPABASE_PUBLISHABLE_KEY)"
+
+  if [[ ! "$vite_url" =~ ^https?:// ]]; then
+    echo "  ✗ VITE_SUPABASE_URL muss mit http:// oder https:// beginnen: $vite_url" >&2
+    exit 1
+  fi
+  if [[ ! "$server_url" =~ ^https?:// ]]; then
+    echo "  ✗ SUPABASE_URL muss mit http:// oder https:// beginnen: $server_url" >&2
+    exit 1
+  fi
+
+  export VITE_SUPABASE_URL="$vite_url"
+  export VITE_SUPABASE_PUBLISHABLE_KEY="$vite_key"
+  export SUPABASE_URL="$server_url"
+  export SUPABASE_PUBLISHABLE_KEY="$server_key"
+
+  echo "  Backend URL (Frontend): $VITE_SUPABASE_URL"
+  echo "  Backend URL (Server):   $SUPABASE_URL"
+  echo "  Publishable Key:        $(mask_value "$VITE_SUPABASE_PUBLISHABLE_KEY")"
+}
 
 service_uses_atomic_output() {
   systemctl show "$SERVICE_NAME" -p Environment --value 2>/dev/null | grep -q "PORTAL_BUILD_DIR=$ACTIVE_RELEASE_LINK"
@@ -65,6 +134,7 @@ install_service_override() {
   mkdir -p "/etc/systemd/system/$SERVICE_NAME.d"
   cat > "/etc/systemd/system/$SERVICE_NAME.d/10-portal-build-dir.conf" <<EOF
 [Service]
+EnvironmentFile=-$ENV_FILE
 Environment=PORTAL_BUILD_DIR=$ACTIVE_RELEASE_LINK
 Environment=PORT=$PORT
 Environment=HOST=$HOST
@@ -83,6 +153,10 @@ healthcheck() {
 }
 
 cd "$PROJECT_DIR"
+
+log "0/5  Konfiguration prüfen"
+validate_config
+ok "Backend-Konfiguration vorhanden"
 
 if systemctl is-active --quiet "$SERVICE_NAME" && ! service_uses_atomic_output; then
   log "0/5  Erstes Atomic-Deploy vorbereiten"
