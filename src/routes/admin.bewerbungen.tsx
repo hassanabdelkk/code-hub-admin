@@ -202,7 +202,9 @@ function AdminBewerbungenPage() {
 
   // Reminder-Log (letzter Eintrag pro application_id)
   type ReminderInfo = { kind: string; status: string; sent_at: string };
+  type DirectEmailInfo = { template: string; status: string; created_at: string; error: string | null };
   const [reminderByApp, setReminderByApp] = useState<Map<string, ReminderInfo>>(new Map());
+  const [directEmailByRecipient, setDirectEmailByRecipient] = useState<Map<string, DirectEmailInfo>>(new Map());
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -219,6 +221,32 @@ function AdminBewerbungenPage() {
         }
       }
       setReminderByApp(m);
+    })();
+    return () => { cancelled = true; };
+  }, [applications]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from("email_send_log")
+        .select("recipient_email, template_name, status, created_at, error_message")
+        .in("template_name", ["application_received", "invitation"])
+        .order("created_at", { ascending: false })
+        .limit(1000);
+      if (cancelled || !data) return;
+      const m = new Map<string, DirectEmailInfo>();
+      for (const r of data as any[]) {
+        const email = String(r.recipient_email ?? "").toLowerCase().trim();
+        if (!email || m.has(email)) continue;
+        m.set(email, {
+          template: r.template_name ?? "invitation",
+          status: r.status ?? "unknown",
+          created_at: r.created_at,
+          error: r.error_message ?? null,
+        });
+      }
+      setDirectEmailByRecipient(m);
     })();
     return () => { cancelled = true; };
   }, [applications]);
@@ -263,9 +291,10 @@ function AdminBewerbungenPage() {
         source: resolveSource(a),
         createdAt: a.created_at,
         hasProfile: !!prof,
+        directEmail: email ? directEmailByRecipient.get(email) ?? null : null,
       };
     }).sort((a, b) => (b.lastActivity || "").localeCompare(a.lastActivity || ""));
-  }, [applications, bookingByApp, landingById, profileByKey, emailConfirmedUserIds]);
+  }, [applications, bookingByApp, landingById, profileByKey, emailConfirmedUserIds, directEmailByRecipient]);
 
   // Gruppierte Tabs — statt 12 Chips nur 6 sinnvolle Buckets
   const GROUPS: { key: string; label: string; emoji: string; phases: Phase[] }[] = [
