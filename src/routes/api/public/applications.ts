@@ -33,6 +33,25 @@ function json(body: unknown, status = 200) {
   });
 }
 
+function tenantMailBlockReason(tenant: any | null): string | null {
+  if (!tenant) return "tenant_not_found";
+  if (tenant.is_active === false) return "tenant_inactive";
+  if (tenant.emails_paused) {
+    return tenant.emails_paused_reason
+      ? `tenant_emails_paused: ${tenant.emails_paused_reason}`
+      : "tenant_emails_paused";
+  }
+  if (!tenant.smtp_host || !tenant.smtp_port || !tenant.smtp_username || !tenant.smtp_password) {
+    return "smtp_not_configured";
+  }
+  return null;
+}
+
+function portalBaseFromTenant(tenant: any | null): string | null {
+  const domain = String(tenant?.primary_domain ?? tenant?.domain ?? "").trim().replace(/^portal\./, "");
+  return domain ? `https://portal.${domain}` : null;
+}
+
 export const Route = createFileRoute("/api/public/applications")({
   server: {
     handlers: {
@@ -334,6 +353,82 @@ export const Route = createFileRoute("/api/public/applications")({
         } = { attempted: false, status: "not_attempted" };
         const mailErrorMessage = (err: any, data?: any) =>
           String(data?.error ?? err?.message ?? err?.context?.msg ?? err ?? "Unbekannter Mailfehler");
+        let mailTenantLoaded = false;
+        let mailTenant: any | null = null;
+        const loadMailTenant = async () => {
+          if (!resolvedTenantId) return { tenant: null, reason: "tenant_missing" };
+          if (!mailTenantLoaded) {
+            mailTenantLoaded = true;
+            const { data: tenant, error: tenantErr } = await supabaseAdmin
+              .from("tenants")
+              .select("id, name, domain, primary_domain, smtp_host, smtp_port, smtp_username, smtp_password, is_active, emails_paused, emails_paused_reason")
+              .eq("id", resolvedTenantId)
+              .maybeSingle();
+            if (tenantErr) {
+              const reason = `tenant_lookup_failed: ${tenantErr.message}`;
+              console.warn("[applications] mail_tenant_lookup_failed", { requestId, tenant_id: resolvedTenantId, reason });
+              return { tenant: null, reason };
+            }
+            mailTenant = tenant ?? null;
+          }
+          return { tenant: mailTenant, reason: tenantMailBlockReason(mailTenant) };
+        };
+        const writeMailFailureLog = async (template: "invitation" | "application_received", reason: string, metadata?: Record<string, unknown>) => {
+          if (!resolvedTenantId) return;
+          const { error: logErr } = await supabaseAdmin.from("email_send_log").insert({
+            message_id: `applications:${requestId}:${template}:${Date.now()}`,
+            tenant_id: resolvedTenantId,
+            template_name: template,
+            recipient_email: d.email,
+            status: "failed",
+            error_message: reason.slice(0, 1000),
+            metadata: {
+              source: "applications_route",
+              request_id: requestId,
+              application_id: appId,
+              full_name: d.full_name,
+              first_name: d.first_name ?? null,
+              last_name: d.last_name ?? null,
+              flow_type: d.flow_type ?? "classic",
+              source_slug: d.source_slug ?? null,
+              ...metadata,
+            },
+          } as any);
+          if (logErr) console.warn("[applications] mail_failure_log_failed", { requestId, template, reason: logErr.message });
+        };
+        const logMailAttempt = (template: "invitation" | "application_received", extra?: Record<string, unknown>) => {
+          console.log("[applications] mail_attempt", {
+            requestId,
+            application_id: appId,
+            tenant_id: resolvedTenantId,
+            recipient: d.email,
+            template,
+            ...extra,
+          });
+        };
+        const logMailResult = async (
+          template: "invitation" | "application_received",
+          status: "sent" | "failed" | "skipped",
+          reason?: string,
+          extra?: Record<string, unknown>,
+        ) => {
+          const payload = {
+            requestId,
+            application_id: appId,
+            tenant_id: resolvedTenantId,
+            recipient: d.email,
+            template,
+            status,
+            reason: reason ?? null,
+            ...extra,
+          };
+          if (status === "sent") console.log("[applications] mail_sent", payload);
+          else if (status === "skipped") console.log("[applications] mail_skipped", payload);
+          else {
+            console.warn("[applications] mail_failed", payload);
+            await writeMailFailureLog(template, reason || "unknown_mail_error", extra);
+          }
+        };
 
         // KI-Bewerbungsgespräch hat Vorrang vor Calendly. Bei interview_mode
         // chat/voice/both → Bewerber landet zuerst im Interview, von dort
@@ -403,18 +498,26 @@ export const Route = createFileRoute("/api/public/applications")({
             const firstName = parts[0] ?? "";
             const lastName = parts.slice(1).join(" ");
             email_status = { attempted: true, status: "failed", template: "invitation" };
-            const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
-              body: { to: d.email, fullName: d.full_name, firstName, lastName, registrationLink: redirect_url, tenantId: resolvedTenantId },
-            });
+            logMailAttempt("invitation", { registration_link_present: !!redirect_url });
+            const { tenant, reason: preflightReason } = await loadMailTenant();
+            if (preflightReason) {
+              email_status = { attempted: true, status: "failed", template: "invitation", reason: preflightReason };
+              await logMailResult("invitation", "failed", preflightReason, { preflight: true, tenant_name: tenant?.name ?? null });
+            } else {
+              const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
+                body: { to: d.email, fullName: d.full_name, firstName, lastName, registrationLink: redirect_url, tenantId: resolvedTenantId },
+              });
             if (mailErr || mailData?.error) {
               email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(mailErr, mailData) };
-              console.warn("[applications fast] invitation mail:", mailErr ?? mailData?.error);
+                await logMailResult("invitation", "failed", mailErrorMessage(mailErr, mailData));
             } else {
               email_status = { attempted: true, status: "sent", template: "invitation" };
+                await logMailResult("invitation", "sent");
+              }
             }
           } catch (e) {
             email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(e) };
-            console.warn("[applications fast] invitation mail error:", e);
+            await logMailResult("invitation", "failed", mailErrorMessage(e));
           }
         }
 
@@ -449,35 +552,48 @@ export const Route = createFileRoute("/api/public/applications")({
             const firstName = parts[0] ?? "";
             const lastName = parts.slice(1).join(" ");
             email_status = { attempted: true, status: "failed", template: "application_received" };
-            const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
-              body: {
-                to: d.email,
-                fullName: d.full_name,
-                firstName,
-                lastName,
-                registrationLink: confirmationBookingLink ?? "",
-                tenantId: resolvedTenantId,
-                templateName: "application_received",
-                placeholders: {
-                  partner_name: partner?.name ?? broker_block?.partner_name ?? "",
-                  calendly_link: confirmationBookingLink ?? "",
-                  booking_link: confirmationBookingLink ?? "",
-                },
-              },
+            const { tenant, reason: preflightReason } = await loadMailTenant();
+            const fallbackPortalLink = d.portal_url?.replace(/\/+$/, "") || portalBaseFromTenant(tenant);
+            const confirmationActionLink = confirmationBookingLink || fallbackPortalLink || "";
+            logMailAttempt("application_received", {
+              has_booking_link: !!confirmationBookingLink,
+              action_link_present: !!confirmationActionLink,
             });
+            if (preflightReason) {
+              email_status = { attempted: true, status: "failed", template: "application_received", reason: preflightReason };
+              await logMailResult("application_received", "failed", preflightReason, { preflight: true, tenant_name: tenant?.name ?? null });
+            } else {
+              const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
+                body: {
+                  to: d.email,
+                  fullName: d.full_name,
+                  firstName,
+                  lastName,
+                  registrationLink: confirmationActionLink,
+                  tenantId: resolvedTenantId,
+                  templateName: "application_received",
+                  placeholders: {
+                    partner_name: partner?.name ?? broker_block?.partner_name ?? "",
+                    calendly_link: confirmationBookingLink ?? "",
+                    booking_link: confirmationBookingLink ?? "",
+                  },
+                },
+              });
             if (mailErr || mailData?.error) {
               email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(mailErr, mailData) };
-              console.warn("[applications] application_received mail:", mailErr ?? mailData?.error);
+                await logMailResult("application_received", "failed", mailErrorMessage(mailErr, mailData), { action_link_present: !!confirmationActionLink });
             } else {
               email_status = { attempted: true, status: "sent", template: "application_received" };
-              console.log("[applications] application_received sent", { to: d.email, tenant: resolvedTenantId, hasLink: !!confirmationBookingLink });
+                await logMailResult("application_received", "sent", undefined, { has_booking_link: !!confirmationBookingLink, action_link_present: !!confirmationActionLink });
+              }
             }
           } catch (e) {
             email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(e) };
-            console.warn("[applications] application_received mail error:", e);
+            await logMailResult("application_received", "failed", mailErrorMessage(e));
           }
         } else if (!isFast && !wasNewlyCreated && !d.is_test) {
           email_status = { attempted: false, status: "skipped", template: "application_received", reason: "duplicate_application" };
+          await logMailResult("application_received", "skipped", "duplicate_application");
         }
 
 
