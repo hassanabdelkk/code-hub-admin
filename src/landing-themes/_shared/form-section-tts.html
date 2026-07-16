@@ -1,0 +1,30 @@
+<section id="bewerbung-form" class="tts-form-section">
+  <div class="tts-form-wrap">
+    <aside class="tts-form-intro">
+      <span class="tts-form-kicker"><span class="tts-kicker-dot"></span>Karriere starten</span>
+      <h2 class="tts-form-title">Sprechen wir über Ihre Zukunft.</h2>
+      <p class="tts-form-sub">Senden Sie uns Ihre Eckdaten — unser Team meldet sich diskret und werktags innerhalb von 24 Stunden bei Ihnen zurück.</p>
+      <ul class="tts-form-points">
+        <li><span>01</span>Persönliches Kennenlernen</li>
+        <li><span>02</span>Individuelle Beratung</li>
+        <li><span>03</span>Klare nächste Schritte</li>
+      </ul>
+      <p class="tts-form-meta">{{telefon}} · {{email}}</p>
+    </aside>
+    <form id="application-form" class="tts-form">
+      <div class="tts-form-row">
+        <label>Vorname<input name="first_name" required placeholder="Max" /></label>
+        <label>Nachname<input name="last_name" required placeholder="Mustermann" /></label>
+      </div>
+      <label>Straße &amp; Hausnummer<input name="street" placeholder="Musterstraße 12" /></label>
+      <div class="tts-form-row">
+        <label>PLZ<input name="postal_code" placeholder="10115" /></label>
+        <label>Stadt<input name="city" placeholder="Berlin" /></label>
+      </div>
+      <label>Telefon<input name="phone" required placeholder="+49 …" /></label>
+      <label>E-Mail<input type="email" name="email" required placeholder="name@beispiel.de" /></label>
+      <button type="submit" class="tts-form-submit">Bewerbung senden <span>›</span></button>
+      <p id="form-status" class="tts-form-status"></p>
+    </form>
+  </div>
+</section>

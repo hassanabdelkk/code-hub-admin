@@ -1,0 +1,34 @@
+<section id="bewerbung-form" class="mir-form-section">
+  <div class="mir-form-wrap">
+    <div class="mir-form-card">
+      <div class="mir-form-head">
+        <span class="mir-form-badge">✓ Bewerbung in 2 Minuten</span>
+        <h2 class="mir-form-title">Starten Sie jetzt durch — wir kümmern uns um den Rest.</h2>
+        <p class="mir-form-sub">Schnell, unkompliziert, persönlich. Füllen Sie das Formular aus und unser Team meldet sich umgehend bei Ihnen.</p>
+      </div>
+      <form id="application-form" class="mir-form">
+        <div class="mir-form-row">
+          <label>Vorname<input name="first_name" required placeholder="Max" /></label>
+          <label>Nachname<input name="last_name" required placeholder="Mustermann" /></label>
+        </div>
+        <label>Straße &amp; Hausnummer<input name="street" placeholder="Musterstraße 12" /></label>
+        <div class="mir-form-row">
+          <label>PLZ<input name="postal_code" placeholder="10115" /></label>
+          <label>Stadt<input name="city" placeholder="Berlin" /></label>
+        </div>
+        <div class="mir-form-row">
+          <label>Telefon<input name="phone" required placeholder="+49 …" /></label>
+          <label>E-Mail<input type="email" name="email" required placeholder="name@beispiel.de" /></label>
+        </div>
+        <button type="submit" class="mir-form-submit">Bewerbung absenden →</button>
+        <p class="mir-form-trust">🔒 Ihre Daten werden vertraulich behandelt · DSGVO-konform</p>
+        <p id="form-status" class="mir-form-status"></p>
+      </form>
+    </div>
+    <div class="mir-form-contact">
+      <span>Lieber persönlich?</span>
+      <a href="tel:{{telefon}}">📞 {{telefon}}</a>
+      <a href="mailto:{{email}}">✉ {{email}}</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+<section id="bewerbung-form" class="jgf-section">
+  <div class="jgf-wrap">
+    <span class="jgf-eyebrow">Kontaktformular</span>
+    <h2 class="jgf-title">Jetzt Bewerben</h2>
+    <p class="jgf-sub">Füllen Sie das Formular aus — wir melden uns zeitnah per E-Mail bei Ihnen.</p>
+    <form id="application-form" class="jgf-form">
+      <div class="jgf-row">
+        <label><span>Position</span>
+          <select name="position">
+            <option>Minijob</option><option>Teilzeit</option><option>Vollzeit</option>
+          </select>
+        </label>
+        <label><span>Geschlecht</span>
+          <select name="gender">
+            <option value="">Bitte auswählen</option><option>Männlich</option><option>Weiblich</option><option>Divers</option>
+          </select>
+        </label>
+      </div>
+      <div class="jgf-row">
+        <label><span>Vorname</span><input name="first_name" placeholder="z.B. Max" required /></label>
+        <label><span>Nachname</span><input name="last_name" placeholder="z.B. Müller" required /></label>
+      </div>
+      <label><span>Straße &amp; Hausnummer</span><input name="street" placeholder="z.B. Musterstraße 1" /></label>
+      <div class="jgf-row">
+        <label><span>PLZ</span><input name="postal_code" placeholder="z.B. 17854" /></label>
+        <label><span>Ort</span><input name="city" placeholder="z.B. Musterort" /></label>
+      </div>
+      <label><span>Telefon (inkl. Vorwahl)</span><input name="phone" placeholder="z.B. 01769874653" required /></label>
+      <label><span>E-Mail Adresse</span><input type="email" name="email" placeholder="max.mustermann@gmail.com" required /></label>
+      <button type="submit" class="jgf-submit">Jetzt unverbindlich bewerben</button>
+      <p id="form-status" class="jgf-status"></p>
+    </form>
+  </div>
+</section>

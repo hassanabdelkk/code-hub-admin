@@ -1,0 +1,15 @@
+.tlf-section{padding:80px 0;background:#fdfaf5;font-family:'Inter',system-ui,sans-serif}
+.tlf-wrap{max-width:720px;margin:0 auto;padding:0 32px}
+.tlf-eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#b74e2a;margin-bottom:16px}
+.tlf-title{font-family:'Fraunces',Georgia,serif;font-size:44px;line-height:1.1;margin:0 0 14px;color:#221812;font-weight:600;letter-spacing:-.02em}
+.tlf-sub{color:#6b5d54;margin:0 0 36px;font-size:16px}
+.tlf-form{display:grid;gap:18px;padding:0}
+.tlf-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:600px){.tlf-row{grid-template-columns:1fr}}
+.tlf-form label{display:grid;gap:8px}
+.tlf-form span{font-family:'Fraunces',serif;font-size:13px;color:#221812;font-style:italic}
+.tlf-form input,.tlf-form select{width:100%;padding:14px 4px;border:0;border-bottom:1.5px solid #e2d5c5;background:transparent;font-size:16px;font-family:inherit;color:#221812;transition:border-color .2s}
+.tlf-form input:focus,.tlf-form select:focus{outline:none;border-color:#b74e2a}
+.tlf-submit{margin-top:16px;background:#221812;color:#fdfaf5;padding:18px 32px;border:0;border-radius:999px;font-weight:500;font-size:15px;cursor:pointer;transition:background .2s,transform .2s;justify-self:start}
+.tlf-submit:hover{background:#b74e2a;transform:translateY(-1px)}
+.tlf-status{margin:8px 0 0;font-size:14px;color:#6b5d54;min-height:20px}

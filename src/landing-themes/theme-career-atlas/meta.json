@@ -1,0 +1,33 @@
+{
+  "id": "theme-career-atlas",
+  "name": "Career Atlas — Editorial Recruitment",
+  "description": "Editorial-Look mit Serifen, ruhige Beige-Töne, große Portrait-Hero. Fokus auf Karriere-Storytelling und Vertrauen. Ideal für Fast-Track & Vermittlung.",
+  "slots": [
+    { "key": "brand_name", "label": "Marke", "type": "text", "default": "Career Atlas" },
+    { "key": "hero_eyebrow", "label": "Hero Eyebrow", "type": "text", "default": "Karriere im Homeoffice" },
+    { "key": "hero_title", "label": "Hero Titel", "type": "text", "default": "Ein Job, der sich Ihrem Leben anpasst — nicht umgekehrt." },
+    { "key": "hero_subtitle", "label": "Hero Untertitel", "type": "longtext", "default": "Testen Sie Apps und Webseiten unserer Kunden im Homeoffice. Flexible Zeiten von 8 bis 21 Uhr, 19–21 €/h, Festanstellung mit voller Sozialversicherung." },
+    { "key": "hero_cta", "label": "Hero Button", "type": "text", "default": "Jetzt bewerben" },
+    { "key": "hero_image", "label": "Hero Bild", "type": "image", "default": "/src/assets/landing-themes/career-atlas-hero.jpg" },
+    { "key": "stat_1_num", "label": "Stat 1 Zahl", "type": "text", "default": "19–21€" },
+    { "key": "stat_1_label", "label": "Stat 1 Label", "type": "text", "default": "pro Stunde" },
+    { "key": "stat_2_num", "label": "Stat 2 Zahl", "type": "text", "default": "100%" },
+    { "key": "stat_2_label", "label": "Stat 2 Label", "type": "text", "default": "Homeoffice" },
+    { "key": "stat_3_num", "label": "Stat 3 Zahl", "type": "text", "default": "8–21" },
+    { "key": "stat_3_label", "label": "Stat 3 Label", "type": "text", "default": "Uhr flexibel" },
+    { "key": "chapter_1_title", "label": "Kapitel 1 Titel", "type": "text", "default": "Was Sie tun" },
+    { "key": "chapter_1_text", "label": "Kapitel 1 Text", "type": "longtext", "default": "Sie prüfen Webseiten und Apps unserer Kunden auf Funktion und Nutzerfreundlichkeit. Ihre Ergebnisse dokumentieren Sie in kurzen, standardisierten Fragebögen. Kein Callcenter, keine Kaltakquise — nur konzentriertes Arbeiten im eigenen Rhythmus." },
+    { "key": "chapter_2_title", "label": "Kapitel 2 Titel", "type": "text", "default": "Wie wir arbeiten" },
+    { "key": "chapter_2_text", "label": "Kapitel 2 Text", "type": "longtext", "default": "Festanstellung mit vollem Sozialversicherungsschutz. Minijob (40h), Teilzeit (120h) oder Vollzeit (160h) — Sie entscheiden. Bezahlte Einarbeitung, Equipment nach Probezeit, gesetzliche Kündigungsfrist. Ein persönlicher Teamleiter ist im Portal jederzeit erreichbar." },
+    { "key": "chapter_3_title", "label": "Kapitel 3 Titel", "type": "text", "default": "Wer zu uns passt" },
+    { "key": "chapter_3_text", "label": "Kapitel 3 Text", "type": "longtext", "default": "Sie sind mindestens 18, wohnen in Deutschland, haben einen ruhigen Arbeitsplatz und Freude an sauberer Dokumentation. Vorerfahrung? Nicht nötig — wir zahlen Ihre Einarbeitung." },
+    { "key": "quote_text", "label": "Zitat", "type": "longtext", "default": "Ich hatte vorher nie im Homeoffice gearbeitet. Nach zwei Wochen Einarbeitung lief alles rund — und ich bestimme selbst, wann ich starte." },
+    { "key": "quote_author", "label": "Zitat Autor", "type": "text", "default": "Melanie K., Vollzeit seit 14 Monaten" },
+    { "key": "process_title", "label": "Prozess Titel", "type": "text", "default": "Ihr Weg zu uns" },
+    { "key": "p1", "label": "Schritt 1", "type": "text", "default": "Kurze Bewerbung (2 Minuten)" },
+    { "key": "p2", "label": "Schritt 2", "type": "text", "default": "Persönliches Gespräch mit HR" },
+    { "key": "p3", "label": "Schritt 3", "type": "text", "default": "Vertrag & Start innerhalb weniger Tage" },
+    { "key": "final_title", "label": "Final CTA Titel", "type": "text", "default": "Schreiben Sie Ihr nächstes Kapitel." },
+    { "key": "final_cta", "label": "Final CTA Button", "type": "text", "default": "Jetzt bewerben" }
+  ]
+}

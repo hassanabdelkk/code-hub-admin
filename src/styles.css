@@ -142,3 +142,17 @@
     color: var(--color-foreground);
   }
 }
+
+/* Human-like typing indicator for interview chat */
+@keyframes lv-typing {
+  0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.typing-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: hsl(215 16% 55%);
+  animation: lv-typing 1.4s ease-in-out infinite;
+}

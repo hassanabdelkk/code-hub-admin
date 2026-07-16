@@ -1,0 +1,22 @@
+.tts-form-section{padding:110px 24px;background:#f5f6fb;color:#0b1020;}
+.tts-form-wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start;}
+@media (max-width:900px){.tts-form-wrap{grid-template-columns:1fr;gap:40px;}}
+.tts-form-kicker{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#2f4dff;margin-bottom:22px;}
+.tts-kicker-dot{width:8px;height:8px;border-radius:50%;background:#2f4dff;}
+.tts-form-title{font-size:clamp(32px,4.4vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 22px;color:#0b1020;}
+.tts-form-sub{font-size:17px;line-height:1.65;color:#445;max-width:480px;margin:0 0 32px;}
+.tts-form-points{list-style:none;padding:0;margin:0 0 32px;display:grid;gap:14px;}
+.tts-form-points li{display:flex;align-items:center;gap:16px;font-weight:600;color:#0b1020;font-size:15px;border-top:1px solid #dde1ee;padding-top:14px;}
+.tts-form-points li span{font-family:"JetBrains Mono",monospace;color:#2f4dff;font-size:13px;letter-spacing:.05em;}
+.tts-form-meta{font-size:14px;color:#6b7088;margin:0;}
+.tts-form{background:#fff;border:1px solid #e3e6f1;border-radius:4px;padding:36px;box-shadow:0 30px 60px -30px rgba(15,20,40,.25);}
+.tts-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.tts-form label{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b7088;margin-bottom:16px;}
+.tts-form input{display:block;width:100%;margin-top:8px;padding:13px 0;border:0;border-bottom:1.5px solid #cfd3e2;border-radius:0;font:inherit;font-size:15px;color:#0b1020;background:transparent;box-sizing:border-box;transition:border-color .2s;}
+.tts-form input:focus{outline:none;border-bottom-color:#2f4dff;}
+.tts-form-submit{display:inline-flex;align-items:center;gap:10px;margin-top:10px;padding:16px 28px;border:0;border-radius:2px;background:#2f4dff;color:#fff;font-size:15px;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:background .2s,transform .15s;}
+.tts-form-submit span{font-size:20px;line-height:1;}
+.tts-form-submit:hover{background:#1c39e6;transform:translateX(2px);}
+.tts-form-status{margin:14px 0 0;font-size:14px;min-height:1em;}
+.tts-form-status.success{color:#0a8a3e;}
+.tts-form-status.error{color:#c0202b;}

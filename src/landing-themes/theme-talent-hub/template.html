@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{hero_title}}</title>
+<meta name="description" content="{{hero_subtitle}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="th-nav">
+  <div class="th-wrap th-nav-inner">
+    <div class="th-brand">{{brand_name}}</div>
+    <a class="th-nav-cta" href="#bewerbung-form">{{hero_cta}}</a>
+  </div>
+</header>
+
+<section class="th-hero">
+  <div class="th-wrap th-hero-grid">
+    <div class="th-hero-copy">
+      <span class="th-eyebrow">{{hero_eyebrow}}</span>
+      <h1>{{hero_title}}</h1>
+      <p class="th-lede">{{hero_subtitle}}</p>
+      <div class="th-cta-row">
+        <a class="th-btn th-btn-primary" href="#bewerbung-form">{{hero_cta}} →</a>
+        <a class="th-btn th-btn-ghost" href="#benefits">Was Sie erwartet</a>
+      </div>
+      <ul class="th-trust">
+        <li>✓ {{trust_1}}</li>
+        <li>✓ {{trust_2}}</li>
+        <li>✓ {{trust_3}}</li>
+        <li>✓ {{trust_4}}</li>
+      </ul>
+    </div>
+    <div class="th-hero-media">
+      <div class="th-hero-frame">
+        <img src="{{hero_image}}" alt="Neue Mitarbeiterin im Homeoffice" />
+      </div>
+      <div class="th-hero-badge">
+        <strong>19–21 €</strong>
+        <span>pro Stunde</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="benefits" class="th-benefits">
+  <div class="th-wrap">
+    <h2 class="th-h2">{{benefits_title}}</h2>
+    <div class="th-cards">
+      <article class="th-card"><div class="th-card-num">01</div><h3>{{b1_title}}</h3><p>{{b1_text}}</p></article>
+      <article class="th-card"><div class="th-card-num">02</div><h3>{{b2_title}}</h3><p>{{b2_text}}</p></article>
+      <article class="th-card"><div class="th-card-num">03</div><h3>{{b3_title}}</h3><p>{{b3_text}}</p></article>
+      <article class="th-card"><div class="th-card-num">04</div><h3>{{b4_title}}</h3><p>{{b4_text}}</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="th-process">
+  <div class="th-wrap">
+    <h2 class="th-h2">{{process_title}}</h2>
+    <ol class="th-steps">
+      <li><span class="th-step-num">1</span><p>{{p1}}</p></li>
+      <li><span class="th-step-num">2</span><p>{{p2}}</p></li>
+      <li><span class="th-step-num">3</span><p>{{p3}}</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="th-quote">
+  <div class="th-wrap th-quote-inner">
+    <blockquote>{{quote_text}}</blockquote>
+    <cite>— {{quote_author}}</cite>
+  </div>
+</section>
+
+<section class="th-final">
+  <div class="th-wrap th-final-inner">
+    <h2>{{final_title}}</h2>
+    <a class="th-btn th-btn-primary th-btn-lg" href="#bewerbung-form">{{final_cta}} →</a>
+  </div>
+</section>
+
+<footer class="th-foot">
+  <div class="th-wrap">© {{brand_name}} · {{company_email}}</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

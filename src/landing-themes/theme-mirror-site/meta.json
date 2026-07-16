@@ -1,0 +1,86 @@
+{
+  "id": "theme-mirror-site",
+  "name": "BPO Solutions — Anwendungsprüfer (1:1)",
+  "description": "1:1-Replik der bpo-solutions.net Landing: Poppins Font, blaues Corporate-Theme. Hero mit BG-Bild, Schedule-Card, Features (3), Why-Choose split, Services (6), Blog (3), Footer 4-Spalten + Newsletter.",
+  "version": "4.0.0",
+  "preview": "preview.jpg",
+  "slots": [
+    { "key": "firmenname",        "label": "Firmenname",                "default": "BPO Solutions" },
+    { "key": "logo_text",         "label": "Logo-Text (kurz)",          "default": "BPO" },
+    { "key": "logo_image",        "label": "Logo (Bild-URL, optional)", "default": "assets/logo.svg" },
+    { "key": "favicon_image",     "label": "Favicon (Bild-URL, optional)", "default": "" },
+    { "key": "seo_image",         "label": "SEO/OG Bild (URL, optional)", "default": "" },
+    { "key": "landing_domain",    "label": "Domain",                    "default": "bpo-solutions.net" },
+    { "key": "portal_url",        "label": "Login-Portal URL",          "default": "https://app.bpo-solutions.net" },
+    { "key": "seo_title",         "label": "SEO Titel",                 "default": "BPO Solutions — Arbeiten von zu Hause als Anwendungsprüfer" },
+    { "key": "seo_description",   "label": "SEO Meta-Beschreibung",     "default": "Starten Sie Ihren Home-Office-Job als Anwendungsprüfer – flexibel, ohne Vorerfahrung und für jeden geeignet." },
+
+    { "key": "hero_pre",          "label": "Hero H1 Präfix",            "default": "Arbeiten von zu Hause als" },
+    { "key": "hero_jobtitle",     "label": "Hero Job-Titel (blau)",     "default": "Anwendungsprüfer" },
+    { "key": "hero_subtext",      "label": "Hero Untertitel",           "default": "Starten Sie jetzt Ihren Home-Office-Job – flexibel, ohne Vorerfahrung und für jeden geeignet!" },
+
+    { "key": "schedule_label",    "label": "Schedule-Card Typ",         "default": "Minijob" },
+    { "key": "schedule_jobtitle", "label": "Schedule-Card Job-Titel",   "default": "Anwendungsprüfer" },
+    { "key": "schedule_pay",      "label": "Schedule-Card Vergütung",   "default": "556 € monatlich bei nur 5-6 Stunden pro Woche" },
+    { "key": "schedule_description","label":"Schedule-Card Beschreibung","default":"Prüfen Sie Apps und Webanwendungen in einem flexiblen Minijob. Helfen Sie, die Qualität zu verbessern. Kein technisches Wissen nötig." },
+
+    { "key": "feature_1_title",   "label": "Feature 1 Titel",          "default": "Schnelle Vermittlung" },
+    { "key": "feature_1_desc",    "label": "Feature 1 Beschreibung",   "default": "Starten Sie sofort in Ihren neuen Job – wir nehmen wirklich jeden auf!" },
+    { "key": "feature_2_title",   "label": "Feature 2 Titel",          "default": "Für jeden geeignet" },
+    { "key": "feature_2_desc",    "label": "Feature 2 Beschreibung",   "default": "Unsere Home-Office-Jobs sind für alle geeignet – Quereinsteiger willkommen." },
+    { "key": "feature_3_title",   "label": "Feature 3 Titel",          "default": "Arbeiten von zu Hause" },
+    { "key": "feature_3_desc",    "label": "Feature 3 Beschreibung",   "default": "Alle Aufgaben lassen sich bequem und sicher mit Ihrem Smartphone erledigen." },
+
+    { "key": "why_title",         "label": "Why-Choose Überschrift",   "default": "Warum uns wählen?" },
+    { "key": "why_text",          "label": "Why-Choose Intro-Text",    "default": "Wir helfen Ihnen dabei, flexible und einfache Jobs im digitalen Bereich zu finden – passend zu Ihren Bedürfnissen und ohne Vorkenntnisse." },
+    { "key": "why_para1",         "label": "Why-Choose Absatz 1",      "default": "Wir sind eine Vermittlungsagentur, die sich darauf spezialisiert hat, Ihnen den Einstieg in die digitale Arbeitswelt zu erleichtern. Egal ob Quereinsteiger oder Neuanfang – bei uns finden Sie Ihren Job." },
+    { "key": "why_para2",         "label": "Why-Choose Absatz 2",      "default": "Unser Ziel ist es, Ihnen die besten Möglichkeiten zu bieten, flexibel und sicher von zu Hause zu arbeiten." },
+    { "key": "why_bullet1",       "label": "Why-Choose Bullet 1",      "default": "Einfacher Einstieg ohne Vorkenntnisse" },
+    { "key": "why_bullet2",       "label": "Why-Choose Bullet 2",      "default": "Seriöse und geprüfte Auftraggeber" },
+    { "key": "why_bullet3",       "label": "Why-Choose Bullet 3",      "default": "Flexible Arbeitszeiten" },
+    { "key": "why_bullet4",       "label": "Why-Choose Bullet 4",      "default": "Direkter Einstieg in Ihren neuen Job" },
+
+    { "key": "service_1_title",   "label": "Service 1 Titel",          "default": "Jobvermittlung" },
+    { "key": "service_1_desc",    "label": "Service 1 Beschreibung",   "default": "Wir verbinden Sie mit passenden Auftraggebern, die einfache und flexible Jobs anbieten." },
+    { "key": "service_2_title",   "label": "Service 2 Titel",          "default": "Persönliche Beratung" },
+    { "key": "service_2_desc",    "label": "Service 2 Beschreibung",   "default": "Wir stehen Ihnen bei Fragen und dem Einstieg in die digitale Arbeitswelt zur Seite." },
+    { "key": "service_3_title",   "label": "Service 3 Titel",          "default": "Flexibles Arbeiten" },
+    { "key": "service_3_desc",    "label": "Service 3 Beschreibung",   "default": "Arbeiten Sie wann und wo Sie möchten – alle Jobs sind perfekt an Ihren Alltag anpassbar." },
+    { "key": "service_4_title",   "label": "Service 4 Titel",          "default": "Geprüfte Auftraggeber" },
+    { "key": "service_4_desc",    "label": "Service 4 Beschreibung",   "default": "Wir arbeiten nur mit vertrauenswürdigen Unternehmen zusammen, damit Sie sicher arbeiten können." },
+    { "key": "service_5_title",   "label": "Service 5 Titel",          "default": "Einfache Jobs" },
+    { "key": "service_5_desc",    "label": "Service 5 Beschreibung",   "default": "Die Aufgaben lassen sich bequem und ohne Vorkenntnisse mit Ihrem Smartphone erledigen." },
+    { "key": "service_6_title",   "label": "Service 6 Titel",          "default": "Zufriedene Nutzer" },
+    { "key": "service_6_desc",    "label": "Service 6 Beschreibung",   "default": "Tausende zufriedene Bewerber haben bereits über uns ihren Job gefunden." },
+
+    { "key": "blog_post_1_title", "label": "Blog 1 Titel",             "default": "So starten Sie als Anwendungsprüfer" },
+    { "key": "blog_post_1_date",  "label": "Blog 1 Datum",             "default": "26.05.2026" },
+    { "key": "blog_post_1_excerpt","label":"Blog 1 Auszug",            "default": "Entdecken Sie, wie einfach der Einstieg in digitale Minijobs ist und worauf Sie achten sollten." },
+    { "key": "blog_post_2_title", "label": "Blog 2 Titel",             "default": "5 Tipps für flexibles Arbeiten von zu Hause" },
+    { "key": "blog_post_2_date",  "label": "Blog 2 Datum",             "default": "01.05.2026" },
+    { "key": "blog_post_2_excerpt","label":"Blog 2 Auszug",            "default": "Lernen Sie, wie Sie Ihren Arbeitsplatz effizient organisieren und produktiv bleiben." },
+    { "key": "blog_post_3_title", "label": "Blog 3 Titel",             "default": "Warum digitale Jobs die Zukunft sind" },
+    { "key": "blog_post_3_date",  "label": "Blog 3 Datum",             "default": "06.04.2026" },
+    { "key": "blog_post_3_excerpt","label":"Blog 3 Auszug",            "default": "Erfahren Sie, warum immer mehr Menschen auf digitale Arbeitsmodelle setzen und welche Vorteile sie bieten." },
+
+    { "key": "contact_email",     "label": "Kontakt E-Mail",           "default": "info@bpo-solutions.net" },
+    { "key": "contact_phone",     "label": "Kontakt Telefon",          "default": "+49 000 000000" },
+    { "key": "address",           "label": "Adresse",                  "default": "Musterstraße 1, 10115 Berlin" },
+    { "key": "oeffnungszeiten",   "label": "Öffnungszeiten Hinweis",   "default": "Mo–Fr 9–17 Uhr, Sa 9–12 Uhr" },
+
+    { "key": "cta_url",           "label": "CTA / Bewerbungs-URL",     "default": "/bewerbung" },
+    { "key": "cta_label",         "label": "CTA Button Beschriftung",  "default": "Jetzt Bewerben" },
+
+    { "key": "footer_about",      "label": "Footer Über-uns Text",     "default": "Wir vermitteln einfache, flexible Jobs, die Sie von zu Hause aus erledigen können. Keine Vorerfahrung nötig – jeder hat bei uns die Chance auf einen Job." },
+
+    { "key": "social_facebook",   "label": "Facebook URL",             "default": "#" },
+    { "key": "social_instagram",  "label": "Instagram URL",            "default": "#" },
+    { "key": "social_linkedin",   "label": "LinkedIn URL",             "default": "#" },
+
+    { "key": "impressum_url",     "label": "Impressum URL (leer = interne Sektion)",   "default": "#impressum" },
+    { "key": "datenschutz_url",   "label": "Datenschutz URL (leer = interne Sektion)", "default": "#datenschutz" },
+
+    { "key": "impressum_html",    "label": "Impressum Inhalt (HTML erlaubt)",          "default": "<p><strong>{{firmenname}}</strong><br/>{{address}}<br/>Telefon: {{contact_phone}}<br/>E-Mail: {{contact_email}}</p><p>Vertretungsberechtigt: Geschäftsführung<br/>Umsatzsteuer-ID: DE000000000<br/>Handelsregister: HRB 00000</p><p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: Geschäftsführung, Anschrift wie oben.</p>" },
+    { "key": "datenschutz_html",  "label": "Datenschutz Inhalt (HTML erlaubt)",        "default": "<p>Diese Datenschutzerklärung informiert über die Verarbeitung personenbezogener Daten beim Besuch dieser Website.</p><p><strong>Verantwortlicher:</strong> {{firmenname}}, {{address}}, E-Mail: {{contact_email}}.</p><p><strong>Server-Logfiles:</strong> Beim Aufruf werden technische Daten (IP, Browser, Zeitstempel) verarbeitet, um den Betrieb zu sichern (Art. 6 Abs. 1 lit. f DSGVO).</p><p><strong>Kontaktaufnahme:</strong> Bei Anfragen verarbeiten wir Ihre Angaben zur Bearbeitung gemäß Art. 6 Abs. 1 lit. b/f DSGVO.</p><p><strong>Ihre Rechte:</strong> Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch sowie Beschwerde bei einer Aufsichtsbehörde.</p>" }
+  ]
+}

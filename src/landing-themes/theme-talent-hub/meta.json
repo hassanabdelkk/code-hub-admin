@@ -1,0 +1,38 @@
+{
+  "id": "theme-talent-hub",
+  "name": "Talent Hub — Warm Recruitment",
+  "description": "Warm, einladend, recruitment-first. Große Portrait-Hero, Vertrauens-Chips, klare Benefit-Cards, Persona-Zitate. Ideal für Fast-Track & Vermittlung.",
+  "slots": [
+    { "key": "hero_eyebrow", "label": "Hero Eyebrow", "type": "text", "default": "Jetzt Team-Mitglied werden" },
+    { "key": "hero_title", "label": "Hero Titel", "type": "text", "default": "Ihr neuer Job im Homeoffice — flexibel, sicher, fair bezahlt." },
+    { "key": "hero_subtitle", "label": "Hero Untertitel", "type": "longtext", "default": "Sie testen Apps und Webseiten unserer Kunden, dokumentieren Ihre Ergebnisse und bekommen dafür 19–21 €/h. 100% Homeoffice. Arbeitszeit frei wählbar von 8–21 Uhr, Montag bis Sonntag." },
+    { "key": "hero_cta", "label": "Hero Button", "type": "text", "default": "In 2 Minuten bewerben" },
+    { "key": "hero_image", "label": "Hero Bild", "type": "image", "default": "/src/assets/landing-themes/talent-hub-hero.jpg" },
+
+    { "key": "trust_1", "label": "Vertrauens-Chip 1", "type": "text", "default": "Festanstellung · sozialversichert" },
+    { "key": "trust_2", "label": "Vertrauens-Chip 2", "type": "text", "default": "Bezahlte Einarbeitung" },
+    { "key": "trust_3", "label": "Vertrauens-Chip 3", "type": "text", "default": "100% Homeoffice" },
+    { "key": "trust_4", "label": "Vertrauens-Chip 4", "type": "text", "default": "Start in wenigen Tagen" },
+
+    { "key": "benefits_title", "label": "Benefits Titel", "type": "text", "default": "Warum Mitarbeiter bei uns bleiben" },
+    { "key": "b1_title", "label": "Benefit 1 Titel", "type": "text", "default": "19–21 € pro Stunde" },
+    { "key": "b1_text", "label": "Benefit 1 Text", "type": "longtext", "default": "Faire Bezahlung ab dem ersten Tag. Minijob (40h), Teilzeit (120h) oder Vollzeit (160h) — Sie wählen." },
+    { "key": "b2_title", "label": "Benefit 2 Titel", "type": "text", "default": "Freie Zeiteinteilung" },
+    { "key": "b2_text", "label": "Benefit 2 Text", "type": "longtext", "default": "Arbeiten Sie wann es passt: Montag bis Sonntag zwischen 8 und 21 Uhr. Kein Callcenter, keine Kaltakquise." },
+    { "key": "b3_title", "label": "Benefit 3 Titel", "type": "text", "default": "Persönlicher Teamleiter" },
+    { "key": "b3_text", "label": "Benefit 3 Text", "type": "longtext", "default": "Im Mitarbeiter-Portal ist immer ein Ansprechpartner für Sie da — bei Fragen zu Aufträgen, Vertrag oder Technik." },
+    { "key": "b4_title", "label": "Benefit 4 Titel", "type": "text", "default": "Technik nach Probezeit" },
+    { "key": "b4_text", "label": "Benefit 4 Text", "type": "longtext", "default": "Nach bestandener Probezeit erhalten Sie das benötigte Equipment auf Firmenkosten." },
+
+    { "key": "process_title", "label": "Prozess Titel", "type": "text", "default": "In 3 Schritten zum neuen Job" },
+    { "key": "p1", "label": "Schritt 1", "type": "text", "default": "Bewerbung ausfüllen (2 Min)" },
+    { "key": "p2", "label": "Schritt 2", "type": "text", "default": "Kurzes Kennenlern-Gespräch mit unserer HR-Kollegin" },
+    { "key": "p3", "label": "Schritt 3", "type": "text", "default": "Vertrag unterschreiben & starten" },
+
+    { "key": "quote_text", "label": "Zitat", "type": "longtext", "default": "Ich arbeite genau dann, wenn es zu meinem Alltag passt. Nach 4 Wochen war ich komplett eingearbeitet — das Team ist immer erreichbar." },
+    { "key": "quote_author", "label": "Zitat Autor", "type": "text", "default": "Julia M., Teilzeit-Testerin seit 2 Jahren" },
+
+    { "key": "final_title", "label": "Final CTA Titel", "type": "text", "default": "Bereit für Ihren neuen Job?" },
+    { "key": "final_cta", "label": "Final CTA Button", "type": "text", "default": "Jetzt bewerben" }
+  ]
+}

@@ -1,0 +1,26 @@
+<section id="bewerbung-form" class="lv-form-section">
+  <div class="lv-form-wrap">
+    <div class="lv-form-intro">
+      <span class="lv-form-eyebrow">Jetzt bewerben</span>
+      <h2 class="lv-form-title">Bereit für den nächsten Schritt?</h2>
+      <p class="lv-form-sub">Bewerben Sie sich in wenigen Minuten. Wir melden uns innerhalb weniger Tage persönlich bei Ihnen.</p>
+      <p class="lv-form-meta">📞 {{telefon}} &nbsp;·&nbsp; ✉ {{email}}</p>
+    </div>
+    <form id="application-form" class="lv-form">
+      <h3 class="lv-form-h3">Bewerbungsformular</h3>
+      <div class="lv-form-row">
+        <label>Vorname<input name="first_name" required placeholder="Max" /></label>
+        <label>Nachname<input name="last_name" required placeholder="Mustermann" /></label>
+      </div>
+      <label>Straße &amp; Hausnummer<input name="street" placeholder="Musterstraße 12" /></label>
+      <div class="lv-form-row">
+        <label>PLZ<input name="postal_code" placeholder="10115" /></label>
+        <label>Stadt<input name="city" placeholder="Berlin" /></label>
+      </div>
+      <label>Telefonnummer<input name="phone" required placeholder="+49 …" /></label>
+      <label>E-Mail-Adresse<input type="email" name="email" required placeholder="name@beispiel.de" /></label>
+      <button type="submit" class="lv-form-submit">Bewerbung absenden →</button>
+      <p id="form-status" class="lv-form-status"></p>
+    </form>
+  </div>
+</section>

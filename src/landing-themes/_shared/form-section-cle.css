@@ -1,0 +1,20 @@
+.cle-form-section{padding:90px 0;background:#f8fafc;font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,sans-serif}
+.cle-form-wrap{max-width:980px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 1.05fr;gap:50px;align-items:start}
+.cle-form-eyebrow{color:#2563eb;font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+.cle-form-title{font-size:clamp(28px,3vw,38px);font-weight:800;color:#0f172a;margin:10px 0 14px;line-height:1.2;letter-spacing:-.015em}
+.cle-form-sub{color:#475569;font-size:16px;line-height:1.65;margin:0 0 26px}
+.cle-form-contact{display:grid;gap:12px;border-top:1px solid #e2e8f0;padding-top:22px}
+.cle-form-contact > div{display:flex;flex-direction:column;font-size:14px}
+.cle-form-contact strong{color:#0f172a;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.cle-form-contact span{color:#475569}
+.cle-form{background:#fff;padding:32px;border-radius:20px;border:1px solid #e2e8f0;box-shadow:0 18px 50px rgba(15,23,42,.06);display:grid;gap:14px}
+.cle-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cle-form label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#0f172a;font-weight:600}
+.cle-form input{padding:13px 14px;border:1px solid #cbd5e1;border-radius:12px;font:inherit;font-weight:400;color:#0f172a;background:#fff;transition:.18s}
+.cle-form input:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+.cle-form-submit{margin-top:8px;padding:15px 22px;background:linear-gradient(120deg,#2563eb,#3b82f6);color:#fff;border:0;border-radius:999px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 14px 30px -10px rgba(37,99,235,.6);transition:.2s}
+.cle-form-submit:hover{transform:translateY(-1px)}
+.cle-form-status{margin:8px 0 0;font-size:14px;color:#475569;min-height:1.4em}
+.cle-form-status.is-error{color:#dc2626}
+.cle-form-status.is-success{color:#16a34a}
+@media (max-width:860px){.cle-form-wrap{grid-template-columns:1fr;gap:32px}.cle-form-row{grid-template-columns:1fr}}

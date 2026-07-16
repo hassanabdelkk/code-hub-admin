@@ -1,0 +1,19 @@
+/* Shared inline application form — injected into themes that opt in. */
+.lv-form-section{padding:80px 20px;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#f8fafc;}
+.lv-form-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+@media (max-width:860px){.lv-form-wrap{grid-template-columns:1fr;gap:32px;}}
+.lv-form-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:{{primary_color}};margin-bottom:14px;}
+.lv-form-title{font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.15;margin:0 0 16px;color:#fff;}
+.lv-form-sub{font-size:16px;line-height:1.6;color:rgba(248,250,252,.78);margin:0 0 18px;}
+.lv-form-meta{font-size:14px;color:rgba(248,250,252,.6);margin:0;}
+.lv-form{background:#fff;color:#0f172a;border-radius:16px;padding:28px;box-shadow:0 20px 50px -10px rgba(0,0,0,.4);}
+.lv-form-h3{margin:0 0 18px;font-size:20px;font-weight:700;}
+.lv-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.lv-form label{display:block;font-size:13px;font-weight:600;color:#475569;margin-bottom:12px;}
+.lv-form input{display:block;width:100%;margin-top:6px;padding:11px 13px;border:1px solid #cbd5e1;border-radius:8px;font:inherit;color:#0f172a;background:#fff;box-sizing:border-box;}
+.lv-form input:focus{outline:2px solid {{primary_color}};outline-offset:1px;border-color:{{primary_color}};}
+.lv-form-submit{display:block;width:100%;margin-top:8px;padding:14px 18px;border:0;border-radius:999px;background:{{primary_color}};color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .15s;}
+.lv-form-submit:hover{transform:translateY(-1px);box-shadow:0 8px 24px -6px rgba(37,99,235,.55);}
+.lv-form-status{margin:12px 0 0;font-size:14px;min-height:1em;}
+.lv-form-status.success{color:#16a34a;}
+.lv-form-status.error{color:#dc2626;}

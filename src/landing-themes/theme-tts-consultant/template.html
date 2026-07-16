@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<meta property="og:title" content="{{seo_title}}" />
+<meta property="og:description" content="{{seo_description}}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://{{landing_domain}}/" />
+<meta property="og:image" content="{{seo_image}}" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://{{landing_domain}}/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="icon" href="{{favicon_image}}" />
+<link rel="apple-touch-icon" href="{{favicon_image}}" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-row">
+    <a href="#start" class="logo">
+      <img src="{{logo_image}}" alt="{{firmenname}}" class="logo-img" onerror="this.remove()"/>
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="38" height="38"><circle cx="20" cy="20" r="14" fill="none" stroke="#2f4dff" stroke-width="3"/><ellipse cx="20" cy="20" rx="18" ry="6" fill="none" stroke="#2f4dff" stroke-width="2" transform="rotate(-25 20 20)"/><rect x="14" y="14" width="3" height="3" fill="#2f4dff"/><rect x="19" y="14" width="3" height="3" fill="#2f4dff"/><rect x="14" y="19" width="3" height="3" fill="#2f4dff"/><rect x="19" y="19" width="3" height="3" fill="#2f4dff"/></svg>
+      </span>
+      <span class="logo-text">{{firmenname}}</span>
+    </a>
+    <button id="burger" class="burger" aria-label="Menü">☰</button>
+    <nav id="nav-links" class="nav-links">
+      <a href="#start" class="active">{{nav_label_start}}</a>
+      <a href="#unternehmen">{{nav_label_company}}</a>
+      <a href="#fachgebiete">{{nav_label_services}}</a>
+      <a href="#unternehmen">{{nav_label_team}}</a>
+      <a href="#karriere">{{nav_label_career}}</a>
+      <a href="#kontakt">{{nav_label_contact}}</a>
+    </nav>
+    <a href="#bewerbung-form" class="nav-cta">
+      <span class="nav-cta-arrow">›</span>
+      <span>{{nav_cta_label}}</span>
+    </a>
+  </div>
+</header>
+
+<section id="start" class="hero">
+  <div class="container hero-inner">
+    <h1 class="hero-title">{{hero_title}}</h1>
+    <div class="hero-media-wrap">
+      <div class="hero-media">
+        <img src="{{hero_image}}" alt="" />
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-value">{{hero_stat_value}}</div>
+        <div class="stat-label">{{hero_stat_label}}</div>
+        <p class="stat-body">{{hero_stat_body}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fachgebiete" class="services">
+  <div class="container">
+    <div class="section-head" data-animate>
+      <span class="kicker"><span class="kicker-dot"></span>{{services_kicker}}</span>
+      <h2>{{services_title}}</h2>
+    </div>
+    <div class="services-grid">
+      <article class="service-card" data-animate>
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="#2f4dff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="36" height="26" rx="3"/><path d="M16 40h16M20 34v6M28 34v6"/></svg>
+        </div>
+        <h3>{{service_1_title}}</h3>
+        <p>{{service_1_body}}</p>
+        <a class="service-link" href="{{service_1_link}}">Mehr erfahren <span>›</span></a>
+      </article>
+      <article class="service-card" data-animate>
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="#2f4dff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l14 6v10c0 9-6 15-14 18-8-3-14-9-14-18V12l14-6z"/><path d="M18 24l5 5 9-10"/></svg>
+        </div>
+        <h3>{{service_2_title}}</h3>
+        <p>{{service_2_body}}</p>
+        <a class="service-link" href="{{service_2_link}}">Mehr erfahren <span>›</span></a>
+      </article>
+      <article class="service-card" data-animate>
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="#2f4dff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40V20M20 40V8M32 40V26M44 40V14"/><path d="M4 40h40"/></svg>
+        </div>
+        <h3>{{service_3_title}}</h3>
+        <p>{{service_3_body}}</p>
+        <a class="service-link" href="{{service_3_link}}">Mehr erfahren <span>›</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="karriere" class="career-banner">
+  <div class="container career-row">
+    <div class="career-text">
+      <span class="career-kicker">{{career_kicker}}</span>
+      <h3>{{career_title}}</h3>
+    </div>
+    <a href="#bewerbung-form" class="btn btn-primary">{{career_cta_label}} <span>›</span></a>
+  </div>
+</section>
+
+<section id="unternehmen" class="about">
+  <div class="container about-grid">
+    <div class="about-media" data-animate>
+      <img class="about-img about-img-1" src="{{about_image_1}}" alt="" />
+      <img class="about-img about-img-2" src="{{about_image_2}}" alt="" />
+    </div>
+    <div class="about-text" data-animate>
+      <span class="kicker"><span class="kicker-dot"></span>{{about_kicker}}</span>
+      <h2>{{about_title}}</h2>
+      <p class="about-body">{{about_body}}</p>
+      <h4 class="about-subtitle">{{about_subtitle}}</h4>
+      <ul class="about-bullets">
+        <li>{{about_bullet_1}}</li>
+        <li>{{about_bullet_2}}</li>
+        <li>{{about_bullet_3}}</li>
+        <li>{{about_bullet_4}}</li>
+        <li>{{about_bullet_5}}</li>
+        <li>{{about_bullet_6}}</li>
+      </ul>
+      <a href="{{about_cta_link}}" class="btn btn-primary">{{about_cta_label}} <span>›</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container stats-grid">
+    <div class="stat-tile" data-animate>
+      <div class="stat-tile-icon">★</div>
+      <div class="stat-tile-value" data-count="{{stat_1_value}}">{{stat_1_value}}</div>
+      <div class="stat-tile-label">{{stat_1_label}}</div>
+      <p>{{stat_1_body}}</p>
+    </div>
+    <div class="stat-tile" data-animate>
+      <div class="stat-tile-icon">◆</div>
+      <div class="stat-tile-value" data-count="{{stat_2_value}}">{{stat_2_value}}</div>
+      <div class="stat-tile-label">{{stat_2_label}}</div>
+      <p>{{stat_2_body}}</p>
+    </div>
+    <div class="stat-tile" data-animate>
+      <div class="stat-tile-icon">⬢</div>
+      <div class="stat-tile-value" data-count="{{stat_3_value}}">{{stat_3_value}}</div>
+      <div class="stat-tile-label">{{stat_3_label}}</div>
+      <p>{{stat_3_body}}</p>
+    </div>
+    <div class="stat-tile" data-animate>
+      <div class="stat-tile-icon">●</div>
+      <div class="stat-tile-value" data-count="{{stat_4_value}}">{{stat_4_value}}</div>
+      <div class="stat-tile-label">{{stat_4_label}}</div>
+      <p>{{stat_4_body}}</p>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="cta-final">
+  <div class="container cta-final-inner">
+    <h2>Bereit für den nächsten Schritt?</h2>
+    <p>Bewerben Sie sich jetzt — wir freuen uns auf Sie.</p>
+    <a href="#bewerbung-form" class="btn btn-primary btn-lg">{{nav_cta_label}} <span>›</span></a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="logo-text">{{firmenname}}</span>
+      <p>{{footer_tagline}}</p>
+    </div>
+    <div class="footer-col">
+      <h5>Kontakt</h5>
+      <p class="footer-address">{{footer_address}}</p>
+      <p><a href="mailto:{{footer_email}}">{{footer_email}}</a></p>
+      <p><a href="tel:{{footer_phone}}">{{footer_phone}}</a></p>
+    </div>
+    <div class="footer-col">
+      <h5>Nützliche Links</h5>
+      <ul>
+        <li><a href="#unternehmen">{{nav_label_company}}</a></li>
+        <li><a href="#fachgebiete">{{nav_label_services}}</a></li>
+        <li><a href="#karriere">{{nav_label_career}}</a></li>
+        <li><a href="#bewerbung-form">{{nav_cta_label}}</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Rechtliches</h5>
+      <ul>
+        <li><a href="{{impressum_url}}">Impressum</a></li>
+        <li><a href="{{datenschutz_url}}">Datenschutz</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">© <span id="year"></span> {{firmenname}}. Alle Rechte vorbehalten.</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

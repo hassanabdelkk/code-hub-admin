@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{brand_name}} — {{hero_title}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav class="ca-nav">
+  <div class="ca-nav-inner">
+    <div class="ca-brand">{{brand_name}}</div>
+    <a href="#bewerbung-form" class="ca-nav-cta">Bewerben</a>
+  </div>
+</nav>
+
+<header class="ca-hero">
+  <div class="ca-hero-grid">
+    <div class="ca-hero-copy">
+      <span class="ca-eyebrow">{{hero_eyebrow}}</span>
+      <h1>{{hero_title}}</h1>
+      <p class="ca-lede">{{hero_subtitle}}</p>
+      <a href="#bewerbung-form" class="ca-cta">{{hero_cta}} <span>→</span></a>
+      <div class="ca-stats">
+        <div><strong>{{stat_1_num}}</strong><span>{{stat_1_label}}</span></div>
+        <div><strong>{{stat_2_num}}</strong><span>{{stat_2_label}}</span></div>
+        <div><strong>{{stat_3_num}}</strong><span>{{stat_3_label}}</span></div>
+      </div>
+    </div>
+    <div class="ca-hero-media">
+      <img src="{{hero_image}}" alt="Team im Homeoffice" />
+      <div class="ca-hero-badge">Festanstellung · Sozialversichert</div>
+    </div>
+  </div>
+</header>
+
+<section class="ca-chapter">
+  <div class="ca-chapter-inner">
+    <span class="ca-num">01</span>
+    <h2>{{chapter_1_title}}</h2>
+    <p>{{chapter_1_text}}</p>
+  </div>
+</section>
+
+<section class="ca-chapter ca-chapter-alt">
+  <div class="ca-chapter-inner">
+    <span class="ca-num">02</span>
+    <h2>{{chapter_2_title}}</h2>
+    <p>{{chapter_2_text}}</p>
+  </div>
+</section>
+
+<section class="ca-chapter">
+  <div class="ca-chapter-inner">
+    <span class="ca-num">03</span>
+    <h2>{{chapter_3_title}}</h2>
+    <p>{{chapter_3_text}}</p>
+  </div>
+</section>
+
+<section class="ca-quote">
+  <blockquote>
+    <p>„{{quote_text}}"</p>
+    <cite>— {{quote_author}}</cite>
+  </blockquote>
+</section>
+
+<section class="ca-process">
+  <h2>{{process_title}}</h2>
+  <ol>
+    <li><span>1</span><p>{{p1}}</p></li>
+    <li><span>2</span><p>{{p2}}</p></li>
+    <li><span>3</span><p>{{p3}}</p></li>
+  </ol>
+</section>
+
+<section class="ca-final">
+  <h2>{{final_title}}</h2>
+  <a href="#bewerbung-form" class="ca-cta ca-cta-light">{{final_cta}} <span>→</span></a>
+</section>
+
+<footer class="ca-footer">
+  <div>© <span id="ca-year"></span> {{brand_name}}</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

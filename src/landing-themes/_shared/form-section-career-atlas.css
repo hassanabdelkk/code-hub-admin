@@ -1,0 +1,16 @@
+.ca-form-section{padding:100px 32px;background:var(--ca-alt,#EFE7D8)}
+.ca-form-wrap{max-width:640px;margin:0 auto}
+.ca-form-header{text-align:center;margin-bottom:48px}
+.ca-form-eyebrow{display:inline-block;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--ca-accent,#B4472C);font-weight:600;margin-bottom:16px}
+.ca-form-header h2{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,44px);margin-bottom:16px}
+.ca-form-header p{color:var(--ca-muted,#6B5F53);font-size:17px}
+.ca-form{background:#fff;padding:40px;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:18px}
+.ca-form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ca-form label{display:flex;flex-direction:column;font-size:13px;font-weight:600;color:var(--ca-ink,#1A1614);gap:8px}
+.ca-form input[type="text"],.ca-form input[type="email"],.ca-form input[type="tel"]{padding:14px 16px;border:1.5px solid var(--ca-line,#E4DAC9);border-radius:8px;font-size:15px;font-family:inherit;background:#FAF6EF;transition:border-color .2s}
+.ca-form input:focus{outline:none;border-color:var(--ca-accent,#B4472C);background:#fff}
+.ca-form-check{flex-direction:row;align-items:flex-start;gap:12px;font-weight:400;color:var(--ca-muted,#6B5F53);font-size:13px;line-height:1.5}
+.ca-form-check input{margin-top:3px}
+.ca-form-submit{justify-content:center;margin-top:8px}
+.ca-form-note{font-size:12px;color:var(--ca-muted,#6B5F53);text-align:center;margin-top:8px}
+@media(max-width:600px){.ca-form{padding:28px}.ca-form-row{grid-template-columns:1fr}}

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{seo_title}}</title>
+<meta name="description" content="{{seo_description}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="tl-nav">
+  <div class="tl-nav-wrap">
+    <a href="#" class="tl-logo">{{logo_text}}</a>
+    <nav class="tl-nav-links">
+      <a href="#home">{{nav_home}}</a>
+      <a href="#how">{{nav_jobs}}</a>
+      <a href="#about">{{nav_about}}</a>
+      <a href="#salary">{{nav_salary}}</a>
+    </nav>
+    <a href="#bewerbung-form" class="tl-cta">{{cta_label}}</a>
+  </div>
+  <div class="tl-nav-rule"></div>
+</header>
+
+<section id="home" class="tl-hero">
+  <div class="tl-hero-wrap">
+    <div class="tl-hero-text">
+      <span class="tl-eyebrow">{{hero_eyebrow}}</span>
+      <h1>{{hero_title}}</h1>
+      <p class="tl-lede">{{hero_sub}}</p>
+      <a href="#bewerbung-form" class="tl-btn">{{cta_label}} →</a>
+      <ul class="tl-bullets">
+        <li>{{hero_bullet1}}</li>
+        <li>{{hero_bullet2}}</li>
+        <li>{{hero_bullet3}}</li>
+        <li>{{hero_bullet4}}</li>
+      </ul>
+    </div>
+    <figure class="tl-hero-figure">
+      <img src="{{hero_image}}" alt="Homeoffice Testarbeitsplatz" />
+      <figcaption>Feldnotiz #01 — Homeoffice, 09:47 Uhr</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="about" class="tl-about">
+  <div class="tl-section-wrap tl-two-col">
+    <div>
+      <span class="tl-eyebrow tl-eyebrow-dark">{{about_eyebrow}}</span>
+      <h2 class="tl-section-title">{{about_title}}</h2>
+    </div>
+    <div>
+      <p class="tl-about-body">{{about_text}}</p>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="tl-how">
+  <div class="tl-section-wrap">
+    <span class="tl-eyebrow">{{how_eyebrow}}</span>
+    <h2 class="tl-section-title">{{how_title}}</h2>
+    <ol class="tl-steps">
+      <li><span class="tl-num">01</span><h3>{{step1_title}}</h3><p>{{step1_text}}</p></li>
+      <li><span class="tl-num">02</span><h3>{{step2_title}}</h3><p>{{step2_text}}</p></li>
+      <li><span class="tl-num">03</span><h3>{{step3_title}}</h3><p>{{step3_text}}</p></li>
+      <li><span class="tl-num">04</span><h3>{{step4_title}}</h3><p>{{step4_text}}</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="salary" class="tl-salary">
+  <div class="tl-section-wrap">
+    <span class="tl-eyebrow">{{salary_eyebrow}}</span>
+    <h2 class="tl-section-title">{{salary_title}}</h2>
+    <div class="tl-tiers">
+      <article class="tl-tier">
+        <header><h3>{{tier1_name}}</h3><span>{{tier1_price}}</span></header>
+        <ul><li>{{tier1_b1}}</li><li>{{tier1_b2}}</li><li>{{tier1_b3}}</li></ul>
+        <a href="#bewerbung-form" class="tl-btn tl-btn-ghost">{{cta_label}}</a>
+      </article>
+      <article class="tl-tier tl-tier-featured">
+        <header><h3>{{tier2_name}}</h3><span>{{tier2_price}}</span></header>
+        <ul><li>{{tier2_b1}}</li><li>{{tier2_b2}}</li><li>{{tier2_b3}}</li></ul>
+        <a href="#bewerbung-form" class="tl-btn">{{cta_label}}</a>
+      </article>
+      <article class="tl-tier">
+        <header><h3>{{tier3_name}}</h3><span>{{tier3_price}}</span></header>
+        <ul><li>{{tier3_b1}}</li><li>{{tier3_b2}}</li><li>{{tier3_b3}}</li></ul>
+        <a href="#bewerbung-form" class="tl-btn tl-btn-ghost">{{cta_label}}</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="tl-foot">
+  <div class="tl-foot-wrap">
+    <div class="tl-foot-brand">{{firmenname}}</div>
+    <div class="tl-foot-meta">
+      <span>{{contact_email}}</span>
+      <span>{{contact_phone}}</span>
+    </div>
+    <div class="tl-foot-links">
+      <a href="{{impressum_url}}">Impressum</a>
+      <a href="{{datenschutz_url}}">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

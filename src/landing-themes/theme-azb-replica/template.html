@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{seo_title}}</title>
+  <meta name="description" content="{{seo_description}}" />
+  <meta property="og:title" content="{{seo_title}}" />
+  <meta property="og:description" content="{{seo_description}}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://{{landing_domain}}/" />
+  <meta property="og:image" content="{{seo_image}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://{{landing_domain}}/" />
+  <link rel="icon" href="{{favicon_image}}" />
+  <link rel="apple-touch-icon" href="{{favicon_image}}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="blob blob-sky"></div>
+  <div class="blob blob-teal"></div>
+  <div class="blob blob-orange"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo">
+        <img src="{{logo_image}}" alt="{{firmenname}} Logo" class="logo-img" onerror="this.remove()" />
+        <span class="logo-mark">
+          <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+            <defs>
+              <linearGradient id="lg" x1="0" y1="0" x2="40" y2="40">
+                <stop offset="0%" stop-color="#5eead4"/>
+                <stop offset="100%" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+            <rect x="6" y="4" width="20" height="32" rx="4" fill="url(#lg)"/>
+            <rect x="16" y="8" width="18" height="28" rx="4" fill="#0f172a" opacity="0.85"/>
+          </svg>
+        </span>
+        <span class="logo-text">{{firmenname}}</span>
+      </a>
+      <nav class="nav-desktop">
+        <a href="#job-cards">{{nav_jobs_label}}</a>
+        <a href="#about">{{nav_about_label}}</a>
+        <a href="#features">{{nav_features_label}}</a>
+      </nav>
+      <a href="#bewerbung-form" class="btn-primary nav-cta">
+        <span>{{cta_label}}</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 21q-.475 0-.925-.05t-.9-.15q-.4-.1-.638-.45t-.137-.75.45-.625.75-.125q.35.075.7.113T12 19q2.9 0 4.95-2.05T19 12t-2.05-4.95T12 5 7.05 7.05 5 12q0 .35.038.688T5.15 13.375q.1.425-.125.763t-.65.437-.763-.125-.437-.65q-.1-.45-.137-.9T3 12q0-1.85.712-3.488T5.65 5.65t2.863-1.937T12 3t3.488.713T18.35 5.65t1.938 2.863T21 12t-.712 3.488-1.938 2.862-2.863 1.938T12 21m-8.3-.7q-.275-.275-.275-.7t.275-.7l7.9-7.9H9q-.425 0-.712-.288T8 10t.288-.712T9 9h5q.425 0 .713.288T15 10v5q0 .425-.288.713T14 16t-.712-.288T13 15v-2.6l-7.9 7.9q-.275.275-.7.275t-.7-.275"/></svg>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="nav-mobile" id="mobile-nav" aria-hidden="true">
+      <a href="#job-cards">{{nav_jobs_label}}</a>
+      <a href="#about">{{nav_about_label}}</a>
+      <a href="#features">{{nav_features_label}}</a>
+      <a href="#bewerbung-form" class="btn-primary">{{cta_label}}</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="container hero-inner">
+        <img src="hero-bg2.B8yilzlE.webp" alt="" class="hero-illustration" />
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="text-dark">{{hero_title_1}}</span><br/>
+            <span class="text-teal">{{hero_title_2}}</span>
+          </h1>
+          <div class="hero-body">
+            <p class="hero-sub">{{hero_subtext}}</p>
+            <div class="hero-actions">
+              <a href="#bewerbung-form" class="btn-primary">
+                <span>{{hero_btn_primary}}</span>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 21q-.475 0-.925-.05t-.9-.15q-.4-.1-.638-.45t-.137-.75.45-.625.75-.125q.35.075.7.113T12 19q2.9 0 4.95-2.05T19 12t-2.05-4.95T12 5 7.05 7.05 5 12q0 .35.038.688T5.15 13.375q.1.425-.125.763t-.65.437-.763-.125-.437-.65q-.1-.45-.137-.9T3 12q0-1.85.712-3.488T5.65 5.65t2.863-1.937T12 3t3.488.713T18.35 5.65t1.938 2.863T21 12t-.712 3.488-1.938 2.862-2.863 1.938T12 21m-8.3-.7q-.275-.275-.275-.7t.275-.7l7.9-7.9H9q-.425 0-.712-.288T8 10t.288-.712T9 9h5q.425 0 .713.288T15 10v5q0 .425-.288.713T14 16t-.712-.288T13 15v-2.6l-7.9 7.9q-.275.275-.7.275t-.7-.275"/></svg>
+              </a>
+              <a href="#about" class="btn-secondary">
+                <span>{{hero_btn_secondary}}</span>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M13 19.575q0-.4.3-.7L16.175 16H7q-.825 0-1.412-.587T5 14V5q0-.425.288-.712T6 4t.713.288T7 5v9h9.175l-2.9-2.9q-.3-.3-.288-.7t.288-.7q.3-.3.7-.312t.7.287L19.3 14.3q.15.15.212.325t.063.375-.063.375-.212.325l-4.575 4.575q-.3.3-.712.3t-.713-.3-.3-.7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOBS -->
+    <section id="job-cards" class="section">
+      <div class="container">
+        <h2 class="h2 center">{{jobs_heading}}</h2>
+        <p class="lead center">{{jobs_intro}}</p>
+        <div class="job-grid">
+          <article class="job-card job-teal">
+            <div class="job-card-head">
+              <span class="job-cat">{{job1_category}}</span>
+              <span class="badge badge-green">{{job1_badge}}</span>
+            </div>
+            <h3 class="job-title">{{job1_title}}</h3>
+            <p>{{job1_desc}}</p>
+            <a href="#bewerbung-form" class="job-link">
+              <span>{{job1_cta}}</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M13 19.575q0-.4.3-.7L16.175 16H7q-.825 0-1.412-.587T5 14V5q0-.425.288-.712T6 4t.713.288T7 5v9h9.175l-2.9-2.9q-.3-.3-.288-.7t.288-.7q.3-.3.7-.312t.7.287L19.3 14.3q.15.15.212.325t.063.375-.063.375-.212.325l-4.575 4.575q-.3.3-.712.3t-.713-.3-.3-.7"/></svg>
+            </a>
+          </article>
+          <article class="job-card job-orange">
+            <div class="job-card-head">
+              <span class="job-cat">{{job2_category}}</span>
+              <span class="badge badge-blue">{{job2_badge}}</span>
+            </div>
+            <h3 class="job-title">{{job2_title}}</h3>
+            <p>{{job2_desc}}</p>
+            <a href="#bewerbung-form" class="job-link">
+              <span>{{job2_cta}}</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M13 19.575q0-.4.3-.7L16.175 16H7q-.825 0-1.412-.587T5 14V5q0-.425.288-.712T6 4t.713.288T7 5v9h9.175l-2.9-2.9q-.3-.3-.288-.7t.288-.7q.3-.3.7-.312t.7.287L19.3 14.3q.15.15.212.325t.063.375-.063.375-.212.325l-4.575 4.575q-.3.3-.712.3t-.713-.3-.3-.7"/></svg>
+            </a>
+          </article>
+          <article class="job-card job-sky">
+            <div class="job-card-head">
+              <span class="job-cat">{{job3_category}}</span>
+              <span class="badge badge-purple">{{job3_badge}}</span>
+            </div>
+            <h3 class="job-title">{{job3_title}}</h3>
+            <p>{{job3_desc}}</p>
+            <a href="#bewerbung-form" class="job-link">
+              <span>{{job3_cta}}</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M13 19.575q0-.4.3-.7L16.175 16H7q-.825 0-1.412-.587T5 14V5q0-.425.288-.712T6 4t.713.288T7 5v9h9.175l-2.9-2.9q-.3-.3-.288-.7t.288-.7q.3-.3.7-.312t.7.287L19.3 14.3q.15.15.212.325t.063.375-.063.375-.212.325l-4.575 4.575q-.3.3-.712.3t-.713-.3-.3-.7"/></svg>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KARRIERE-PARTNER -->
+    <section class="section">
+      <div class="container">
+        <h2 class="h2 center">
+          <span class="text-dark">{{partner_title_1}}</span><br/>
+          <span class="text-teal">{{partner_title_2}}</span>
+        </h2>
+        <p class="lead">{{partner_intro}}</p>
+        <div class="feature-row">
+          <div class="feature-circle-card">
+            <div class="icon-circle">
+              <svg width="64" height="64" viewBox="0 0 640 512" fill="#5eead4"><path d="m323.4 85.2l-96.8 78.4c-16.1 13-19.2 36.4-7 53.1c12.9 17.8 38 21.3 55.3 7.8l99.3-77.2c7-5.4 17-4.2 22.5 2.8s4.2 17-2.8 22.5L373 188.8L550.2 352H592c26.5 0 48-21.5 48-48V176c0-26.5-21.5-48-48-48h-80.7l-3.9-2.5L434.8 79c-15.3-9.8-33.2-15-51.4-15c-21.8 0-43 7.5-60 21.2m22.8 124.4l-51.7 40.2c-31.5 24.6-77.2 18.2-100.8-14.2c-22.2-30.5-16.6-73.1 12.7-96.8l83.2-67.3c-11.6-4.9-24.1-7.4-36.8-7.4C234 64 215.7 69.6 200 80l-72 48H48c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48h108.2l91.4 83.4c19.6 17.9 49.9 16.5 67.8-3.1c5.5-6.1 9.2-13.2 11.1-20.6l17 15.6c19.5 17.9 49.9 16.6 67.8-2.9c4.5-4.9 7.8-10.6 9.9-16.5c19.4 13 45.8 10.3 62.1-7.5c17.9-19.5 16.6-49.9-2.9-67.8z"/></svg>
+            </div>
+            <h4>{{partner_feat1_title}}</h4>
+            <p>{{partner_feat1_desc}}</p>
+          </div>
+          <div class="feature-circle-card">
+            <div class="icon-circle">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="#5eead4"><path d="M14.754 10c.966 0 1.75.784 1.75 1.75v4.749a4.501 4.501 0 0 1-9.002 0V11.75c0-.966.783-1.75 1.75-1.75zm-7.623 0a2.7 2.7 0 0 0-.62 1.53l-.01.22v4.749c0 .847.192 1.649.534 2.365Q6.539 18.999 6 19a4 4 0 0 1-4-4.001V11.75a1.75 1.75 0 0 1 1.606-1.744L3.75 10zm9.744 0h3.375c.966 0 1.75.784 1.75 1.75V15a4 4 0 0 1-5.03 3.866c.3-.628.484-1.32.525-2.052l.009-.315V11.75c0-.665-.236-1.275-.63-1.75M12 3a3 3 0 1 1 0 6a3 3 0 0 1 0-6m6.5 1a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5m-13 0a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5"/></svg>
+            </div>
+            <h4>{{partner_feat2_title}}</h4>
+            <p>{{partner_feat2_desc}}</p>
+          </div>
+          <div class="feature-circle-card">
+            <div class="icon-circle">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="#5eead4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"/></svg>
+            </div>
+            <h4>{{partner_feat3_title}}</h4>
+            <p>{{partner_feat3_desc}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section">
+      <div class="container">
+        <h2 class="h2 center">
+          <span class="text-dark">{{stats_heading_1}}</span><br/>
+          <span class="text-teal">{{stats_heading_2}}</span>
+        </h2>
+        <div class="stats-card">
+          <div class="stats-subheading">{{stats_subheading}}</div>
+          <div class="stats-row">
+            <div class="stat">
+              <div class="stat-icon">
+                <svg width="56" height="56" viewBox="0 0 48 48" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m2 30a6 6 0 1 0 0-12a6 6 0 0 0 0 12m28 2a6 6 0 1 0 0-12a6 6 0 0 0 0 12M22 28a8 8 0 1 0 0-16a8 8 0 0 0 0 16m12-16a4 4 0 1 0 0-8a4 4 0 0 0 0 8"/><path d="m11 11l4 4m15-3l-2 2m6 19.5L28 26m-14 5l4-4"/></svg>
+              </div>
+              <div class="stat-numwrap"><span class="dot dot-purple"></span><span class="stat-num">{{stat1_number}}</span></div>
+              <span class="stat-label">{{stat1_label}}</span>
+            </div>
+            <div class="stat">
+              <div class="stat-icon">
+                <svg width="56" height="56" viewBox="0 0 48 48" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 14L25 4v40H11z"/><path d="m25 13l14 10v21M4 44h40"/></svg>
+              </div>
+              <div class="stat-numwrap"><span class="dot dot-orange"></span><span class="stat-num">{{stat2_number}}</span></div>
+              <span class="stat-label">{{stat2_label}}</span>
+            </div>
+            <div class="stat">
+              <div class="stat-icon">
+                <svg width="56" height="56" viewBox="0 0 48 48" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6v36h36M14 30v4m8-12v12m8-28v28m8-20v20"/></svg>
+              </div>
+              <div class="stat-numwrap"><span class="dot dot-rose"></span><span class="stat-num">{{stat3_number}}</span></div>
+              <span class="stat-label">{{stat3_label}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="h2 center">{{about_heading}}</h2>
+        <p class="lead">{{about_intro}}</p>
+        <div class="about-row">
+          <div class="about-image">
+            <img src="{{about_image}}" alt="" onerror="this.src='quali.webp'" />
+          </div>
+          <div class="about-text">
+            <h3>{{about_subheading}}</h3>
+            <p>{{about_text_1}}</p>
+            <p>{{about_text_2}}</p>
+            <ul class="bullet-list">
+              <li><svg viewBox="0 0 24 24" width="20" height="20" fill="#5eead4"><path d="M12.675 12 10.3 14.375q-.275.275-.275.688t.275.712q.3.3.713.3t.712-.3L14.8 12.7q.3-.3.3-.7t-.3-.7l-3.1-3.1q-.3-.3-.7-.287t-.7.312q-.275.3-.288.7t.288.7zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9 2 12t.788-3.9 2.137-3.175T8.1 2.788 12 2t3.9.788 3.175 2.137T21.213 8.1 22 12t-.788 3.9-2.137 3.175-3.175 2.138T12 22"/></svg>{{about_bullet_1}}</li>
+              <li><svg viewBox="0 0 24 24" width="20" height="20" fill="#5eead4"><path d="M12.675 12 10.3 14.375q-.275.275-.275.688t.275.712q.3.3.713.3t.712-.3L14.8 12.7q.3-.3.3-.7t-.3-.7l-3.1-3.1q-.3-.3-.7-.287t-.7.312q-.275.3-.288.7t.288.7zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9 2 12t.788-3.9 2.137-3.175T8.1 2.788 12 2t3.9.788 3.175 2.137T21.213 8.1 22 12t-.788 3.9-2.137 3.175-3.175 2.138T12 22"/></svg>{{about_bullet_2}}</li>
+              <li><svg viewBox="0 0 24 24" width="20" height="20" fill="#5eead4"><path d="M12.675 12 10.3 14.375q-.275.275-.275.688t.275.712q.3.3.713.3t.712-.3L14.8 12.7q.3-.3.3-.7t-.3-.7l-3.1-3.1q-.3-.3-.7-.287t-.7.312q-.275.3-.288.7t.288.7zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9 2 12t.788-3.9 2.137-3.175T8.1 2.788 12 2t3.9.788 3.175 2.137T21.213 8.1 22 12t-.788 3.9-2.137 3.175-3.175 2.138T12 22"/></svg>{{about_bullet_3}}</li>
+              <li><svg viewBox="0 0 24 24" width="20" height="20" fill="#5eead4"><path d="M12.675 12 10.3 14.375q-.275.275-.275.688t.275.712q.3.3.713.3t.712-.3L14.8 12.7q.3-.3.3-.7t-.3-.7l-3.1-3.1q-.3-.3-.7-.287t-.7.312q-.275.3-.288.7t.288.7zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9 2 12t.788-3.9 2.137-3.175T8.1 2.788 12 2t3.9.788 3.175 2.137T21.213 8.1 22 12t-.788 3.9-2.137 3.175-3.175 2.138T12 22"/></svg>{{about_bullet_4}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA-BANNER -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-banner">
+          <div class="cta-banner-inner">
+            <h2 class="cta-banner-title">{{cta_heading}}</h2>
+            <p class="cta-banner-sub">{{cta_subtext}}</p>
+            <div class="cta-banner-actions">
+              <a href="#bewerbung-form" class="btn-primary">
+                <span>{{cta_label}}</span>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 21q-.475 0-.925-.05t-.9-.15q-.4-.1-.638-.45t-.137-.75.45-.625.75-.125q.35.075.7.113T12 19q2.9 0 4.95-2.05T19 12t-2.05-4.95T12 5 7.05 7.05 5 12q0 .35.038.688T5.15 13.375q.1.425-.125.763t-.65.437-.763-.125-.437-.65q-.1-.45-.137-.9T3 12q0-1.85.712-3.488T5.65 5.65t2.863-1.937T12 3t3.488.713T18.35 5.65t1.938 2.863T21 12t-.712 3.488-1.938 2.862-2.863 1.938T12 21"/></svg>
+              </a>
+              <a href="#about" class="btn-secondary">
+                <span>{{hero_btn_secondary}}</span>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M13 19.575q0-.4.3-.7L16.175 16H7q-.825 0-1.412-.587T5 14V5q0-.425.288-.712T6 4t.713.288T7 5v9h9.175l-2.9-2.9q-.3-.3-.288-.7t.288-.7q.3-.3.7-.312t.7.287L19.3 14.3q.15.15.212.325t.063.375-.063.375-.212.325l-4.575 4.575q-.3.3-.712.3t-.713-.3-.3-.7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VORTEILE -->
+    <section id="features" class="section">
+      <div class="container">
+        <h2 class="h2 center">
+          <span class="text-dark">{{features_heading_1}}</span>
+          <span class="text-teal">{{features_heading_2}}</span>
+        </h2>
+        <p class="lead">{{features_intro}}</p>
+        <div class="features-grid">
+          <div class="feat-card bg-purple">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.5"><path d="M12 9a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM5.5 21a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm13 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/><path stroke-linecap="round" d="M20 13a7.98 7.98 0 0 0-2.708-6M4 13a7.98 7.98 0 0 1 2.708-6M10 20.748A8 8 0 0 0 12 21a8 8 0 0 0 2-.252" opacity=".5"/></svg>
+            <h3>{{feat1_title}}</h3>
+            <p>{{feat1_desc}}</p>
+            <a href="#bewerbung-form" class="more-link">Mehr erfahren →</a>
+          </div>
+          <div class="feat-card bg-lime">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.5"><path d="M21 17v-5a9 9 0 1 0-18 0v5" opacity=".5"/><path d="M8 13.845c0-.765 0-1.147-.175-1.413a1 1 0 0 0-.34-.322c-.271-.156-.637-.12-1.368-.048-1.232.121-1.848.182-2.29.514a2.1 2.1 0 0 0-.55.63C3 13.697 3 14.34 3 15.629v1.565c0 1.275 0 1.913.282 2.406q.16.277.392.492c.413.38 1.014.5 2.218.736.847.167 1.271.251 1.584.075a1 1 0 0 0 .3-.259C8 20.356 8 19.908 8 19.01zm8 0c0-.765 0-1.147.175-1.413.088-.133.204-.244.34-.322.271-.156.637-.12 1.368-.048 1.232.121 1.848.182 2.29.514.223.169.41.383.55.63.277.49.277 1.133.277 2.422v1.565c0 1.275 0 1.913-.282 2.406q-.16.277-.392.492c-.413.38-1.014.5-2.218.736-.847.167-1.271.251-1.584.075a1 1 0 0 1-.3-.259C16 20.356 16 19.908 16 19.01z"/></svg>
+            <h3>{{feat2_title}}</h3>
+            <p>{{feat2_desc}}</p>
+            <a href="#bewerbung-form" class="more-link">Mehr erfahren →</a>
+          </div>
+          <div class="feat-card bg-orange">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.5"><circle cx="12" cy="12" r="10" opacity=".5"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 2.5"/></svg>
+            <h3>{{feat3_title}}</h3>
+            <p>{{feat3_desc}}</p>
+            <a href="#bewerbung-form" class="more-link">Mehr erfahren →</a>
+          </div>
+          <div class="feat-card bg-zinc">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.5"><path d="M3 10.417c0-3.198 0-4.797.378-5.335.377-.537 1.88-1.052 4.887-2.081l.573-.196C10.405 2.268 11.188 2 12 2s1.595.268 3.162.805l.573.196c3.007 1.029 4.51 1.544 4.887 2.081C21 5.62 21 7.22 21 10.417v1.574c0 5.638-4.239 8.375-6.899 9.536C13.38 21.842 13.02 22 12 22s-1.38-.158-2.101-.473C7.239 20.365 3 17.63 3 11.991z" opacity=".5"/><path stroke-linecap="round" stroke-linejoin="round" d="m9.5 12.4 1.429 1.6 3.571-4"/></svg>
+            <h3>{{feat4_title}}</h3>
+            <p>{{feat4_desc}}</p>
+            <a href="#bewerbung-form" class="more-link">Mehr erfahren →</a>
+          </div>
+          <div class="feat-card bg-sky">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.5"><path stroke-linecap="round" d="M11 17H8c-2.828 0-4.243 0-5.121-.879C2 15.243 2 13.828 2 11v-1c0-3.771 0-5.657 1.172-6.828S6.229 2 10 2h5.5c2.335 0 3.502 0 4.386.472a4 4 0 0 1 1.642 1.642C22 4.998 22 6.165 22 8.5"/><path d="M14 15c0-1.886 0-2.828.586-3.414S16.114 11 18 11s2.828 0 3.414.586S22 13.114 22 15v3c0 1.886 0 2.828-.586 3.414S19.886 22 18 22s-2.828 0-3.414-.586S14 19.886 14 18z"/></svg>
+            <h3>{{feat5_title}}</h3>
+            <p>{{feat5_desc}}</p>
+            <a href="#bewerbung-form" class="more-link">Mehr erfahren →</a>
+          </div>
+          <div class="feat-card bg-rose">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.5"><circle cx="10" cy="6" r="4"/><path d="M18 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S5.582 13 10 13s8 2.015 8 4.5Z" opacity=".5"/></svg>
+            <h3>{{feat6_title}}</h3>
+            <p>{{feat6_desc}}</p>
+            <a href="#bewerbung-form" class="more-link">Mehr erfahren →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>{{firmenname}}</strong>
+        <p>{{address}}</p>
+        <p><a href="mailto:{{contact_email}}">{{contact_email}}</a> · <a href="tel:{{contact_phone}}">{{contact_phone}}</a></p>
+      </div>
+      <nav class="footer-nav">
+        <a href="#job-cards">{{nav_jobs_label}}</a>
+        <a href="#about">{{nav_about_label}}</a>
+        <a href="#features">{{nav_features_label}}</a>
+        <a href="#bewerbung-form">{{cta_label}}</a>
+      </nav>
+      <nav class="footer-legal">
+        <a href="{{impressum_url}}">Impressum</a>
+        <a href="{{datenschutz_url}}">Datenschutz</a>
+      </nav>
+    </div>
+    <div class="footer-copy">© <span id="year">2026</span> {{firmenname}}. Alle Rechte vorbehalten.</div>
+
+    <section id="impressum" class="legal-section">
+      <div class="container">
+        <h2>Impressum</h2>
+        <p><strong>{{firmenname}}</strong><br/>{{address}}</p>
+        <p>E-Mail: <a href="mailto:{{contact_email}}">{{contact_email}}</a><br/>Telefon: <a href="tel:{{contact_phone}}">{{contact_phone}}</a></p>
+      </div>
+    </section>
+    <section id="datenschutz" class="legal-section">
+      <div class="container">
+        <h2>Datenschutz</h2>
+        <p>Informationen zur Verarbeitung Ihrer personenbezogenen Daten gemäß DSGVO erhalten Sie auf Anfrage unter <a href="mailto:{{contact_email}}">{{contact_email}}</a>.</p>
+      </div>
+    </section>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

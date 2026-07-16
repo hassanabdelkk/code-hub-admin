@@ -1,0 +1,15 @@
+.qgf-section{padding:80px 0;background:#0a0e1a;color:#e6edf7;font-family:'Inter',system-ui,sans-serif}
+.qgf-wrap{max-width:640px;margin:0 auto;padding:0 32px}
+.qgf-eyebrow{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;color:#3ce6a5;margin-bottom:16px}
+.qgf-title{font-size:38px;font-weight:700;margin:0 0 12px;letter-spacing:-.02em}
+.qgf-sub{color:#7a869a;margin:0 0 36px;font-size:15px}
+.qgf-form{display:grid;gap:18px;background:#111726;border:1px solid #1f2740;padding:32px;border-radius:16px}
+.qgf-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:600px){.qgf-row{grid-template-columns:1fr}}
+.qgf-form label{display:grid;gap:6px}
+.qgf-form span{font-family:'JetBrains Mono',monospace;font-size:12px;color:#3ce6a5}
+.qgf-form input,.qgf-form select{width:100%;padding:12px 14px;border-radius:8px;border:1px solid #1f2740;background:#0a0e1a;font-size:14px;font-family:'JetBrains Mono',monospace;color:#e6edf7;transition:border-color .2s,box-shadow .2s}
+.qgf-form input:focus,.qgf-form select:focus{outline:none;border-color:#3ce6a5;box-shadow:0 0 0 3px rgba(60,230,165,.12)}
+.qgf-submit{margin-top:12px;background:#3ce6a5;color:#0a0e1a;padding:14px 24px;border:0;border-radius:8px;font-weight:700;font-size:14px;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.qgf-submit:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(60,230,165,.25)}
+.qgf-status{margin:8px 0 0;font-size:13px;color:#7a869a;font-family:'JetBrains Mono',monospace;min-height:18px}

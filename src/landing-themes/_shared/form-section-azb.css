@@ -1,0 +1,21 @@
+/* AZB-Personal 1:1 application form */
+.azb-form-section{padding:80px 20px;max-width:760px;margin:0 auto;}
+.azb-form-head{text-align:center;margin-bottom:32px;}
+.azb-form-head h2{font-size:30px;font-weight:700;color:#0f172a;margin:0 0 12px;}
+.azb-form-head p{font-size:17px;color:#4b5563;margin:0;}
+.azb-form-card{position:relative;background:#fff;border:2px solid #dbeafe;border-radius:10px;box-shadow:0 10px 25px -10px rgba(0,0,0,.15);padding:28px;}
+.azb-form-accent{position:absolute;top:0;left:0;right:0;height:4px;border-top-left-radius:8px;border-top-right-radius:8px;background:linear-gradient(90deg,#2563eb,#60a5fa);}
+.azb-form{display:flex;flex-direction:column;gap:16px;}
+.azb-field{display:grid;gap:6px;}
+.azb-field label{font-size:14px;font-weight:500;color:#111827;}
+.azb-field input,.azb-field select{height:38px;width:100%;border:1px solid #111827;background:rgba(255,255,255,.5);border-radius:6px;padding:0 12px;font:inherit;color:#0f172a;outline:none;box-sizing:border-box;}
+.azb-field input:focus,.azb-field select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.2);}
+.azb-phone{display:flex;}
+.azb-phone-flag{display:inline-flex;align-items:center;gap:6px;padding:0 12px;border:1px solid #111827;border-right:0;border-top-left-radius:8px;border-bottom-left-radius:8px;background:#fff;font-size:14px;color:#0f172a;height:38px;}
+.azb-phone input{border-top-left-radius:0;border-bottom-left-radius:0;}
+.azb-submit{margin-top:8px;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#2563eb;color:#fff;border:0;border-radius:8px;padding:12px 22px;font-size:16px;font-weight:600;cursor:pointer;transition:background .15s,transform .15s;align-self:flex-start;}
+.azb-submit:hover{background:#1d4ed8;transform:translateY(-1px);}
+.azb-status{margin:6px 0 0;font-size:14px;min-height:1em;}
+.azb-status.success{color:#16a34a;}
+.azb-status.error{color:#dc2626;}
+@media(max-width:520px){.azb-submit{align-self:stretch;}}
