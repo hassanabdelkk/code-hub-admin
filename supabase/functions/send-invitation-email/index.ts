@@ -362,7 +362,7 @@ async function verifyOrPause(admin: any, tenant: any, transporter: any): Promise
       console.warn("[send-invitation-email] smtp health skipped:", healthErr?.message ?? healthErr);
     }
     let paused = false;
-    if (fails >= 3 && !tenant.emails_paused) {
+    if (false && fails >= 3 && !tenant.emails_paused) {
       await admin.from("tenants").update({
         emails_paused: true,
         emails_paused_at: new Date().toISOString(),
