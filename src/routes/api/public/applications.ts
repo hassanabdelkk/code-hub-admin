@@ -4,7 +4,7 @@ import { z } from "zod";
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept, Origin",
   "Access-Control-Max-Age": "86400",
 };
 
@@ -36,19 +36,40 @@ function json(body: unknown, status = 200) {
 export const Route = createFileRoute("/api/public/applications")({
   server: {
     handlers: {
-      OPTIONS: async () => new Response(null, { status: 204, headers: CORS }),
+      OPTIONS: async ({ request }) => {
+        console.log("[applications] preflight", {
+          origin: request.headers.get("origin") || null,
+          requestedHeaders: request.headers.get("access-control-request-headers") || null,
+        });
+        return new Response(null, { status: 204, headers: CORS });
+      },
       POST: async ({ request }) => {
+        const requestId = crypto.randomUUID().slice(0, 8);
+        const origin = request.headers.get("origin") || null;
+        const referer = request.headers.get("referer") || null;
+        console.log("[applications] request_received", { requestId, origin, referer });
+
         let payload: unknown;
         try {
           payload = await request.json();
         } catch {
+          console.warn("[applications] invalid_json", { requestId, origin, referer });
           return json({ error: "Invalid JSON" }, 400);
         }
         const parsed = Schema.safeParse(payload);
         if (!parsed.success) {
+          console.warn("[applications] validation_failed", { requestId, details: parsed.error.flatten() });
           return json({ error: "Validation failed", details: parsed.error.flatten() }, 400);
         }
         const d = parsed.data;
+        console.log("[applications] payload_valid", {
+          requestId,
+          email: d.email,
+          flow_type: d.flow_type,
+          source_slug: d.source_slug ?? null,
+          tenant_id: d.tenant_id ?? null,
+          is_test: d.is_test,
+        });
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const isFast = d.flow_type === "fast";
         const displayName = d.is_test ? `[TEST] ${d.full_name}` : d.full_name;
@@ -164,6 +185,14 @@ export const Route = createFileRoute("/api/public/applications")({
         if (!resolvedTenantId && landingPage?.tenant_id) {
           resolvedTenantId = landingPage.tenant_id as string;
         }
+        console.log("[applications] tenant_resolved", {
+          requestId,
+          tenant_id: resolvedTenantId,
+          landing_id: landingPage?.id ?? null,
+          source_slug: d.source_slug ?? null,
+          booking_mode: landingPage?.booking_mode ?? null,
+          interview_mode: interviewMode,
+        });
 
         // Tenant-Guard: Neue Bewerbung OHNE Tenant ist immer ein Bug
         // (Origin unbekannt + kein source_slug + kein tenant_id im Payload).
@@ -200,6 +229,9 @@ export const Route = createFileRoute("/api/public/applications")({
         }
 
         const wasNewlyCreated = !appId;
+        if (!wasNewlyCreated) {
+          console.log("[applications] duplicate_reused", { requestId, application_id: appId, tenant_id: resolvedTenantId, email: d.email });
+        }
         if (!appId) {
           appId = crypto.randomUUID();
           // Vor-/Nachname aus explizitem Feld, sonst aus full_name gesplittet
@@ -231,6 +263,7 @@ export const Route = createFileRoute("/api/public/applications")({
             console.error("[applications] insert error:", error);
             return json({ error: "Could not save application" }, 500);
           }
+          console.log("[applications] inserted", { requestId, application_id: appId, tenant_id: resolvedTenantId, flow_type: d.flow_type });
         }
 
         // Eigenes Buchungssystem: falls für Source- oder Ziel-Landing ein aktiver
@@ -399,6 +432,17 @@ export const Route = createFileRoute("/api/public/applications")({
         const shouldSendConfirmation =
           !isFast && wasNewlyCreated && resolvedTenantId && !d.is_test;
 
+        console.log("[applications] confirmation_decision", {
+          requestId,
+          application_id: appId,
+          shouldSendConfirmation,
+          isFast,
+          wasNewlyCreated,
+          tenant_id: resolvedTenantId,
+          is_test: d.is_test,
+          has_booking_link: !!confirmationBookingLink,
+        });
+
         if (shouldSendConfirmation) {
           try {
             const parts = d.full_name.trim().split(/\s+/);
@@ -439,6 +483,14 @@ export const Route = createFileRoute("/api/public/applications")({
 
 
 
+        console.log("[applications] response", {
+          requestId,
+          application_id: appId,
+          flow_type: d.flow_type ?? "classic",
+          has_redirect: !!redirect_url,
+          has_broker: !!broker_block,
+          email_status,
+        });
         return json({ success: true, flow_type: d.flow_type ?? "classic", redirect_url, broker: broker_block, email_status });
 
 
