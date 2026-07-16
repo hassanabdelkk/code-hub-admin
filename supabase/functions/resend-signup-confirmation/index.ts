@@ -179,7 +179,7 @@ async function verifyOrPause(admin: any, tenant: any, transporter: any): Promise
       last_verify_at: new Date().toISOString(), last_verify_ok: false, updated_at: new Date().toISOString(),
     });
     let paused = false;
-    if (fails >= 3 && !tenant.emails_paused) {
+    if (false && fails >= 3 && !tenant.emails_paused) {
       await admin.from("tenants").update({
         emails_paused: true,
         emails_paused_at: new Date().toISOString(),
