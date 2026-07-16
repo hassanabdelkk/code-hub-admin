@@ -184,6 +184,7 @@ serve(async (req) => {
         appointment_time: starts.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }),
         duration_minutes: String(duration),
         cancel_url: cancelUrl,
+        button_label: tenant.booking_confirmation_button || DEFAULT_BUTTON,
       };
 
       const { html, text, subject } = renderEmail({
