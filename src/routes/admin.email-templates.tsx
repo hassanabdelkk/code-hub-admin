@@ -353,10 +353,13 @@ function AdminEmailTemplatesPage() {
   const [mlSubject, setMlSubject] = useState("");
   const [mlBody, setMlBody] = useState("");
   const [mlButton, setMlButton] = useState("");
+  const [bcSubject, setBcSubject] = useState("");
+  const [bcBody, setBcBody] = useState("");
+  const [bcButton, setBcButton] = useState("");
 
   const loadTenants = async () => {
     setLoading(true);
-    const FULL_COLS = "id, name, domain, primary_color, logo_url, sender_email, sender_name, reply_to_email, smtp_host, smtp_port, smtp_username, smtp_password, welcome_email_subject, welcome_email_body, reset_email_subject, reset_email_body, email_signature, team_leader_name, reminder_confirm_subject, reminder_confirm_body, reminder_completion_subject, reminder_completion_body, reminder_no_booking_subject, reminder_no_booking_body, reminder_recovery_subject, reminder_recovery_body, reminder_chat_subject, reminder_chat_body, reminder_app_no_booking_subject, reminder_app_no_booking_body, reminder_app_no_show_subject, reminder_app_no_show_body, reminder_app_registration_subject, reminder_app_registration_body, bewerbung_magic_link_subject, bewerbung_magic_link_body, bewerbung_magic_link_button";
+    const FULL_COLS = "id, name, domain, primary_color, logo_url, sender_email, sender_name, reply_to_email, smtp_host, smtp_port, smtp_username, smtp_password, welcome_email_subject, welcome_email_body, reset_email_subject, reset_email_body, email_signature, team_leader_name, reminder_confirm_subject, reminder_confirm_body, reminder_completion_subject, reminder_completion_body, reminder_no_booking_subject, reminder_no_booking_body, reminder_recovery_subject, reminder_recovery_body, reminder_chat_subject, reminder_chat_body, reminder_app_no_booking_subject, reminder_app_no_booking_body, reminder_app_no_show_subject, reminder_app_no_show_body, reminder_app_registration_subject, reminder_app_registration_body, bewerbung_magic_link_subject, bewerbung_magic_link_body, bewerbung_magic_link_button, booking_confirmation_subject, booking_confirmation_body, booking_confirmation_button";
     const FALLBACK_COLS = "id, name, domain, primary_color, logo_url, sender_email, sender_name, reply_to_email, smtp_host, smtp_port, smtp_username, smtp_password, welcome_email_subject, welcome_email_body, reset_email_subject, reset_email_body, email_signature, team_leader_name, reminder_confirm_subject, reminder_confirm_body, reminder_completion_subject, reminder_completion_body, reminder_no_booking_subject, reminder_no_booking_body, reminder_recovery_subject, reminder_recovery_body, reminder_chat_subject, reminder_chat_body";
 
     setLimitedTemplateMode(false);
