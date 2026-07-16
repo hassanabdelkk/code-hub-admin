@@ -351,25 +351,72 @@ export const Route = createFileRoute("/api/public/applications")({
           template?: string;
           reason?: string;
         } = { attempted: false, status: "not_attempted" };
-        const mailErrorMessage = async (err: any, data?: any) => {
-          if (data?.error) return String(data.error);
+        const isOpaqueSupabaseKey = (key: string) => key.startsWith("sb_publishable_") || key.startsWith("sb_secret_");
+        const parseMailBody = (text: string) => {
+          if (!text) return null;
+          try {
+            const parsed = JSON.parse(text);
+            return String(parsed?.error ?? parsed?.message ?? text);
+          } catch {
+            return text;
+          }
+        };
+        const mailErrorMessage = async (err: any, data?: any, response?: Response | null) => {
+          const dataReason = parseMailBody(typeof data === "string" ? data : JSON.stringify(data ?? null));
+          if (data?.error || data?.message) return String(data.error ?? data.message);
+          if (dataReason && dataReason !== "null") return dataReason;
 
-          const context = err?.context;
-          if (context && typeof context.clone === "function") {
+          const responseLike = response ?? err?.response ?? err?.context ?? null;
+          if (responseLike && typeof responseLike.clone === "function") {
             try {
-              const text = await context.clone().text();
-              if (text) {
-                try {
-                  const parsed = JSON.parse(text);
-                  return String(parsed?.error ?? parsed?.message ?? text);
-                } catch {
-                  return text;
-                }
-              }
+              const text = await responseLike.clone().text();
+              const parsed = parseMailBody(text);
+              if (parsed) return parsed;
+            } catch { /* fall back to generic error below */ }
+          } else if (responseLike && typeof responseLike.text === "function") {
+            try {
+              const text = await responseLike.text();
+              const parsed = parseMailBody(text);
+              if (parsed) return parsed;
             } catch { /* fall back to generic error below */ }
           }
 
-          return String(err?.message ?? err?.context?.msg ?? err ?? "Unbekannter Mailfehler");
+          const status = responseLike?.status ? `HTTP ${responseLike.status}${responseLike.statusText ? ` ${responseLike.statusText}` : ""}` : null;
+          const message = String(err?.message ?? err?.context?.msg ?? err ?? "Unbekannter Mailfehler");
+          return message === "Edge Function returned a non-2xx status code" && status
+            ? `send-invitation-email ${status}`
+            : message;
+        };
+        const invokeMailFunction = async (body: Record<string, unknown>) => {
+          const supabaseUrl = (process.env.SUPABASE_URL ?? process.env.API_EXTERNAL_URL ?? "").replace(/\/+$/, "");
+          const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SERVICE_ROLE_KEY ?? "";
+          if (!supabaseUrl || !serviceKey) {
+            return { data: null as any, error: "mail_function_env_missing", response: null as Response | null };
+          }
+          try {
+            const headers: Record<string, string> = {
+              "Content-Type": "application/json",
+              apikey: serviceKey,
+            };
+            if (!isOpaqueSupabaseKey(serviceKey)) headers.Authorization = `Bearer ${serviceKey}`;
+
+            const response = await fetch(`${supabaseUrl}/functions/v1/send-invitation-email`, {
+              method: "POST",
+              headers,
+              body: JSON.stringify(body),
+            });
+            const text = await response.clone().text();
+            let data: any = null;
+            if (text) {
+              try { data = JSON.parse(text); } catch { data = text; }
+            }
+            if (!response.ok) {
+              return { data, error: await mailErrorMessage(null, data, response), response };
+            }
+            return { data, error: data?.error ? String(data.error) : null, response };
+          } catch (err) {
+            return { data: null as any, error: await mailErrorMessage(err), response: null as Response | null };
+          }
         };
         let mailTenantLoaded = false;
         let mailTenant: any | null = null;
@@ -522,16 +569,16 @@ export const Route = createFileRoute("/api/public/applications")({
               email_status = { attempted: true, status: "failed", template: "invitation", reason: preflightReason };
               await logMailResult("invitation", "failed", preflightReason, { preflight: true, tenant_name: tenant?.name ?? null });
             } else {
-              const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
-                body: { to: d.email, fullName: d.full_name, firstName, lastName, registrationLink: redirect_url, tenantId: resolvedTenantId },
+              const { data: mailData, error: mailErr, response: mailResponse } = await invokeMailFunction({
+                to: d.email, fullName: d.full_name, firstName, lastName, registrationLink: redirect_url, tenantId: resolvedTenantId,
               });
               if (mailErr || mailData?.error) {
-                const reason = await mailErrorMessage(mailErr, mailData);
+                const reason = await mailErrorMessage(mailErr, mailData, mailResponse);
                 email_status = { attempted: true, status: "failed", template: "invitation", reason };
-                await logMailResult("invitation", "failed", reason);
+                await logMailResult("invitation", "failed", reason, { function_status: mailResponse?.status ?? null });
               } else {
                 email_status = { attempted: true, status: "sent", template: "invitation" };
-                await logMailResult("invitation", "sent");
+                await logMailResult("invitation", "sent", undefined, { function_status: mailResponse?.status ?? null });
               }
             }
           } catch (e) {
@@ -587,29 +634,27 @@ export const Route = createFileRoute("/api/public/applications")({
               email_status = { attempted: true, status: "failed", template: "application_received", reason };
               await logMailResult("application_received", "failed", reason, { preflight: true });
             } else {
-              const { data: mailData, error: mailErr } = await supabaseAdmin.functions.invoke("send-invitation-email", {
-                body: {
-                  to: d.email,
-                  fullName: d.full_name,
-                  firstName,
-                  lastName,
-                  registrationLink: confirmationActionLink,
-                  tenantId: resolvedTenantId,
-                  templateName: "application_received",
-                  placeholders: {
-                    partner_name: partner?.name ?? broker_block?.partner_name ?? "",
-                    calendly_link: confirmationBookingLink ?? "",
-                    booking_link: confirmationBookingLink ?? "",
-                  },
+              const { data: mailData, error: mailErr, response: mailResponse } = await invokeMailFunction({
+                to: d.email,
+                fullName: d.full_name,
+                firstName,
+                lastName,
+                registrationLink: confirmationActionLink,
+                tenantId: resolvedTenantId,
+                templateName: "application_received",
+                placeholders: {
+                  partner_name: partner?.name ?? broker_block?.partner_name ?? "",
+                  calendly_link: confirmationBookingLink ?? "",
+                  booking_link: confirmationBookingLink ?? "",
                 },
               });
               if (mailErr || mailData?.error) {
-                const reason = await mailErrorMessage(mailErr, mailData);
+                const reason = await mailErrorMessage(mailErr, mailData, mailResponse);
                 email_status = { attempted: true, status: "failed", template: "application_received", reason };
-                await logMailResult("application_received", "failed", reason, { action_link_present: !!confirmationActionLink });
+                await logMailResult("application_received", "failed", reason, { action_link_present: !!confirmationActionLink, function_status: mailResponse?.status ?? null });
               } else {
                 email_status = { attempted: true, status: "sent", template: "application_received" };
-                await logMailResult("application_received", "sent", undefined, { has_booking_link: !!confirmationBookingLink, action_link_present: !!confirmationActionLink });
+                await logMailResult("application_received", "sent", undefined, { has_booking_link: !!confirmationBookingLink, action_link_present: !!confirmationActionLink, function_status: mailResponse?.status ?? null });
               }
             }
           } catch (e) {
