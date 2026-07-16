@@ -385,11 +385,21 @@ export const Route = createFileRoute("/api/public/applications")({
           }
         }
 
-        // Broker-Flow: Bewerbungseingangs-Bestätigung mit Termin-Link
-        // versenden (Calendly oder eigenes Buchungssystem). Nur beim ersten Einreichen (wasNewlyCreated), damit
-        // wiederholte Submits durch dieselbe Person keine Doppel-Mails erzeugen.
+        // Eingangsbestätigung an Bewerber – für ALLE Flows außer Fasttrack
+        // (Fasttrack schickt bereits die Einladungsmail oben). Nur beim ersten
+        // Einreichen (wasNewlyCreated), damit wiederholte Submits keine
+        // Doppel-Mails erzeugen. Termin-Link (Calendly/eigenes System/Broker)
+        // wird als Button eingebettet, falls vorhanden – sonst reine Bestätigung.
         const brokerBookingLink = broker_block?.calendly_url || ownBookingUrl;
-        if (isBrokerFlow && wasNewlyCreated && resolvedTenantId && brokerBookingLink && !d.is_test) {
+        const confirmationBookingLink =
+          brokerBookingLink
+          || (useCalendly ? calendlyOnLanding : null)
+          || ownBookingUrl
+          || null;
+        const shouldSendConfirmation =
+          !isFast && wasNewlyCreated && resolvedTenantId && !d.is_test;
+
+        if (shouldSendConfirmation) {
           try {
             const parts = d.full_name.trim().split(/\s+/);
             const firstName = parts[0] ?? "";
@@ -401,27 +411,28 @@ export const Route = createFileRoute("/api/public/applications")({
                 fullName: d.full_name,
                 firstName,
                 lastName,
-                registrationLink: brokerBookingLink,
+                registrationLink: confirmationBookingLink ?? "",
                 tenantId: resolvedTenantId,
                 templateName: "application_received",
                 placeholders: {
                   partner_name: partner?.name ?? broker_block?.partner_name ?? "",
-                  calendly_link: brokerBookingLink,
-                  booking_link: brokerBookingLink,
+                  calendly_link: confirmationBookingLink ?? "",
+                  booking_link: confirmationBookingLink ?? "",
                 },
               },
             });
             if (mailErr || mailData?.error) {
               email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(mailErr, mailData) };
-              console.warn("[applications broker] application_received mail:", mailErr ?? mailData?.error);
+              console.warn("[applications] application_received mail:", mailErr ?? mailData?.error);
             } else {
               email_status = { attempted: true, status: "sent", template: "application_received" };
+              console.log("[applications] application_received sent", { to: d.email, tenant: resolvedTenantId, hasLink: !!confirmationBookingLink });
             }
           } catch (e) {
             email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(e) };
-            console.warn("[applications broker] application_received mail error:", e);
+            console.warn("[applications] application_received mail error:", e);
           }
-        } else if (isBrokerFlow && !wasNewlyCreated && !d.is_test) {
+        } else if (!isFast && !wasNewlyCreated && !d.is_test) {
           email_status = { attempted: false, status: "skipped", template: "application_received", reason: "duplicate_application" };
         }
 
