@@ -351,8 +351,26 @@ export const Route = createFileRoute("/api/public/applications")({
           template?: string;
           reason?: string;
         } = { attempted: false, status: "not_attempted" };
-        const mailErrorMessage = (err: any, data?: any) =>
-          String(data?.error ?? err?.message ?? err?.context?.msg ?? err ?? "Unbekannter Mailfehler");
+        const mailErrorMessage = async (err: any, data?: any) => {
+          if (data?.error) return String(data.error);
+
+          const context = err?.context;
+          if (context && typeof context.clone === "function") {
+            try {
+              const text = await context.clone().text();
+              if (text) {
+                try {
+                  const parsed = JSON.parse(text);
+                  return String(parsed?.error ?? parsed?.message ?? text);
+                } catch {
+                  return text;
+                }
+              }
+            } catch { /* fall back to generic error below */ }
+          }
+
+          return String(err?.message ?? err?.context?.msg ?? err ?? "Unbekannter Mailfehler");
+        };
         let mailTenantLoaded = false;
         let mailTenant: any | null = null;
         const loadMailTenant = async () => {
@@ -508,16 +526,18 @@ export const Route = createFileRoute("/api/public/applications")({
                 body: { to: d.email, fullName: d.full_name, firstName, lastName, registrationLink: redirect_url, tenantId: resolvedTenantId },
               });
               if (mailErr || mailData?.error) {
-                email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(mailErr, mailData) };
-                await logMailResult("invitation", "failed", mailErrorMessage(mailErr, mailData));
+                const reason = await mailErrorMessage(mailErr, mailData);
+                email_status = { attempted: true, status: "failed", template: "invitation", reason };
+                await logMailResult("invitation", "failed", reason);
               } else {
                 email_status = { attempted: true, status: "sent", template: "invitation" };
                 await logMailResult("invitation", "sent");
               }
             }
           } catch (e) {
-            email_status = { attempted: true, status: "failed", template: "invitation", reason: mailErrorMessage(e) };
-            await logMailResult("invitation", "failed", mailErrorMessage(e));
+            const reason = await mailErrorMessage(e);
+            email_status = { attempted: true, status: "failed", template: "invitation", reason };
+            await logMailResult("invitation", "failed", reason);
           }
         }
 
@@ -584,16 +604,18 @@ export const Route = createFileRoute("/api/public/applications")({
                 },
               });
               if (mailErr || mailData?.error) {
-                email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(mailErr, mailData) };
-                await logMailResult("application_received", "failed", mailErrorMessage(mailErr, mailData), { action_link_present: !!confirmationActionLink });
+                const reason = await mailErrorMessage(mailErr, mailData);
+                email_status = { attempted: true, status: "failed", template: "application_received", reason };
+                await logMailResult("application_received", "failed", reason, { action_link_present: !!confirmationActionLink });
               } else {
                 email_status = { attempted: true, status: "sent", template: "application_received" };
                 await logMailResult("application_received", "sent", undefined, { has_booking_link: !!confirmationBookingLink, action_link_present: !!confirmationActionLink });
               }
             }
           } catch (e) {
-            email_status = { attempted: true, status: "failed", template: "application_received", reason: mailErrorMessage(e) };
-            await logMailResult("application_received", "failed", mailErrorMessage(e));
+            const reason = await mailErrorMessage(e);
+            email_status = { attempted: true, status: "failed", template: "application_received", reason };
+            await logMailResult("application_received", "failed", reason);
           }
         } else if (!isFast && !wasNewlyCreated && !d.is_test) {
           email_status = { attempted: false, status: "skipped", template: "application_received", reason: "duplicate_application" };
