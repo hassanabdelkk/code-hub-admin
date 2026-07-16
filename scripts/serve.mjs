@@ -101,8 +101,10 @@ function tryServeStatic(req, res, pathname) {
     return false;
   }
 
-  // Path-Traversal verhindern
-  const safePath = normalize(decoded).replace(/^(\.\.[/\\])+/, "");
+  // Path-Traversal verhindern. `pathname` beginnt immer mit `/`; wenn wir
+  // diesen Slash an `join(clientDir, ...)` weitergeben, ignoriert Node den
+  // `clientDir` komplett und sucht fälschlich unter `/assets/...`.
+  const safePath = normalize(decoded).replace(/^[/\\]+/, "").replace(/^(\.\.[/\\])+/, "");
   const filePath = join(clientDir, safePath);
   if (!filePath.startsWith(clientDir)) return false;
 
