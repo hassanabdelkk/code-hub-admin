@@ -14,11 +14,29 @@ import { useTenant } from "@/contexts/TenantContext";
 import { translateAuthError } from "@/lib/auth-errors";
 import { ShieldCheck, Lock, FileText, Calendar, CheckCircle2, MailCheck } from "lucide-react";
 
+const LOGIN_TIMEOUT_MS = 15000;
+const PROFILE_CHECK_TIMEOUT_MS = 10000;
+
+function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(message)), ms);
+  });
+
+  return Promise.race([
+    promise.finally(() => {
+      if (timeoutId) clearTimeout(timeoutId);
+    }),
+    timeoutPromise,
+  ]);
+}
+
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [needsVerify, setNeedsVerify] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
   const { tenant } = useTenant();
@@ -27,16 +45,23 @@ function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setNeedsVerify(false);
+    setAuthError(null);
     let data: Awaited<ReturnType<typeof supabase.auth.signInWithPassword>>["data"] | null = null;
     let error: Awaited<ReturnType<typeof supabase.auth.signInWithPassword>>["error"] | null = null;
     try {
-      const res = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+      const res = await withTimeout(
+        supabase.auth.signInWithPassword({ email: email.trim(), password }),
+        LOGIN_TIMEOUT_MS,
+        "Der Login-Server antwortet gerade nicht. Bitte prüfe, ob das Backend läuft.",
+      );
       data = res.data;
       error = res.error;
     } catch (e: any) {
+      const description = translateAuthError(e?.message) ?? "Unerwarteter Fehler. Bitte später erneut versuchen.";
+      setAuthError(description);
       toast({
         title: "Anmeldung fehlgeschlagen",
-        description: e?.message ?? "Unerwarteter Fehler. Bitte später erneut versuchen.",
+        description,
         variant: "destructive",
       });
       setLoading(false);
@@ -48,6 +73,7 @@ function LoginPage() {
       const msg = (error.message || "").toLowerCase();
       if (msg.includes("email not confirmed") || msg.includes("not confirmed")) {
         setNeedsVerify(true);
+        setAuthError("Bitte bestätige zuerst deine E-Mail-Adresse. Wir haben dir einen Link gesendet.");
         toast({
           title: "E-Mail nicht bestätigt",
           description: "Bitte bestätige zuerst deine E-Mail-Adresse. Wir haben dir einen Link gesendet.",
@@ -55,40 +81,65 @@ function LoginPage() {
         });
         return;
       }
-      toast({ title: "Anmeldung fehlgeschlagen", description: translateAuthError(error.message), variant: "destructive" });
+      const description = translateAuthError(error.message);
+      setAuthError(description);
+      toast({ title: "Anmeldung fehlgeschlagen", description, variant: "destructive" });
       return;
     }
     if (data.user) {
       // E-Mail-Verifikation ist deaktiviert (GOTRUE_MAILER_AUTOCONFIRM=true).
       // Registrierung erfolgt über Invitation-Link – kein offener Signup.
 
+      let profileRes: Awaited<ReturnType<typeof supabase.from<"profiles">>["select"]> | any;
+      let roleRes: Awaited<ReturnType<typeof supabase.from<"user_roles">>["select"]> | any;
 
+      try {
+        [profileRes, roleRes] = await withTimeout(
+          Promise.all([
+            supabase
+              .from("profiles")
+              .select("tenant_id, status")
+              .eq("user_id", data.user.id)
+              .maybeSingle(),
+            supabase
+              .from("user_roles")
+              .select("role")
+              .eq("user_id", data.user.id)
+              .eq("role", "admin")
+              .maybeSingle(),
+          ]),
+          PROFILE_CHECK_TIMEOUT_MS,
+          "Login erfolgreich, aber die Profilprüfung antwortet nicht. Bitte prüfe die Datenbank/API-Verbindung.",
+        );
+      } catch (e: any) {
+        const description = e?.message ?? "Login erfolgreich, aber die Profilprüfung ist fehlgeschlagen.";
+        setAuthError(description);
+        toast({ title: "Profilprüfung fehlgeschlagen", description, variant: "destructive" });
+        await supabase.auth.signOut();
+        return;
+      }
 
-      const [profileRes, roleRes] = await Promise.all([
-        supabase
-          .from("profiles")
-          .select("tenant_id, status")
-          .eq("user_id", data.user.id)
-          .maybeSingle(),
-        supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", data.user.id)
-          .eq("role", "admin")
-          .maybeSingle(),
-      ]);
+      if (profileRes.error || roleRes.error) {
+        const description = profileRes.error?.message || roleRes.error?.message || "Profil oder Rolle konnte nicht geladen werden.";
+        setAuthError(description);
+        toast({ title: "Profilprüfung fehlgeschlagen", description, variant: "destructive" });
+        await supabase.auth.signOut();
+        return;
+      }
 
       const profile = profileRes.data;
       const isAdminUser = !!roleRes.data;
 
       if (profile?.status === "deaktiviert") {
         await supabase.auth.signOut();
+        setAuthError("Dein Zugang wurde deaktiviert. Bitte kontaktiere deinen Ansprechpartner.");
         toast({ title: "Zugang deaktiviert", description: "Dein Zugang wurde deaktiviert. Bitte kontaktiere deinen Ansprechpartner.", variant: "destructive" });
         return;
       }
 
       if (!isAdminUser && tenant && profile && profile.tenant_id && profile.tenant_id !== tenant.id) {
         await supabase.auth.signOut();
+        setAuthError("Bitte melde dich über deine Unternehmensseite an.");
         toast({ title: "Fehler", description: "Bitte melde dich über deine Unternehmensseite an.", variant: "destructive" });
         return;
       }
@@ -222,6 +273,12 @@ function LoginPage() {
                     Bestätigungslink erneut senden
                   </button>
                 </div>
+              </div>
+            )}
+
+            {authError && !needsVerify && (
+              <div className="rounded-lg border border-red-400/30 bg-red-400/10 p-3 text-sm text-red-100" role="alert">
+                {authError}
               </div>
             )}
 
