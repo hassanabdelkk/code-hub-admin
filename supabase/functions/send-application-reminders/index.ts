@@ -222,9 +222,17 @@ function render(text: string, vars: Record<string, string>): string {
 
 function buildHtml(subject: string, body: string, signature: string, tenant: TenantRow, vars: Record<string, string>): string {
   const color = tenant.primary_color || "#0f172a";
-  const resolvedBody = render(body, vars).replace(/\{\{cta:([^|}]+)\|([^}]+)\}\}/g, (_m, label, href) =>
-    `<table cellpadding="0" cellspacing="0" style="margin:16px 0"><tr><td style="background:${color};border-radius:8px"><a href="${String(href).trim()}" style="display:inline-block;padding:14px 28px;color:#fff;text-decoration:none;font-weight:600;font-size:15px">${String(label).trim()}</a></td></tr></table>`);
-  const bodyHtml = resolvedBody.replace(/\n/g, "<br>").replace(/(https?:\/\/[^\s<]+)/g, `<a href="$1" style="color:${color};text-decoration:underline;">$1</a>`);
+  // Erst CTAs zu Platzhaltern (damit ihre URLs nicht von der Auto-Linkify-Regex verstümmelt werden),
+  // dann Klartext-URLs verlinken, dann CTAs als Buttons einsetzen.
+  const ctaHtml: string[] = [];
+  const withPlaceholders = render(body, vars).replace(/\{\{cta:([^|}]+)\|([^}]+)\}\}/g, (_m, label, href) => {
+    ctaHtml.push(`<table cellpadding="0" cellspacing="0" style="margin:16px 0"><tr><td style="background:${color};border-radius:8px"><a href="${String(href).trim()}" style="display:inline-block;padding:14px 28px;color:#fff;text-decoration:none;font-weight:600;font-size:15px">${String(label).trim()}</a></td></tr></table>`);
+    return `\u0000CTA${ctaHtml.length - 1}\u0000`;
+  });
+  const bodyHtml = withPlaceholders
+    .replace(/\n/g, "<br>")
+    .replace(/(https?:\/\/[^\s<]+)/g, `<a href="$1" style="color:${color};text-decoration:underline;">$1</a>`)
+    .replace(/\u0000CTA(\d+)\u0000/g, (_m, i) => ctaHtml[Number(i)] ?? "");
   const logoHtml = tenant.logo_url ? `<div style="text-align:center;margin-bottom:24px;"><img src="${tenant.logo_url}" alt="${tenant.name}" style="max-height:48px;max-width:200px;" /></div>` : "";
   const sigText = signature ? render(signature, vars).replace(/\n/g, "<br>") : "";
   const sigHtml = sigText ? `<div style="border-top:1px solid #e5e7eb;margin-top:24px;padding-top:16px;color:#9ca3af;font-size:13px;line-height:20px;">${sigText}</div>` : "";
