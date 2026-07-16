@@ -13,10 +13,19 @@
         : '💡 <strong>Wichtig:</strong> Falls Sie eine E-Mail erwarten, prüfen Sie bitte auch Ihren <strong>Spam-Ordner</strong> und markieren Sie uns als „Kein Spam".';
     return s;
   }
+  function ctaMeta(url){
+    // Label + Sub-Text passend zum Redirect-Typ, damit Vermittlung, KI-Interview
+    // und eigenes Buchungssystem immer einen klaren Button zeigen.
+    if(!url) return null;
+    if(/\/buchen\//.test(url))       return {label:'Jetzt Termin auswählen  →', sub:'Wählen Sie jetzt Ihren Wunschtermin für das kurze Erstgespräch.'};
+    if(/\/interview\//.test(url))    return {label:'Bewerbungsgespräch starten  →', sub:'Starten Sie direkt Ihr kurzes KI-Vorgespräch.'};
+    if(/\/bewerbung\/verbinden/.test(url)) return {label:'Weiter zur Terminwahl  →', sub:'Im nächsten Schritt wählen Sie Ihren Wunschtermin.'};
+    return {label:'Jetzt weiter  →', sub:'Klicken Sie auf den Button, um fortzufahren.'};
+  }
   function showModal(opts){
     opts=opts||{};var isFast=!!opts.fast;var broker=opts.broker||null;var wa=String(opts.whatsapp||'').replace(/[^0-9]/g,'');
     var redirectUrl=opts.redirectUrl||'';var emailStatus=opts.emailStatus||null;
-    var isBooking = !isFast && !broker && redirectUrl && /\/buchen\//.test(redirectUrl);
+    var meta = !isFast && !broker ? ctaMeta(redirectUrl) : null;
     var ov=document.createElement('div');ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');
     ov.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;backdrop-filter:blur(2px);';
     var box=document.createElement('div');
@@ -30,15 +39,15 @@
     var p=document.createElement('p');p.style.cssText='margin:0 0 16px;color:#475569;font-size:15px;line-height:1.55;';
     box.appendChild(cls);box.appendChild(chk);box.appendChild(h);box.appendChild(p);
 
-    if(isBooking){
-      // Eigenes Buchungssystem: großer CTA direkt zur Terminwahl.
+    if(meta){
+      // Vermittlung / eigenes Buchungssystem / KI-Interview: immer großer CTA.
       h.textContent='✅ Bewerbung eingegangen';
-      p.innerHTML='Jetzt fehlt nur noch <strong>Ihr Wunschtermin</strong> für das kurze Erstgespräch.';
+      p.textContent=meta.sub;
       var cta=document.createElement('a');cta.href=redirectUrl;
-      cta.textContent='Jetzt Termin auswählen  →';
+      cta.textContent=meta.label;
       cta.style.cssText='display:block;width:100%;background:#0f172a;color:#fff;text-decoration:none;font-weight:600;padding:16px 24px;border-radius:10px;font-size:16px;margin-bottom:6px;box-sizing:border-box;';
       box.appendChild(cta);
-      var sub=document.createElement('p');sub.style.cssText='margin:8px 0 4px;font-size:13px;color:#64748b;';sub.textContent=emailStatus&&emailStatus.status==='sent'?'Sie erhalten zusätzlich eine E-Mail als Backup.':'Falls keine E-Mail ankommt, können Sie den Termin direkt über diesen Button buchen.';
+      var sub=document.createElement('p');sub.style.cssText='margin:8px 0 4px;font-size:13px;color:#64748b;';sub.textContent=emailStatus&&emailStatus.status==='sent'?'Sie erhalten zusätzlich eine E-Mail als Backup.':'Falls keine E-Mail ankommt, können Sie direkt über diesen Button fortfahren.';
       box.appendChild(sub);
       box.appendChild(spamHintBox(emailStatus));
     } else if(broker){
