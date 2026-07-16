@@ -413,13 +413,13 @@ export const Route = createFileRoute("/api/public/applications")({
             }
             if (!response.ok) {
               const error = await mailErrorMessage(null, data, response);
-              console.warn("[applications] mail_function_non_2xx", {
+              console.warn("[applications] mail_function_non_2xx " + JSON.stringify({
                 requestId,
                 function_status: response.status,
                 function_status_text: response.statusText || null,
                 function_reason: error,
                 function_body: typeof data === "string" ? data : data ? JSON.stringify(data) : text || null,
-              });
+              }));
               return { data, error, response };
             }
             return { data, error: data?.error ? String(data.error) : null, response };
