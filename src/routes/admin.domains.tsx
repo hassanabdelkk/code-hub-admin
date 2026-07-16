@@ -28,6 +28,9 @@ interface DomainRow {
   http_status: number | null;
   latency_ms: number | null;
   error: string | null;
+  checked_url?: string;
+  root_status?: "ok" | "down" | "slow" | "unknown";
+  portal_status?: "ok" | "down" | "slow" | "unknown";
 }
 
 function AdminDomainsPage() {
@@ -169,7 +172,7 @@ function AdminDomainsPage() {
         <div>
           <h1 className="text-lg font-heading font-bold">Domain-Übersicht</h1>
           <p className="text-xs text-muted-foreground">
-            Status aller Portal-Domains. Klicke „Aktiv setzen" um auf eine andere Domain zu wechseln.
+            Status aller Landing-/Portal-Domains. Klicke „Aktiv setzen" um auf eine andere Domain zu wechseln.
             {checkedAt && <> · Zuletzt geprüft: {new Date(checkedAt).toLocaleTimeString("de-DE")}</>}
           </p>
         </div>
@@ -228,7 +231,7 @@ function AdminDomainsPage() {
                     )}
                   </h2>
                   <p className="text-xs text-muted-foreground">
-                    Aktive Versand-Domain: <code className="bg-muted px-1.5 py-0.5 rounded">portal.{primary}</code>
+                    Aktive Versand-Domain: <code className="bg-muted px-1.5 py-0.5 rounded">{primary}</code>
                   </p>
                 </div>
                 {anyDown && !paused && (
@@ -260,7 +263,7 @@ function AdminDomainsPage() {
                       <StatusDot status={d.status} />
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <code className="text-sm font-mono truncate">portal.{d.domain}</code>
+                          <code className="text-sm font-mono truncate">{d.checked_url ? d.checked_url.replace(/^https?:\/\//, "").replace(/\/$/, "") : d.domain}</code>
                           {d.is_primary && (
                             <Badge variant="default" className="gap-1 h-5 text-[10px]">
                               <Star className="h-2.5 w-2.5" /> AKTIV
@@ -274,14 +277,14 @@ function AdminDomainsPage() {
                           {d.status === "down" ? (
                             <span className="text-destructive">Nicht erreichbar: {d.error}</span>
                           ) : (
-                            <>HTTP {d.http_status ?? "?"} · {d.latency_ms}ms</>
+                            <>HTTP {d.http_status ?? "?"} · {d.latency_ms}ms · Root {d.root_status ?? "?"} · Portal {d.portal_status ?? "?"}</>
                           )}
                         </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-1">
                       <a
-                        href={`https://portal.${d.domain}/`}
+                        href={d.checked_url ?? `https://${d.domain}/`}
                         target="_blank"
                         rel="noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground px-2 py-1"
