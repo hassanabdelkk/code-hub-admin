@@ -807,6 +807,22 @@ function AdminEmailTemplatesPage() {
                   <Input value={mlButton} onChange={(e) => setMlButton(e.target.value)} placeholder="Bewerbungsgespräch starten" className="mt-1 max-w-sm" />
                 </div>
               </TabsContent>
+              <TabsContent value="booking_confirmation">
+                <div className="rounded-md border border-teal-300 bg-teal-50 dark:bg-teal-950/30 dark:border-teal-700 px-3 py-2 mb-3 text-[11px] text-teal-900 dark:text-teal-200">
+                  Wird <strong>direkt nach jeder Terminbuchung</strong> (eigenes Buchungssystem <em>und</em> Calendly-gebuchte Vermittlungs-Termine) an den Bewerber gesendet – mit Kalendereintrag (.ics) im Anhang. Cron alle 2 Min, einmal pro Bewerbung. Platzhalter: <code>{"{{first_name}}"}</code>, <code>{"{{appointment_date}}"}</code>, <code>{"{{appointment_time}}"}</code>, <code>{"{{duration_minutes}}"}</code>, <code>{"{{cancel_url}}"}</code>, <code>{"{{recruiter_name}}"}</code>, <code>{"{{tenant_name}}"}</code>.
+                </div>
+                <TemplateEditor
+                  label="Terminbestätigung (mit .ics-Kalendereintrag)"
+                  subject={bcSubject} onSubjectChange={setBcSubject}
+                  body={bcBody} onBodyChange={setBcBody}
+                  signature={signature} onSignatureChange={setSignature}
+                  tenant={selectedTenant}
+                />
+                <div className="mt-4">
+                  <Label className="text-xs font-medium">Button-Beschriftung</Label>
+                  <Input value={bcButton} onChange={(e) => setBcButton(e.target.value)} placeholder="Termin verwalten" className="mt-1 max-w-sm" />
+                </div>
+              </TabsContent>
             </Tabs>
           </TabsContent>
 
