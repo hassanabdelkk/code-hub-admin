@@ -79,7 +79,7 @@ function AdminDomainsPage() {
     setSettingPrimary(`${tenant_id}:${domain}`);
     try {
       await setPrimaryFn({ data: { tenant_id, domain } });
-      toast({ title: "Versand-Domain aktualisiert", description: `Neue Mails gehen jetzt über portal.${domain}` });
+      toast({ title: "Versand-Domain aktualisiert", description: `Neue Mails nutzen jetzt ${domain}` });
       await runCheck();
     } catch (e: any) {
       toast({ title: "Fehler", description: e.message, variant: "destructive" });
@@ -146,7 +146,7 @@ function AdminDomainsPage() {
       r.email ?? "",
       r.phone ?? "",
       r.status,
-      `https://portal.${primary_domain}/`,
+      `https://${primary_domain}/`,
     ]);
     const escape = (v: string) => `"${String(v).replace(/"/g, '""')}"`;
     const csv = [header, ...rows].map((row) => row.map(escape).join(",")).join("\r\n");
